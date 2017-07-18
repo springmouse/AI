@@ -94,11 +94,19 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AI_DEMOApp.cpp" />
+    <ClCompile Include="Factory.cpp" />
+    <ClCompile Include="GameStateManagmeant.cpp" />
+    <ClCompile Include="GameStates.cpp" />
+    <ClCompile Include="Information.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Node.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AI_DEMOApp.h" />
+    <ClInclude Include="Factory.h" />
+    <ClInclude Include="GameStateManagmeant.h" />
+    <ClInclude Include="GameStates.h" />
+    <ClInclude Include="Information.h" />
     <ClInclude Include="Node.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

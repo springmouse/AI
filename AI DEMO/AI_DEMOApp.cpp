@@ -16,6 +16,13 @@ bool AI_DEMOApp::startup() {
 	m_2dRenderer = new aie::Renderer2D();
 	m_font = new aie::Font("./font/consolas.ttf", 32);
 
+    //creates the states to be used
+    m_gameSM.registerState(FACTORY->MakeState(eGameStateType::MENU));
+    m_gameSM.registerState(FACTORY->MakeState(eGameStateType::INGAME));
+
+    //adds Menu to the states being run
+    m_gameSM.pushState((int)eGameStateType::MENU);
+
 	return true;
 }
 
@@ -27,12 +34,14 @@ void AI_DEMOApp::shutdown() {
 
 void AI_DEMOApp::update(float deltaTime) {
 
-	// input example
-	aie::Input* input = aie::Input::getInstance();
+    //runs the game state manager update to run the games
+    m_gameSM.Update(deltaTime);
 
-	// exit the application
-	if (input->isKeyDown(aie::INPUT_KEY_ESCAPE))
-		quit();
+    // exit the application
+    if (INFOMATION->quit)
+    {
+        quit();
+    }
 }
 
 void AI_DEMOApp::draw() {
@@ -43,10 +52,8 @@ void AI_DEMOApp::draw() {
 	// begin drawing sprites
 	m_2dRenderer->begin();
 
-	// draw your stuff here!
-	
-	// output some text, uses the last used colour
-	m_2dRenderer->drawText(m_font, "Press ESC to quit", 0, 0);
+    //draws the game to the screen
+    m_gameSM.draw(m_2dRenderer, m_font);
 
 	// done drawing sprites
 	m_2dRenderer->end();
