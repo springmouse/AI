@@ -23,7 +23,9 @@ void GameStateManagmeant::pushState(int id)
     std::list<GameStates *>::iterator it = m_registeredStates.begin();
     std::advance(it, id);
 
-    m_pushedStates.push_back(* it);
+    GameStates * holder = * it;
+
+    m_pushedStates.push_back(holder);
 }
 
 void GameStateManagmeant::Update(float deltaTime)

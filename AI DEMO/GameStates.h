@@ -1,6 +1,7 @@
 #pragma once
 #include "Font.h"
 #include "Renderer2D.h"
+#include "Node.h"
 #include <Vector3.h>
 #include <List>
 
@@ -264,6 +265,8 @@ public:
 	*/
     ~InGameState();
 
+    virtual void onEnter();
+
 	/*
 	* Function: onUpdate
 	* ------------------
@@ -290,4 +293,8 @@ public:
     void onDraw(aie::Renderer2D*, aie::Font*);
 
 private:
+
+    std::list<Node *> m_nodes;
+
+
 };

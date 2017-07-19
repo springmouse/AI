@@ -1,5 +1,5 @@
 #pragma once
-
+#include <Vector2.h>
 
 #define INFOMATION Information::GetInstanceOfInfo()
 
@@ -42,6 +42,10 @@ public:
     bool quit = false; /*flag for if the programe should end or not*/
     bool push = false; /*flag if we should push a state on the m_stateStack in GameStateManager*/
     bool pop = false; /*flag if we should pop a state on the m_stateStack in GameStateManager*/
+
+    Vector2 cameraPos;
+
+    float nodeSize = 20;
 
     int pushID = 0; /*ID for what game state we want to push on to the m_stateStack in GameStateManager*/
 
