@@ -136,7 +136,7 @@ std::list<Vector2>  GetAStarPath::RetracePath(Node * startTile, Node * endTile)
     std::reverse(path.begin(), path.end());
 
 	//makes sure the nodes dont have random loss paths
-	NAVMANAGER->ClearParents();
+	//NAVMANAGER->ClearParents();
 
     //we return the path
     return path;

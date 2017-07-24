@@ -1,14 +1,8 @@
-﻿  NavManager.cpp
-c:\users\callu.desktop-lvuve2b\documents\github\ai\ai demo\navmanager.cpp(80): warning C4244: 'argument': conversion from 'int' to 'realNum', possible loss of data
-c:\users\callu.desktop-lvuve2b\documents\github\ai\ai demo\navmanager.cpp(82): warning C4244: 'argument': conversion from 'int' to 'realNum', possible loss of data
-  GetAStarPath.cpp
+﻿  GetAStarPath.cpp
 c:\users\callu.desktop-lvuve2b\documents\github\ai\ai demo\getastarpath.cpp(84): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
 c:\users\callu.desktop-lvuve2b\documents\github\ai\ai demo\getastarpath.cpp(90): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 c:\users\callu.desktop-lvuve2b\documents\github\ai\ai demo\getastarpath.cpp(91): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 c:\users\callu.desktop-lvuve2b\documents\github\ai\ai demo\getastarpath.cpp(149): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
 c:\users\callu.desktop-lvuve2b\documents\github\ai\ai demo\getastarpath.cpp(150): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-  Generating Code...
-  Skipping... (no relevant changes detected)
-  GameStates.cpp
   AI DEMO.vcxproj -> C:\Users\callu.DESKTOP-LVUVE2B\Documents\GitHub\AI\temp\AI DEMO\Debug\AI DEMO.exe
   AI DEMO.vcxproj -> C:\Users\callu.DESKTOP-LVUVE2B\Documents\GitHub\AI\temp\AI DEMO\Debug\AI DEMO.pdb (Full PDB)

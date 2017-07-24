@@ -109,6 +109,8 @@ void NavManager::Update(float deltaTime)
 		test.clear();
         test = PATH_FINDER->FindPath(start, finish);
 
+		nodeTest.clear();
+
 		for each (Vector2 v in test)
 		{
 			for each(Node * n in g_nodes)
