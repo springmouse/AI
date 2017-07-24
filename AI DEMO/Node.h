@@ -25,11 +25,22 @@ public:
         Node * p_nodeA;
         Node * p_nodeB;
 
+        bool operator== (const NodeEdge & other)
+        {
+            if (other.p_nodeA == p_nodeA && other.p_nodeB == p_nodeB)
+            {
+                return true;
+            }
+
+            return false;
+        };
+
         float GetGCost() { return m_dCost; }
 
     };
 
     Node();
+    Node(Vector2 v);
     Node(float x, float y);
     ~Node();
 
@@ -38,6 +49,13 @@ public:
         NodeEdge * edge = new NodeEdge(this, nodeB);
         g_edges.push_back(edge);
         nodeB->g_edges.push_back(edge);
+    };
+
+    void DeleteAllEdges();
+
+    void DeleteEdge(NodeEdge * ne)
+    {
+        g_edges.remove(ne);
     };
 
     bool operator== (const Node & other);

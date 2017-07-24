@@ -83,14 +83,14 @@ InGameState::InGameState()
         }
     }
 
+    SetUpStartUpNodeConections();
+
     INFOMATION->cameraPos = Vector2(0 - (INFOMATION->nodeSize), 0 - ( 2 * INFOMATION->nodeSize));
+
+    m_timer = 0;
 }
 
-InGameState::~InGameState()
-{
-}
-
-void InGameState::onEnter()
+void InGameState::SetUpStartUpNodeConections()
 {
     for each (Node * nodeA in m_nodes)
     {
@@ -129,6 +129,15 @@ void InGameState::onEnter()
     }
 }
 
+InGameState::~InGameState()
+{
+}
+
+void InGameState::onEnter()
+{
+    
+}
+
 void InGameState::onUpdate(float deltaTime)
 {
     if (m_active)
@@ -140,6 +149,85 @@ void InGameState::onUpdate(float deltaTime)
             INFOMATION->pop = true;
         }
     }
+
+    m_timer += deltaTime;
+
+    Vector2 v = Vector2((int)INPUT->getMouseX(), (int)INPUT->getMouseY());
+    v *= 0.05f;
+    v = Vector2((int)v.x, (int)v.y);
+    v *= 20;
+
+    v.y -= 20;
+
+    if (INPUT->isMouseButtonDown(0) && m_timer >= 0.2f)
+    {
+        CreatNewNode(v);
+
+        m_timer = 0;
+    }
+
+    if (INPUT->isMouseButtonDown(1) && m_timer >= 0.2f)
+    {
+        DestroyNode(v);
+
+        m_timer = 0;
+    }
+
+}
+
+void InGameState::CreatNewNode(Vector2 mousePos)
+{
+    for each (Node * n in m_nodes)
+    {
+        if (* n == mousePos)
+        {
+            return;
+        }
+    }
+
+    Node * node = new Node(mousePos.x, mousePos.y);
+
+    for (int x = -1; x < 2; x++)
+    {
+        for (int y = -1; y < 2; y++)
+        {
+            if (x == 0 && y == 0)
+            {
+            }
+            else
+            {
+                for each (Node * n in m_nodes)
+                {
+                    if (*n == Vector2(node->GetPos().x + (x * 20), node->GetPos().y + (y * 20)))
+                    {
+                        node->AddEdge(n);
+                    }
+                }
+            }
+
+        }
+    }
+
+    m_nodes.push_back(node);
+}
+
+void InGameState::DestroyNode(Vector2 mousePos)
+{
+    std::cout << "we are running";
+
+    Node * n = nullptr;
+
+    for each (Node * N in m_nodes)
+    {
+        if (*N == mousePos)
+        {
+            n = N;
+        }
+    }
+
+    m_nodes.remove(n);
+
+    delete n;
 }
 
 void InGameState::onDraw(aie::Renderer2D * m_2dRenderer, aie::Font* font)

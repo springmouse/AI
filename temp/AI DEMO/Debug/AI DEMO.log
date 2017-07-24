@@ -1,2 +1,4 @@
 ﻿  GameStates.cpp
+c:\users\s171669\documents\github\ai\ai demo\gamestates.cpp(155): warning C4244: 'argument': conversion from 'int' to 'realNum', possible loss of data
+c:\users\s171669\documents\github\ai\ai demo\gamestates.cpp(157): warning C4244: 'argument': conversion from 'int' to 'realNum', possible loss of data
   AI DEMO.vcxproj -> C:\Users\s171669\Documents\GitHub\AI\temp\AI DEMO\Debug\AI DEMO.exe
