@@ -16,27 +16,42 @@
     <Filter Include="Source Files\PathFinding">
       <UniqueIdentifier>{b4596d8f-9bf7-4d0f-a639-b0dc106da027}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\GameStates">
+      <UniqueIdentifier>{4f57cd6c-9167-4d89-8322-0db1bf01436c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Global">
+      <UniqueIdentifier>{026e0209-a976-4e3e-ae94-9dee8747e012}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\StartUp">
+      <UniqueIdentifier>{e9552415-6285-4153-a003-bb96f0718d93}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AI_DEMOApp.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Node.cpp">
       <Filter>Source Files\PathFinding</Filter>
     </ClCompile>
     <ClCompile Include="Factory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GetAStarPath.cpp">
+      <Filter>Source Files\PathFinding</Filter>
+    </ClCompile>
     <ClCompile Include="GameStateManagmeant.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\GameStates</Filter>
     </ClCompile>
     <ClCompile Include="GameStates.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\GameStates</Filter>
     </ClCompile>
     <ClCompile Include="Information.cpp">
+      <Filter>Source Files\Global</Filter>
+    </ClCompile>
+    <ClCompile Include="AI_DEMOApp.cpp">
+      <Filter>Source Files\StartUp</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files\StartUp</Filter>
+    </ClCompile>
+    <ClCompile Include="NavManager.cpp">
       <Filter>Source Files\PathFinding</Filter>
     </ClCompile>
   </ItemGroup>
@@ -47,17 +62,23 @@
     <ClInclude Include="Factory.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="GameStateManagmeant.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GameStates.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Information.h">
+    <ClInclude Include="GetAStarPath.h">
       <Filter>Source Files\PathFinding</Filter>
     </ClInclude>
+    <ClInclude Include="GameStateManagmeant.h">
+      <Filter>Source Files\GameStates</Filter>
+    </ClInclude>
+    <ClInclude Include="GameStates.h">
+      <Filter>Source Files\GameStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Information.h">
+      <Filter>Source Files\Global</Filter>
+    </ClInclude>
     <ClInclude Include="AI_DEMOApp.h">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\StartUp</Filter>
+    </ClInclude>
+    <ClInclude Include="NavManager.h">
+      <Filter>Source Files\PathFinding</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

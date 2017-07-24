@@ -292,14 +292,7 @@ public:
 	*/
     void onDraw(aie::Renderer2D*, aie::Font*);
 
-    void SetUpStartUpNodeConections();
 
-    void CreatNewNode(Vector2 mousePos);
-    void DestroyNode(Vector2 mousePos);
 
 private:
-
-    std::list<Node *> m_nodes;
-    float m_timer;
-
 };
