@@ -1,3 +1,14 @@
-﻿LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
-GetAStarPath.obj : error LNK2019: unresolved external symbol "public: class std::list<class Node *,class std::allocator<class Node *> > __thiscall NavManager::GetEdgeConnections(class Node *)" (?GetEdgeConnections@NavManager@@QAE?AV?$list@PAVNode@@V?$allocator@PAVNode@@@std@@@std@@PAVNode@@@Z) referenced in function "public: class std::list<class Vector2 *,class std::allocator<class Vector2 *> > __thiscall GetAStarPath::FindPath(class Vector2,class Vector2)" (?FindPath@GetAStarPath@@QAE?AV?$list@PAVVector2@@V?$allocator@PAVVector2@@@std@@@std@@VVector2@@0@Z)
-C:\Users\s171669\Documents\GitHub\AI\temp\AI DEMO\Debug\AI DEMO.exe : fatal error LNK1120: 1 unresolved externals
+﻿  NavManager.cpp
+c:\users\callu.desktop-lvuve2b\documents\github\ai\ai demo\navmanager.cpp(80): warning C4244: 'argument': conversion from 'int' to 'realNum', possible loss of data
+c:\users\callu.desktop-lvuve2b\documents\github\ai\ai demo\navmanager.cpp(82): warning C4244: 'argument': conversion from 'int' to 'realNum', possible loss of data
+  GetAStarPath.cpp
+c:\users\callu.desktop-lvuve2b\documents\github\ai\ai demo\getastarpath.cpp(84): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+c:\users\callu.desktop-lvuve2b\documents\github\ai\ai demo\getastarpath.cpp(90): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\callu.desktop-lvuve2b\documents\github\ai\ai demo\getastarpath.cpp(91): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\callu.desktop-lvuve2b\documents\github\ai\ai demo\getastarpath.cpp(149): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+c:\users\callu.desktop-lvuve2b\documents\github\ai\ai demo\getastarpath.cpp(150): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+  Generating Code...
+  Skipping... (no relevant changes detected)
+  GameStates.cpp
+  AI DEMO.vcxproj -> C:\Users\callu.DESKTOP-LVUVE2B\Documents\GitHub\AI\temp\AI DEMO\Debug\AI DEMO.exe
+  AI DEMO.vcxproj -> C:\Users\callu.DESKTOP-LVUVE2B\Documents\GitHub\AI\temp\AI DEMO\Debug\AI DEMO.pdb (Full PDB)

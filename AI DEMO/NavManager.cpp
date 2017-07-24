@@ -106,7 +106,20 @@ void NavManager::Update(float deltaTime)
     m_pathTimer += deltaTime;
     if (INPUT->isKeyDown(aie::INPUT_KEY_SPACE) && m_pathTimer >= 1)
     {
+		test.clear();
         test = PATH_FINDER->FindPath(start, finish);
+
+		for each (Vector2 v in test)
+		{
+			for each(Node * n in g_nodes)
+			{
+				if (*n == v)
+				{
+					nodeTest.push_back(n);
+				}
+			}
+		}
+
         std::cout << "we ran";
         m_pathTimer = 0;
     }
@@ -172,10 +185,17 @@ void NavManager::Draw(aie::Renderer2D * m_2dRenderer)
         m_2dRenderer->drawCircle(n->GetPos().x, n->GetPos().y, 5);
     }
 
+	for each (Node * n in nodeTest)
+	{
+		m_2dRenderer->setRenderColour(1,0,0,1);
+		m_2dRenderer->drawCircle(n->GetPos().x, n->GetPos().y, 5);
+	}
+
     for each (Node * n in g_nodes)
     {
         for each(Node::NodeEdge * ne in n->g_edges)
         {
+			m_2dRenderer->setRenderColour(1, 1, 1, 1);
             m_2dRenderer->drawLine(ne->p_nodeA->GetPos().x, ne->p_nodeA->GetPos().y, ne->p_nodeB->GetPos().x, ne->p_nodeB->GetPos().y, 1);
         }
     }
@@ -195,6 +215,13 @@ Node * NavManager::GetNode(Vector2 pos)
     return nullptr;
 }
 
+void NavManager::ClearParents()
+{
+	for each (Node * n in g_nodes)
+	{
+		n->SetParent(nullptr);
+	}
+}
 
 std::list<Node *> NavManager::GetEdgeConnections(Node * node)
 {

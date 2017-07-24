@@ -18,7 +18,7 @@ GetAStarPath * GetAStarPath::GetInstanceOfpathFinder()
 }
 
 //finds us a path between two nodes
-std::list<Vector2 *> GetAStarPath::FindPath(Vector2 start, Vector2 end)
+std::list<Vector2> GetAStarPath::FindPath(Vector2 start, Vector2 end)
 {
     //the start Node
     Node * startNode = NAVMANAGER->GetNode(start);
@@ -29,7 +29,7 @@ std::list<Vector2 *> GetAStarPath::FindPath(Vector2 start, Vector2 end)
     //if the start or target node does not exist we escape
     if (startNode == nullptr || targetNode == nullptr)
     {
-        std::list<Vector2 *> temp = std::list<Vector2 *>();
+        std::list<Vector2> temp = std::list<Vector2>();
         return temp;
     }
 
@@ -100,7 +100,7 @@ std::list<Vector2 *> GetAStarPath::FindPath(Vector2 start, Vector2 end)
     }
 
     //this was added to avoid bad evil crashes where no path could be found
-    std::list<Vector2 *> empty = std::list<Vector2 *>();
+    std::list<Vector2> empty = std::list<Vector2>();
     return empty;
 }
 
@@ -118,23 +118,25 @@ bool GetAStarPath::FindInContainer(std::list<Node *> * holder, Node * node)
 }
 
 //we retrace the path by following the parents of each node starting at the end moving all the way to the begining
-std::list<Vector2 *>  GetAStarPath::RetracePath(Node * startTile, Node * endTile)
+std::list<Vector2>  GetAStarPath::RetracePath(Node * startTile, Node * endTile)
 {
-    std::list<Vector2 *> path;
+    std::list<Vector2> path;
     Node * currentTile = endTile;
 
     //we keep looping while the current tile
     //dose not equal the stat tile
     while (currentTile != startTile)
     {
-        path.push_back(& currentTile->GetPos());
-        currentTile->SetRGB(Vector4(1,0,0,1));
+        path.push_back(currentTile->GetPos());
         currentTile = currentTile->GetParent();
     }
 
     //we reverse the path so that it goes from start Tile to end tile
     //and not end tile to start tile
     std::reverse(path.begin(), path.end());
+
+	//makes sure the nodes dont have random loss paths
+	NAVMANAGER->ClearParents();
 
     //we return the path
     return path;

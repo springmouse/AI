@@ -1,12 +1,2 @@
-﻿  NavManager.cpp
-NavManager.cpp(80): warning C4244: 'argument': conversion from 'int' to 'realNum', possible loss of data
-NavManager.cpp(82): warning C4244: 'argument': conversion from 'int' to 'realNum', possible loss of data
-  Generating code
-  12 of 2298 functions ( 0.5%) were compiled, the rest were copied from previous compilation.
-    8 functions were new in current compilation
-    2 functions had inline decision re-evaluated but remain unchanged
-  Finished generating code
-MathsLibary.lib(Vector2.obj) : warning LNK4099: PDB 'MathsLibary.pdb' was not found with 'MathsLibary.lib(Vector2.obj)' or at 'C:\Users\s171669\Documents\GitHub\AI\temp\AI DEMO\Release\MathsLibary.pdb'; linking object as if no debug info
-MathsLibary.lib(Vector4.obj) : warning LNK4099: PDB 'MathsLibary.pdb' was not found with 'MathsLibary.lib(Vector4.obj)' or at 'C:\Users\s171669\Documents\GitHub\AI\temp\AI DEMO\Release\MathsLibary.pdb'; linking object as if no debug info
-MathsLibary.lib(Vector3.obj) : warning LNK4099: PDB 'MathsLibary.pdb' was not found with 'MathsLibary.lib(Vector3.obj)' or at 'C:\Users\s171669\Documents\GitHub\AI\temp\AI DEMO\Release\MathsLibary.pdb'; linking object as if no debug info
-  AI DEMO.vcxproj -> C:\Users\s171669\Documents\GitHub\AI\temp\AI DEMO\Release\AI DEMO.exe
+﻿  AI DEMO.vcxproj -> C:\Users\callu.DESKTOP-LVUVE2B\Documents\GitHub\AI\temp\AI DEMO\Release\AI DEMO.exe
+  AI DEMO.vcxproj -> C:\Users\callu.DESKTOP-LVUVE2B\Documents\GitHub\AI\temp\AI DEMO\Release\AI DEMO.pdb (Full PDB)

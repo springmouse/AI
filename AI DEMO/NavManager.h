@@ -27,6 +27,8 @@ public:
 
     void Draw(aie::Renderer2D * m_2dRenderer);
 
+	void ClearParents();
+
     std::list<Node *> GetEdgeConnections(Node * node);
 
     Node * GetNode(Vector2 pos);
@@ -44,6 +46,7 @@ private:
 
     float m_timer, m_pathTimer;
 
-    std::list<Vector2 *> test;
+    std::list<Vector2> test;
+	std::list<Node *> nodeTest;
 };
 
