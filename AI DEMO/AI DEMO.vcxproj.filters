@@ -25,6 +25,9 @@
     <Filter Include="Source Files\StartUp">
       <UniqueIdentifier>{e9552415-6285-4153-a003-bb96f0718d93}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Render and GUI">
+      <UniqueIdentifier>{90cc541c-a9cf-4529-8e3c-edda57c5f5db}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Node.cpp">
@@ -54,6 +57,12 @@
     <ClCompile Include="NavManager.cpp">
       <Filter>Source Files\PathFinding</Filter>
     </ClCompile>
+    <ClCompile Include="RenderToMesh.cpp">
+      <Filter>Source Files\Render and GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>Source Files\Render and GUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Node.h">
@@ -79,6 +88,12 @@
     </ClInclude>
     <ClInclude Include="NavManager.h">
       <Filter>Source Files\PathFinding</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderToMesh.h">
+      <Filter>Source Files\Render and GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>Source Files\Render and GUI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

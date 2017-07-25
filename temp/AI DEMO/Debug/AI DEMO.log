@@ -1,8 +1,6 @@
-﻿  GetAStarPath.cpp
-c:\users\callu.desktop-lvuve2b\documents\github\ai\ai demo\getastarpath.cpp(84): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-c:\users\callu.desktop-lvuve2b\documents\github\ai\ai demo\getastarpath.cpp(90): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\callu.desktop-lvuve2b\documents\github\ai\ai demo\getastarpath.cpp(91): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\callu.desktop-lvuve2b\documents\github\ai\ai demo\getastarpath.cpp(149): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-c:\users\callu.desktop-lvuve2b\documents\github\ai\ai demo\getastarpath.cpp(150): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-  AI DEMO.vcxproj -> C:\Users\callu.DESKTOP-LVUVE2B\Documents\GitHub\AI\temp\AI DEMO\Debug\AI DEMO.exe
-  AI DEMO.vcxproj -> C:\Users\callu.DESKTOP-LVUVE2B\Documents\GitHub\AI\temp\AI DEMO\Debug\AI DEMO.pdb (Full PDB)
+﻿  Button.cpp
+c:\users\s171669\documents\github\ai\ai demo\button.cpp(79): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
+c:\users\s171669\documents\github\ai\ai demo\button.cpp(86): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
+c:\users\s171669\documents\github\ai\ai demo\button.cpp(93): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
+c:\users\s171669\documents\github\ai\ai demo\button.cpp(100): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
+  AI DEMO.vcxproj -> C:\Users\s171669\Documents\GitHub\AI\temp\AI DEMO\Debug\AI DEMO.exe

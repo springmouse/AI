@@ -5,6 +5,7 @@
 #include <string>
 #include <time.h>
 #include "NavManager.h"
+#include "RenderToMesh.h"
 
 #include <iostream>
 
@@ -77,6 +78,17 @@ void MenuState::onPopped()
 InGameState::InGameState()
 {
     INFOMATION->cameraPos = Vector2(0 - (INFOMATION->nodeSize), 0 - ( 2 * INFOMATION->nodeSize));
+
+    button = Button((INFOMATION->cameraPos.x + 32), (INFOMATION->cameraPos.y + (2 * INFOMATION->nodeSize) + 675), 128, 32);
+
+    std::string buttonTexPaths[4];
+
+    buttonTexPaths[0] = "./textures/ButtonNormal.png";
+    buttonTexPaths[1] = "./textures/ButtonPressed.png";
+    buttonTexPaths[2] = "./textures/ButtonDisabled.png";
+    buttonTexPaths[3] = "./textures/ButtonHover.png";
+
+    button.setTextures(buttonTexPaths);
 }
 
 
@@ -99,6 +111,8 @@ void InGameState::onUpdate(float deltaTime)
             INFOMATION->pop = true;
         }
 
+        button.update(deltaTime);
+
         NAVMANAGER->Update(deltaTime);
     }
 }
@@ -107,8 +121,10 @@ void InGameState::onDraw(aie::Renderer2D * m_2dRenderer, aie::Font* font)
 {
     if (m_active)
     {
-        NAVMANAGER->Draw(m_2dRenderer);
+        RENDER->Draw(m_2dRenderer, font);
         
+        button.draw(m_2dRenderer);
+
         m_2dRenderer->setCameraPos(INFOMATION->cameraPos.x, INFOMATION->cameraPos.y);
 
         m_2dRenderer->drawText(font, "press esc to go back to main menu", INFOMATION->cameraPos.x, INFOMATION->cameraPos.y + 10);

@@ -94,6 +94,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AI_DEMOApp.cpp" />
+    <ClCompile Include="Button.cpp" />
     <ClCompile Include="Factory.cpp" />
     <ClCompile Include="GameStateManagmeant.cpp" />
     <ClCompile Include="GameStates.cpp" />
@@ -102,9 +103,11 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="NavManager.cpp" />
     <ClCompile Include="Node.cpp" />
+    <ClCompile Include="RenderToMesh.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AI_DEMOApp.h" />
+    <ClInclude Include="Button.h" />
     <ClInclude Include="Factory.h" />
     <ClInclude Include="GameStateManagmeant.h" />
     <ClInclude Include="GameStates.h" />
@@ -112,6 +115,7 @@
     <ClInclude Include="Information.h" />
     <ClInclude Include="NavManager.h" />
     <ClInclude Include="Node.h" />
+    <ClInclude Include="RenderToMesh.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,2 +1,2 @@
-﻿  AI DEMO.vcxproj -> C:\Users\callu.DESKTOP-LVUVE2B\Documents\GitHub\AI\temp\AI DEMO\Release\AI DEMO.exe
-  AI DEMO.vcxproj -> C:\Users\callu.DESKTOP-LVUVE2B\Documents\GitHub\AI\temp\AI DEMO\Release\AI DEMO.pdb (Full PDB)
+﻿  GameStates.cpp
+GameStates.cpp(91): warning C4244: 'argument': conversion from 'realNum' to 'int', possible loss of data

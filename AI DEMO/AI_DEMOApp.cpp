@@ -11,8 +11,12 @@ AI_DEMOApp::~AI_DEMOApp() {
 
 }
 
+
+
+
+
 bool AI_DEMOApp::startup() {
-	
+    
 	m_2dRenderer = new aie::Renderer2D();
 	m_font = new aie::Font("./font/consolas.ttf", 32);
 

@@ -6,6 +6,7 @@ Node::Node()
 {
     weightCost = 0;
     m_colour = Vector4(1,1,1,1);
+    m_isPassable = true;
 }
 
 Node::Node(Vector2 v)
@@ -13,6 +14,7 @@ Node::Node(Vector2 v)
     m_pos = v;
     m_colour = Vector4(1, 1, 1, 1);
     weightCost = 0;
+    m_isPassable = true;
 }
 
 Node::Node(float x, float y)
@@ -20,6 +22,7 @@ Node::Node(float x, float y)
     m_pos = Vector2(x, y);
     m_colour = Vector4(1, 1, 1, 1);
     weightCost = 0;
+    m_isPassable = true;
 }
 
 Node::~Node()

@@ -1,5 +1,6 @@
 #include "GetAStarPath.h"
 #include "NavManager.h"
+#include <iostream>
 
 GetAStarPath::GetAStarPath()
 {
@@ -18,7 +19,7 @@ GetAStarPath * GetAStarPath::GetInstanceOfpathFinder()
 }
 
 //finds us a path between two nodes
-std::list<Vector2> GetAStarPath::FindPath(Vector2 start, Vector2 end)
+std::list<Node *> GetAStarPath::FindPath(Vector2 start, Vector2 end)
 {
     //the start Node
     Node * startNode = NAVMANAGER->GetNode(start);
@@ -29,7 +30,7 @@ std::list<Vector2> GetAStarPath::FindPath(Vector2 start, Vector2 end)
     //if the start or target node does not exist we escape
     if (startNode == nullptr || targetNode == nullptr)
     {
-        std::list<Vector2> temp = std::list<Vector2>();
+        std::list<Node *> temp = std::list<Node *>();
         return temp;
     }
 
@@ -87,6 +88,7 @@ std::list<Vector2> GetAStarPath::FindPath(Vector2 start, Vector2 end)
             //and we set its parent to the current node as that path is the curent path with the lowest cost
             if (newMovemeantCostToNeighbour < N->GetGCost() || FindInContainer(& openSet, N) == false)
             {
+                std::cout << "we are adding nodes \n";
                 N->SetGCost(newMovemeantCostToNeighbour);
                 N->SetHCost(GetDistance(N, targetNode));
                 N->SetParent(currentNode);
@@ -100,7 +102,7 @@ std::list<Vector2> GetAStarPath::FindPath(Vector2 start, Vector2 end)
     }
 
     //this was added to avoid bad evil crashes where no path could be found
-    std::list<Vector2> empty = std::list<Vector2>();
+    std::list<Node *> empty = std::list<Node *>();
     return empty;
 }
 
@@ -118,16 +120,16 @@ bool GetAStarPath::FindInContainer(std::list<Node *> * holder, Node * node)
 }
 
 //we retrace the path by following the parents of each node starting at the end moving all the way to the begining
-std::list<Vector2>  GetAStarPath::RetracePath(Node * startTile, Node * endTile)
+std::list<Node *>  GetAStarPath::RetracePath(Node * startTile, Node * endTile)
 {
-    std::list<Vector2> path;
+    std::list<Node *> path;
     Node * currentTile = endTile;
 
     //we keep looping while the current tile
     //dose not equal the stat tile
     while (currentTile != startTile)
     {
-        path.push_back(currentTile->GetPos());
+        path.push_back(currentTile);
         currentTile = currentTile->GetParent();
     }
 

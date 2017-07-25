@@ -6,6 +6,7 @@
 #include "Node.h"
 #include "Information.h"
 #include "GetAStarPath.h"
+#include <Texture.h>
 
 
 
@@ -21,9 +22,9 @@ public:
 
     void SetUpStartUpNodeConections();
 
-    void CreatNewNode(Vector2 mousePos);
+    void CreatNewNode();
 
-    void DestroyNode(Vector2 mousePos);
+    void DestroyNode();
 
     void Draw(aie::Renderer2D * m_2dRenderer);
 
@@ -38,15 +39,19 @@ public:
     std::list<Node *> g_nodes;
 
 private:
+
     NavManager();
 
     ~NavManager();
 
     Vector2 start, finish;
 
+    Vector2 mousePos;
+
     float m_timer, m_pathTimer;
 
-    std::list<Vector2> test;
 	std::list<Node *> nodeTest;
+
+    aie::Texture * m_tileTexture[3];
 };
 

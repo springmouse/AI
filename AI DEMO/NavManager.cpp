@@ -26,6 +26,10 @@ NavManager::NavManager()
 
     start = Vector2(0, 0);
     finish = Vector2(0, 0);
+
+    m_tileTexture[0] = new aie::Texture("./textures/Ground.png");
+    m_tileTexture[1] = new aie::Texture("./textures/Wall.png");
+    m_tileTexture[2] = new aie::Texture("./textures/Boarder.png");
 }
 
 
@@ -77,28 +81,30 @@ void NavManager::Update(float deltaTime)
 {
     m_timer += deltaTime;
 
-    Vector2 v = Vector2((int)INPUT->getMouseX(), (int)INPUT->getMouseY());
-    v *= 0.05f;
-    v = Vector2((int)v.x, (int)v.y);
-    v *= 20;
+    mousePos = Vector2((int)INPUT->getMouseX(), (int)INPUT->getMouseY());
+    mousePos *= 0.05f;
+    mousePos = Vector2((int)mousePos.x, (int)mousePos.y);
+    mousePos *= 20;
 
-    v.y -= 20;
+    mousePos.y -= 20;
+
+
 
     if (INPUT->isMouseButtonDown(0) && m_timer >= 0.2f)
     {
-        CreatNewNode(v);
+        CreatNewNode();
         m_timer = 0;
     }
 
     if (INPUT->isMouseButtonDown(1) && m_timer >= 0.2f)
     {
-        DestroyNode(v);
+        DestroyNode();
         m_timer = 0;
     }
 
     if (INPUT->isMouseButtonDown(2))
     {
-        finish = v;
+        finish = mousePos;
     }
 
 
@@ -106,29 +112,15 @@ void NavManager::Update(float deltaTime)
     m_pathTimer += deltaTime;
     if (INPUT->isKeyDown(aie::INPUT_KEY_SPACE) && m_pathTimer >= 1)
     {
-		test.clear();
-        test = PATH_FINDER->FindPath(start, finish);
+        nodeTest.clear();
 
-		nodeTest.clear();
+        nodeTest = PATH_FINDER->FindPath(start, finish);
 
-		for each (Vector2 v in test)
-		{
-			for each(Node * n in g_nodes)
-			{
-				if (*n == v)
-				{
-					nodeTest.push_back(n);
-				}
-			}
-		}
-
-        std::cout << "we ran";
         m_pathTimer = 0;
     }
 }
 
-
-void NavManager::CreatNewNode(Vector2 mousePos)
+void NavManager::CreatNewNode()
 {
     for each (Node * n in g_nodes)
     {
@@ -162,7 +154,7 @@ void NavManager::CreatNewNode(Vector2 mousePos)
     g_nodes.push_back(node);
 }
 
-void NavManager::DestroyNode(Vector2 mousePos)
+void NavManager::DestroyNode()
 {
     Node * n = nullptr;
 
@@ -183,16 +175,15 @@ void NavManager::Draw(aie::Renderer2D * m_2dRenderer)
 {
     for each (Node * n in g_nodes)
     {
+        m_2dRenderer->drawSprite(m_tileTexture[0], n->GetPos().x, n->GetPos().y, 19, 19);
+    }
+
+    for each (Node * n in g_nodes)
+    {
         m_2dRenderer->setRenderColour(n->GetRGB().x, n->GetRGB().y, n->GetRGB().z, n->GetRGB().w);
         m_2dRenderer->drawCircle(n->GetPos().x, n->GetPos().y, 5);
     }
-
-	for each (Node * n in nodeTest)
-	{
-		m_2dRenderer->setRenderColour(1,0,0,1);
-		m_2dRenderer->drawCircle(n->GetPos().x, n->GetPos().y, 5);
-	}
-
+    
     for each (Node * n in g_nodes)
     {
         for each(Node::NodeEdge * ne in n->g_edges)
@@ -201,6 +192,16 @@ void NavManager::Draw(aie::Renderer2D * m_2dRenderer)
             m_2dRenderer->drawLine(ne->p_nodeA->GetPos().x, ne->p_nodeA->GetPos().y, ne->p_nodeB->GetPos().x, ne->p_nodeB->GetPos().y, 1);
         }
     }
+
+    for each (Node * n in nodeTest)
+    {
+        m_2dRenderer->setRenderColour(1, 0, 0, 1);
+        m_2dRenderer->drawCircle(n->GetPos().x, n->GetPos().y, 5);
+    }
+
+    m_2dRenderer->drawSprite(m_tileTexture[2], mousePos.x, mousePos.y, 19, 19);
+
+    m_2dRenderer->setRenderColour(1, 1, 1, 1);
 }
 
 Node * NavManager::GetNode(Vector2 pos)

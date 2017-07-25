@@ -22,7 +22,7 @@ public:
     *
     * Return: a vector of tiles makeing up the path from the start to the end tile
     */
-    std::list<Vector2> FindPath(Vector2 start, Vector2 end);
+    std::list<Node *> FindPath(Vector2 start, Vector2 end);
 
 
     bool FindInContainer(std::list<Node *> * holder, Node * n);
@@ -54,7 +54,7 @@ public:
     *
     * Return: a vector holding only our path tiles from start to end
     */
-    std::list<Vector2>  RetracePath(Node * startTile, Node * endTile);
+    std::list<Node *>  RetracePath(Node * startTile, Node * endTile);
 
     /*
     * Function: GetInstanceOfpathFinder
