@@ -101,6 +101,7 @@
     <ClCompile Include="GetAStarPath.cpp" />
     <ClCompile Include="Information.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MouseState.cpp" />
     <ClCompile Include="NavManager.cpp" />
     <ClCompile Include="Node.cpp" />
     <ClCompile Include="RenderToMesh.cpp" />
@@ -113,6 +114,7 @@
     <ClInclude Include="GameStates.h" />
     <ClInclude Include="GetAStarPath.h" />
     <ClInclude Include="Information.h" />
+    <ClInclude Include="MouseState.h" />
     <ClInclude Include="NavManager.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="RenderToMesh.h" />

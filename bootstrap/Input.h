@@ -6,9 +6,10 @@
 
 struct GLFWwindow;
 
-#define INPUT aie::Input::getInstance()
+#define AIEINPUT aie::Input::getInstance()
 
 namespace aie {
+
 
 // a giant list of input codes for keyboard and mouse
 enum EInputCodes : int {

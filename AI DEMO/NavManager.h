@@ -46,8 +46,6 @@ private:
 
     Vector2 start, finish;
 
-    Vector2 mousePos;
-
     float m_timer, m_pathTimer;
 
 	std::list<Node *> nodeTest;

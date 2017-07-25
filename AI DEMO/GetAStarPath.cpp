@@ -88,7 +88,6 @@ std::list<Node *> GetAStarPath::FindPath(Vector2 start, Vector2 end)
             //and we set its parent to the current node as that path is the curent path with the lowest cost
             if (newMovemeantCostToNeighbour < N->GetGCost() || FindInContainer(& openSet, N) == false)
             {
-                std::cout << "we are adding nodes \n";
                 N->SetGCost(newMovemeantCostToNeighbour);
                 N->SetHCost(GetDistance(N, targetNode));
                 N->SetParent(currentNode);

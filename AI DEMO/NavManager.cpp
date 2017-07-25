@@ -1,5 +1,6 @@
 #include "NavManager.h"
 #include <iostream>
+#include "MouseState.h"
 
 
 
@@ -81,36 +82,31 @@ void NavManager::Update(float deltaTime)
 {
     m_timer += deltaTime;
 
-    mousePos = Vector2((int)INPUT->getMouseX(), (int)INPUT->getMouseY());
-    mousePos *= 0.05f;
-    mousePos = Vector2((int)mousePos.x, (int)mousePos.y);
-    mousePos *= 20;
-
-    mousePos.y -= 20;
+    
 
 
 
-    if (INPUT->isMouseButtonDown(0) && m_timer >= 0.2f)
+    if (AIEINPUT->isMouseButtonDown(0) && m_timer >= 0.1f)
     {
         CreatNewNode();
         m_timer = 0;
     }
 
-    if (INPUT->isMouseButtonDown(1) && m_timer >= 0.2f)
+    if (AIEINPUT->isMouseButtonDown(1) && m_timer >= 0.1f)
     {
         DestroyNode();
         m_timer = 0;
     }
 
-    if (INPUT->isMouseButtonDown(2))
+    if (AIEINPUT->isMouseButtonDown(2))
     {
-        finish = mousePos;
+        finish = MOUSE->mousePosGameSpace;
     }
 
 
 
     m_pathTimer += deltaTime;
-    if (INPUT->isKeyDown(aie::INPUT_KEY_SPACE) && m_pathTimer >= 1)
+    if (AIEINPUT->isKeyDown(aie::INPUT_KEY_SPACE) && m_pathTimer >= 1)
     {
         nodeTest.clear();
 
@@ -124,13 +120,13 @@ void NavManager::CreatNewNode()
 {
     for each (Node * n in g_nodes)
     {
-        if (*n == mousePos)
+        if (*n == MOUSE->mousePosGameSpace)
         {
             return;
         }
     }
 
-    Node * node = new Node(mousePos.x, mousePos.y);
+    Node * node = new Node(MOUSE->mousePosGameSpace.x, MOUSE->mousePosGameSpace.y);
 
     for (int x = -1; x < 2; x++)
     {
@@ -160,7 +156,7 @@ void NavManager::DestroyNode()
 
     for each (Node * N in g_nodes)
     {
-        if (*N == mousePos)
+        if (*N == MOUSE->mousePosGameSpace)
         {
             n = N;
         }
@@ -199,7 +195,10 @@ void NavManager::Draw(aie::Renderer2D * m_2dRenderer)
         m_2dRenderer->drawCircle(n->GetPos().x, n->GetPos().y, 5);
     }
 
-    m_2dRenderer->drawSprite(m_tileTexture[2], mousePos.x, mousePos.y, 19, 19);
+    if (MOUSE->mousestate == MouseState::States::INGAME)
+    {
+        m_2dRenderer->drawSprite(m_tileTexture[2], MOUSE->mousePosGameSpace.x, MOUSE->mousePosGameSpace.y, 19, 19);
+    }
 
     m_2dRenderer->setRenderColour(1, 1, 1, 1);
 }

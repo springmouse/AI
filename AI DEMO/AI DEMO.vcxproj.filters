@@ -63,6 +63,9 @@
     <ClCompile Include="Button.cpp">
       <Filter>Source Files\Render and GUI</Filter>
     </ClCompile>
+    <ClCompile Include="MouseState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Node.h">
@@ -94,6 +97,9 @@
     </ClInclude>
     <ClInclude Include="Button.h">
       <Filter>Source Files\Render and GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="MouseState.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

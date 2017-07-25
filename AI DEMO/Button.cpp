@@ -1,5 +1,6 @@
 #include "Button.h"
 #include <Input.h>
+#include "MouseState.h"
 
 
 
@@ -33,24 +34,20 @@ void Button::update(float deltaTime)
         return;
     }
 
-    POINT point;
-    point.x = INPUT->getMouseX();
-    point.y = INPUT->getMouseY();
 
-    if (PtInRect(&m_rect, point)) // true if mouse inside the button's rect
+    if (PtInRect(&m_rect, MOUSE->mousePosGUI)) // true if mouse inside the button's rect
     {
-        if (INPUT->isMouseButtonDown(0))
+        MOUSE->mousestate = MouseState::States::GUI;
+
+        if (AIEINPUT->isMouseButtonDown(0))
         {
             m_state = States::Pressed;
             if (m_prevState != States::Pressed)
             {
-                // Buton has been pressed this frame
-                //m_funcClicked(); // Execute the callback
                 if (m_funcClicked)
                 {
                     m_funcClicked();
                 }
-
             }
         }
         else

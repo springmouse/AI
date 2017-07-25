@@ -6,6 +6,7 @@
 #include <time.h>
 #include "NavManager.h"
 #include "RenderToMesh.h"
+#include "MouseState.h"
 
 #include <iostream>
 
@@ -40,12 +41,12 @@ void MenuState::onUpdate(float deltaTime)
     if (m_active)
     {
 		//checks to see if game should run or close down
-        if (INPUT->isKeyDown(aie::INPUT_KEY_1))
+        if (AIEINPUT->isKeyDown(aie::INPUT_KEY_1))
         {
             INFOMATION->pushInfo(eGameStateType::INGAME);
         }
 
-        if (INPUT->isKeyDown(aie::INPUT_KEY_2))
+        if (AIEINPUT->isKeyDown(aie::INPUT_KEY_2))
         {
             INFOMATION->pop = true;
         }
@@ -106,11 +107,14 @@ void InGameState::onUpdate(float deltaTime)
     if (m_active)
     {
         //check if we need to pop the game out
-        if (INPUT->isKeyDown(aie::INPUT_KEY_ESCAPE))
+        if (AIEINPUT->isKeyDown(aie::INPUT_KEY_ESCAPE))
         {
             INFOMATION->pop = true;
         }
 
+        MOUSE->Update(deltaTime);
+
+        MOUSE->mousestate = MouseState::States::INGAME;
         button.update(deltaTime);
 
         NAVMANAGER->Update(deltaTime);
