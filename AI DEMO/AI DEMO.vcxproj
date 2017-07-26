@@ -118,6 +118,7 @@
     <ClInclude Include="NavManager.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="RenderToMesh.h" />
+    <ClInclude Include="TypesAndDefines.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

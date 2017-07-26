@@ -293,7 +293,14 @@ public:
 	*/
     void onDraw(aie::Renderer2D*, aie::Font*);
 
+    void ButtonAssignBuildMode();
+
+    void ButtonAssignDestroyMode();
+
+    //void SlectState();
+
 private:
 
-    Button button; 
+    std::list<Button::SharedPtr> m_buttons; 
+
 };

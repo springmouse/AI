@@ -1,8 +1,10 @@
 #pragma once
 #include <Windows.h>
 #include <Vector2.h>
+#include <memory>
+#include "TypesAndDefines.h"
 
-#define MOUSE MouseState::GetInstanceOfMouseState() /*lets us call and use the factory*/
+#define MOUSE MouseState::GetInstanceOfMouseState() /*lets us call and use the MouseState*/
 
 class MouseState
 {
@@ -11,17 +13,24 @@ public:
     static MouseState * GetInstanceOfMouseState();
 
     enum class States { GUI, INGAME};
-    enum class InteractType{ None, PlaceNode, DestroyNode};
 
     States mousestate = States::INGAME;
-    InteractType interactype = InteractType::None;
-
+    
     POINT mousePosGUI;
     Vector2 mousePosGameSpace;
 
+    void connect(myFUNC_0(void) setEvent);
+
     void Update(float deltaTime);
 
+    void Nothing();
+
 private:
+
+    myFUNC_0(void)  m_event;
+
+    float m_timer;
+
     MouseState();
     ~MouseState();
 };

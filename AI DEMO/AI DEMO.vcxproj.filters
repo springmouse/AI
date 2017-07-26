@@ -101,5 +101,8 @@
     <ClInclude Include="MouseState.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="TypesAndDefines.h">
+      <Filter>Source Files\Global</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

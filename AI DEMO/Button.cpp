@@ -21,9 +21,11 @@ Button::~Button()
 {
 }
 
+
 void Button::update(float deltaTime)
 {
-
+    
+    
 
 
     // m_texNormal.get(); returns the oringinal pointer if you need it.
@@ -131,46 +133,34 @@ void Button::setTextures(const std::string filePaths[])
 void Button::connect(myFUNC_0(void) funcClicked)
 {
     m_funcClicked = funcClicked;
-
 }
 
 /***************************************************************************************
+
 struct Foo
 {
-    int i;
+int i;
 
-    void saySomething(const std::string & something)
-    {
-        int zz = 0;
+void saySomething(const std::string & something)
+{
+int zz = 0;
 
-    }
+}
 
-    int add(int num1, int num2)
-    {
-        return num1 + num2;
-    }
+int add(int num1, int num2)
+{
+return num1 + num2;
+}
 };
 
 
-//Foo f1;
-//button.connect(myBIND_0(Foo::onClicked, f1));
-
+Foo f1;
+button.connect(myBIND_0(Foo::saySomething, f1));
 
 Foo f1, f2;
 
 f1.i = 1;
 f2.i = 2;
-
-//std::function<void(std::string)> theFunc;
-
-//theFunc = std::bind(&Foo::saySomething, &f1, std::placeholders::_1);
-
-//theFunc("hello");
-
-//theFunc = std::bind(&Foo::saySomething, &f2, std::placeholders::_1);
-
-//theFunc("world");
-
 
 // OR...
 

@@ -9,6 +9,11 @@ MouseState * MouseState::GetInstanceOfMouseState()
     return &ms;
 }
 
+void MouseState::connect(myFUNC_0(void) setEvent)
+{
+    m_event = setEvent;
+}
+
 void MouseState::Update(float deltaTime)
 {
     mousePosGameSpace = Vector2((int)AIEINPUT->getMouseX(), (int)AIEINPUT->getMouseY());
@@ -20,10 +25,27 @@ void MouseState::Update(float deltaTime)
 
     mousePosGUI.x = AIEINPUT->getMouseX();
     mousePosGUI.y = AIEINPUT->getMouseY();
+
+    m_timer += deltaTime;
+
+    if (mousestate == States::INGAME && AIEINPUT->isMouseButtonDown(0) && m_timer > 0.1f)
+    {
+        m_event();
+        m_timer = 0;
+    }
+
 }
+
+void MouseState::Nothing()
+{
+}
+
+
 
 MouseState::MouseState()
 {
+    m_timer = 0;
+    m_event = myBIND_0(MouseState::Nothing, this);
 }
 
 

@@ -8,8 +8,6 @@
 #include "GetAStarPath.h"
 #include <Texture.h>
 
-
-
 #define NAVMANAGER NavManager::GetInstanceOfNavManager()
 
 class NavManager
@@ -29,6 +27,8 @@ public:
     void Draw(aie::Renderer2D * m_2dRenderer);
 
 	void ClearParents();
+
+    void Nothing();
 
     std::list<Node *> GetEdgeConnections(Node * node);
 

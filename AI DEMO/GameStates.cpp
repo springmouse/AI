@@ -80,8 +80,6 @@ InGameState::InGameState()
 {
     INFOMATION->cameraPos = Vector2(0 - (INFOMATION->nodeSize), 0 - ( 2 * INFOMATION->nodeSize));
 
-    button = Button((INFOMATION->cameraPos.x + 32), (INFOMATION->cameraPos.y + (2 * INFOMATION->nodeSize) + 675), 128, 32);
-
     std::string buttonTexPaths[4];
 
     buttonTexPaths[0] = "./textures/ButtonNormal.png";
@@ -89,9 +87,18 @@ InGameState::InGameState()
     buttonTexPaths[2] = "./textures/ButtonDisabled.png";
     buttonTexPaths[3] = "./textures/ButtonHover.png";
 
-    button.setTextures(buttonTexPaths);
-}
 
+    Button::SharedPtr button(new Button((INFOMATION->cameraPos.x + 32), (INFOMATION->cameraPos.y + (2 * INFOMATION->nodeSize) + 675), 128, 32));
+    button->connect(myBIND_0(InGameState::ButtonAssignBuildMode, this));
+    button->setTextures(buttonTexPaths);
+    m_buttons.push_back(button);
+
+    Button::SharedPtr button2(new Button((INFOMATION->cameraPos.x + 32), (INFOMATION->cameraPos.y + (2 * INFOMATION->nodeSize) + 600), 128, 32));
+    button2->connect(myBIND_0(InGameState::ButtonAssignDestroyMode, this));
+    button2->setTextures(buttonTexPaths);
+    m_buttons.push_back(button2);
+
+}
 
 InGameState::~InGameState()
 {
@@ -115,9 +122,14 @@ void InGameState::onUpdate(float deltaTime)
         MOUSE->Update(deltaTime);
 
         MOUSE->mousestate = MouseState::States::INGAME;
-        button.update(deltaTime);
+
+        for (auto btn : m_buttons)
+        {
+            btn->update(deltaTime);
+        }
 
         NAVMANAGER->Update(deltaTime);
+
     }
 }
 
@@ -126,13 +138,26 @@ void InGameState::onDraw(aie::Renderer2D * m_2dRenderer, aie::Font* font)
     if (m_active)
     {
         RENDER->Draw(m_2dRenderer, font);
-        
-        button.draw(m_2dRenderer);
+
+        for (auto btn : m_buttons)
+        {
+            btn->draw(m_2dRenderer);
+        }
 
         m_2dRenderer->setCameraPos(INFOMATION->cameraPos.x, INFOMATION->cameraPos.y);
 
         m_2dRenderer->drawText(font, "press esc to go back to main menu", INFOMATION->cameraPos.x, INFOMATION->cameraPos.y + 10);
     }
+}
+
+void InGameState::ButtonAssignBuildMode()
+{
+    MOUSE->connect(myBIND_0(NavManager::CreatNewNode, NAVMANAGER));
+}
+
+void InGameState::ButtonAssignDestroyMode()
+{
+    MOUSE->connect(myBIND_0(NavManager::DestroyNode, NAVMANAGER));
 }
 
 #pragma endregion

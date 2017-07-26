@@ -80,30 +80,10 @@ void NavManager::SetUpStartUpNodeConections()
 
 void NavManager::Update(float deltaTime)
 {
-    m_timer += deltaTime;
-
-    
-
-
-
-    if (AIEINPUT->isMouseButtonDown(0) && m_timer >= 0.1f)
-    {
-        CreatNewNode();
-        m_timer = 0;
-    }
-
-    if (AIEINPUT->isMouseButtonDown(1) && m_timer >= 0.1f)
-    {
-        DestroyNode();
-        m_timer = 0;
-    }
-
     if (AIEINPUT->isMouseButtonDown(2))
     {
         finish = MOUSE->mousePosGameSpace;
     }
-
-
 
     m_pathTimer += deltaTime;
     if (AIEINPUT->isKeyDown(aie::INPUT_KEY_SPACE) && m_pathTimer >= 1)
@@ -223,6 +203,10 @@ void NavManager::ClearParents()
 	{
 		n->SetParent(nullptr);
 	}
+}
+
+void NavManager::Nothing()
+{
 }
 
 std::list<Node *> NavManager::GetEdgeConnections(Node * node)
