@@ -18,15 +18,7 @@ public:
 
     Button() {};
 
-    Button(int x, int y, int width, int height);
-
-    //void operator=(const Button & button) 
-    //{
-    //    m_rect = button.m_rect;
-
-    //    m_state = States::Normal;
-    //    m_prevState = States::Normal;
-    //};
+    Button(int x, int y, int width, int height, std::string text, aie::Font * font);
 
     ~Button();
 
@@ -51,7 +43,9 @@ private:
 
     States m_prevState;
 
+    std::string m_text;
 
+    aie::Font * m_font;
 
     myFUNC_0(void) m_funcClicked;
 

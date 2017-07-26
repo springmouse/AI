@@ -4,7 +4,7 @@
 
 
 
-Button::Button(int x, int y, int width, int height)
+Button::Button(int x, int y, int width, int height, std::string text, aie::Font * font)
 {
     m_rect.left = x;
     m_rect.top  = y;
@@ -14,6 +14,9 @@ Button::Button(int x, int y, int width, int height)
     m_state = States::Normal;
     m_prevState = States::Normal;
 
+    m_text = text;
+
+    m_font = font;
 }
 
 
@@ -79,6 +82,7 @@ void Button::draw(aie::Renderer2D *renderer)
     width = (m_rect.left - m_rect.right) * 0.45;
     height = (m_rect.top - m_rect.bottom) * 1.45;;
     
+    renderer->setRenderColour(1, 1, 1, 1);
 
     switch (m_state)
     {
@@ -86,6 +90,8 @@ void Button::draw(aie::Renderer2D *renderer)
         if (m_texNormal)
         {
             renderer->drawSprite(m_texNormal.get(), m_rect.left - height, m_rect.bottom + width);
+            renderer->setRenderColour(0, 0, 0, 1);
+            renderer->drawText(m_font, m_text.c_str(), m_rect.left - 10, (m_rect.bottom + width)- 3);
         }
         break;
 
@@ -93,6 +99,8 @@ void Button::draw(aie::Renderer2D *renderer)
         if (m_texPressed)
         {
             renderer->drawSprite(m_texPressed.get(), m_rect.left - height, m_rect.bottom + width);
+            renderer->setRenderColour(0, 0, 0, 1);
+            renderer->drawText(m_font, m_text.c_str(), m_rect.left - 10, (m_rect.bottom + width) - 4);
         }
         break;
 
@@ -100,6 +108,8 @@ void Button::draw(aie::Renderer2D *renderer)
         if (m_texDisabled)
         {
             renderer->drawSprite(m_texDisabled.get(), m_rect.left - height, m_rect.bottom + width);
+            renderer->setRenderColour(0, 0, 0, 1);
+            renderer->drawText(m_font, m_text.c_str(), m_rect.left - 10, (m_rect.bottom + width) - 3);
         }
         break;
 
@@ -107,6 +117,8 @@ void Button::draw(aie::Renderer2D *renderer)
         if (m_texMouseOver)
         {
             renderer->drawSprite(m_texMouseOver.get(), m_rect.left - height, m_rect.bottom + width);
+            renderer->setRenderColour(0, 0, 0, 1);
+            renderer->drawText(m_font, m_text.c_str(), m_rect.left - 10, (m_rect.bottom + width) - 3);
         }
         break;
     }

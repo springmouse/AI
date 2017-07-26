@@ -88,12 +88,12 @@ InGameState::InGameState()
     buttonTexPaths[3] = "./textures/ButtonHover.png";
 
 
-    Button::SharedPtr button(new Button((INFOMATION->cameraPos.x + 32), (INFOMATION->cameraPos.y + (2 * INFOMATION->nodeSize) + 675), 128, 32));
+    Button::SharedPtr button(new Button((INFOMATION->cameraPos.x + 32), (INFOMATION->cameraPos.y + (2 * INFOMATION->nodeSize) + 675), 128, 32, "Creat Node Tool", new aie::Font("./font/consolas.ttf", 12)));
     button->connect(myBIND_0(InGameState::ButtonAssignBuildMode, this));
     button->setTextures(buttonTexPaths);
     m_buttons.push_back(button);
 
-    Button::SharedPtr button2(new Button((INFOMATION->cameraPos.x + 32), (INFOMATION->cameraPos.y + (2 * INFOMATION->nodeSize) + 600), 128, 32));
+    Button::SharedPtr button2(new Button((INFOMATION->cameraPos.x + 32), (INFOMATION->cameraPos.y + (2 * INFOMATION->nodeSize) + 600), 128, 32, "Destroy Node Tool", new aie::Font("./font/consolas.ttf", 12)));
     button2->connect(myBIND_0(InGameState::ButtonAssignDestroyMode, this));
     button2->setTextures(buttonTexPaths);
     m_buttons.push_back(button2);
