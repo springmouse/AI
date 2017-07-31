@@ -1,8 +1,8 @@
-﻿  Application.cpp
-  Generating Code...
-  Compiling...
-  imgui_glfw3.cpp
-c:\users\s171669\documents\github\ai\bootstrap\imgui_glfw3.cpp : fatal error C1041: cannot open program database 'C:\Users\s171669\Documents\GitHub\AI\temp\Bootstrap\Debug\Bootstrap.pdb'; if multiple CL.EXE write to the same .PDB file, please use /FS
+﻿  imgui_glfw3.cpp
   Input.cpp
-c:\users\s171669\documents\github\ai\bootstrap\input.cpp : fatal error C1041: cannot open program database 'C:\Users\s171669\Documents\GitHub\AI\temp\Bootstrap\Debug\Bootstrap.pdb'; if multiple CL.EXE write to the same .PDB file, please use /FS
   Generating Code...
+libsndfile-1.lib(libsndfile-1.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in opengl32.lib(OPENGL32.dll); second definition ignored
+libsndfile-1.lib(libsndfile-1.dll) : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
+OpenAL32.lib(OpenAL32.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in opengl32.lib(OPENGL32.dll); second definition ignored
+OpenAL32.lib(OpenAL32.dll) : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
+  Bootstrap.vcxproj -> C:\Users\s171669\Documents\GitHub\AI\temp\Bootstrap\Debug\Bootstrap.lib

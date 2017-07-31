@@ -93,11 +93,15 @@ InGameState::InGameState()
     button->setTextures(buttonTexPaths);
     m_buttons.push_back(button);
 
-    Button::SharedPtr button2(new Button((INFOMATION->cameraPos.x + 32), (INFOMATION->cameraPos.y + (2 * INFOMATION->nodeSize) + 600), 128, 32, "Destroy Node Tool", new aie::Font("./font/consolas.ttf", 12)));
+    Button::SharedPtr button2(new Button((INFOMATION->cameraPos.x + 32), (INFOMATION->cameraPos.y + (2 * INFOMATION->nodeSize) + 640), 128, 32, "Destroy Node Tool", new aie::Font("./font/consolas.ttf", 12)));
     button2->connect(myBIND_0(InGameState::ButtonAssignDestroyMode, this));
     button2->setTextures(buttonTexPaths);
     m_buttons.push_back(button2);
 
+    Button::SharedPtr button3(new Button((INFOMATION->cameraPos.x + 32), (INFOMATION->cameraPos.y + (2 * INFOMATION->nodeSize) + 605), 128, 32, "Swap Draw To Node", new aie::Font("./font/consolas.ttf", 12)));
+    button3->connect(myBIND_0(NavManager::SwapDrawToNode, NAVMANAGER));
+    button3->setTextures(buttonTexPaths);
+    m_buttons.push_back(button3);
 }
 
 InGameState::~InGameState()

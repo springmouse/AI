@@ -123,6 +123,8 @@ void Button::draw(aie::Renderer2D *renderer)
         break;
     }
 
+    renderer->setRenderColour(1, 1, 1, 1);
+
 }
 
 void Button::setTextures(const std::string filePaths[])

@@ -16,10 +16,11 @@ NavManager::NavManager()
     {
         for (int y = 0; y < 20; y++)
         {
-            g_nodes.push_back(new Node(x * INFOMATION->nodeSize, y * INFOMATION->nodeSize));
+            g_mapNodes.push_back(new MapNode(x * INFOMATION->nodeSize, y * INFOMATION->nodeSize));
         }
     }
 
+    CreatNavMesh();
     SetUpStartUpNodeConections();
 
     m_timer = 0;
@@ -31,6 +32,8 @@ NavManager::NavManager()
     m_tileTexture[0] = new aie::Texture("./textures/Ground.png");
     m_tileTexture[1] = new aie::Texture("./textures/Wall.png");
     m_tileTexture[2] = new aie::Texture("./textures/Boarder.png");
+
+    m_drawToNode = true;
 }
 
 
@@ -39,40 +42,81 @@ NavManager::~NavManager()
 }
 
 
+void NavManager::CreatNavMesh()
+{
+    for each (MapNode * nodeA in g_mapNodes)
+    {
+        MapNode * one = nullptr;
+
+        MapNode * two = nodeA;
+
+        MapNode * three = nullptr;
+        MapNode * four = nullptr;
+
+        int count = 0;
+        for each (MapNode * nodeB in g_mapNodes)
+        {
+            //Upper Left
+            if (*nodeB == Vector2(nodeA->m_pos.x, nodeA->m_pos.y + INFOMATION->nodeSize))
+            {
+                one = nodeB;
+                count++;
+            }
+
+            //lower Right
+            if (*nodeB == Vector2(nodeA->m_pos.x + INFOMATION->nodeSize, nodeA->m_pos.y))
+            {
+                four = nodeB;
+                count++;
+            }
+
+            //upper Right
+            if (*nodeB == Vector2(nodeA->m_pos.x + INFOMATION->nodeSize, nodeA->m_pos.y + INFOMATION->nodeSize))
+            {
+                three = nodeB;
+                count++;
+            }
+
+            if (count == 3)
+            {
+                g_NavNodes.push_back(new NavMeshNode(*one, *two, *three, *four));
+                break;
+            }
+        }
+    }
+}
+
 void NavManager::SetUpStartUpNodeConections()
 {
-    for each (Node * nodeA in g_nodes)
+    for each (NavMeshNode * nodeA in g_NavNodes)
     {
-        int count = 0;
-        for each (Node * nodeB in g_nodes)
+        for each (NavMeshNode * nodeB in g_NavNodes)
         {
-            if (*nodeB == Vector2(nodeA->GetPos().x, nodeA->GetPos().y + INFOMATION->nodeSize))
+            if (nodeA != nodeB)
             {
-                nodeA->AddEdge(nodeB);
-                count++;
-            }
+                if (nodeA->CheckIfMapNodeIsShared(nodeB->GetUpperLeft()))
+                {
+                    nodeA->CheckIfConectionExists(nodeB);
+                    nodeA->AddConnection(nodeB);
+                }
+                
+                if (nodeA->CheckIfMapNodeIsShared(nodeB->GetLowerLeft()))
+                {
+                    nodeA->CheckIfConectionExists(nodeB);
+                    nodeA->AddConnection(nodeB);
+                }
 
-            if (*nodeB == Vector2(nodeA->GetPos().x + INFOMATION->nodeSize, nodeA->GetPos().y - INFOMATION->nodeSize))
-            {
-                nodeA->AddEdge(nodeB);
-                count++;
-            }
+                if (nodeA->CheckIfMapNodeIsShared(nodeB->GetUpperRight()))
+                {
+                    nodeA->CheckIfConectionExists(nodeB);
+                    nodeA->AddConnection(nodeB);
+                }
 
-            if (*nodeB == Vector2(nodeA->GetPos().x + INFOMATION->nodeSize, nodeA->GetPos().y))
-            {
-                nodeA->AddEdge(nodeB);
-                count++;
-            }
-
-            if (*nodeB == Vector2(nodeA->GetPos().x + INFOMATION->nodeSize, nodeA->GetPos().y + INFOMATION->nodeSize))
-            {
-                nodeA->AddEdge(nodeB);
-                count++;
-            }
-
-            if (count == 4)
-            {
-                break;
+                if (nodeA->CheckIfMapNodeIsShared(nodeB->GetLowerRight()))
+                {
+                    nodeA->CheckIfConectionExists(nodeB);
+                    nodeA->AddConnection(nodeB);
+                }
             }
         }
     }
@@ -96,9 +140,10 @@ void NavManager::Update(float deltaTime)
     }
 }
 
+
 void NavManager::CreatNewNode()
 {
-    for each (Node * n in g_nodes)
+    /*for each (Node * n in g_nodes)
     {
         if (*n == MOUSE->mousePosGameSpace)
         {
@@ -127,12 +172,12 @@ void NavManager::CreatNewNode()
         }
     }
 
-    g_nodes.push_back(node);
+    g_nodes.push_back(node);*/
 }
 
 void NavManager::DestroyNode()
 {
-    Node * n = nullptr;
+   /* Node * n = nullptr;
 
     for each (Node * N in g_nodes)
     {
@@ -144,35 +189,33 @@ void NavManager::DestroyNode()
 
     g_nodes.remove(n);
 
-    delete n;
+    delete n;*/
+}
+
+void NavManager::SwapDrawToNode()
+{
+    if (m_drawToNode == true)
+    {
+        m_drawToNode = false;
+    }
+    else
+    {
+        m_drawToNode = true;
+    }
 }
 
 void NavManager::Draw(aie::Renderer2D * m_2dRenderer)
 {
-    for each (Node * n in g_nodes)
+    for each (NavMeshNode * nav in g_NavNodes)
     {
-        m_2dRenderer->drawSprite(m_tileTexture[0], n->GetPos().x, n->GetPos().y, 19, 19);
+        nav->Draw(m_2dRenderer);
     }
 
-    for each (Node * n in g_nodes)
-    {
-        m_2dRenderer->setRenderColour(n->GetRGB().x, n->GetRGB().y, n->GetRGB().z, n->GetRGB().w);
-        m_2dRenderer->drawCircle(n->GetPos().x, n->GetPos().y, 5);
-    }
-    
-    for each (Node * n in g_nodes)
-    {
-        for each(Node::NodeEdge * ne in n->g_edges)
-        {
-			m_2dRenderer->setRenderColour(1, 1, 1, 1);
-            m_2dRenderer->drawLine(ne->p_nodeA->GetPos().x, ne->p_nodeA->GetPos().y, ne->p_nodeB->GetPos().x, ne->p_nodeB->GetPos().y, 1);
-        }
-    }
 
-    for each (Node * n in nodeTest)
+    for each (NavMeshNode * n in nodeTest)
     {
         m_2dRenderer->setRenderColour(1, 0, 0, 1);
-        m_2dRenderer->drawCircle(n->GetPos().x, n->GetPos().y, 5);
+        m_2dRenderer->drawCircle(n->GetCenter().x, n->GetCenter().y, 5);
     }
 
     if (MOUSE->mousestate == MouseState::States::INGAME)
@@ -183,23 +226,22 @@ void NavManager::Draw(aie::Renderer2D * m_2dRenderer)
     m_2dRenderer->setRenderColour(1, 1, 1, 1);
 }
 
-Node * NavManager::GetNode(Vector2 pos)
+NavMeshNode * NavManager::GetNode(Vector2 pos)
 {
-    for each (Node * n in g_nodes)
+    for each (NavMeshNode * n in g_NavNodes)
     {
-        if (* n == pos) 
+        if (n->CheckIfInMeshBounds(pos)) 
         {
             return n;
         }
     }
 
-    
     return nullptr;
 }
 
 void NavManager::ClearParents()
 {
-	for each (Node * n in g_nodes)
+	for each (NavMeshNode * n in g_NavNodes)
 	{
 		n->SetParent(nullptr);
 	}
@@ -209,19 +251,19 @@ void NavManager::Nothing()
 {
 }
 
-std::list<Node *> NavManager::GetEdgeConnections(Node * node)
+std::list<NavMeshNode *> NavManager::GetEdgeConnections(NavMeshNode * node)
 {
-    std::list<Node *> temp = std::list<Node *>();
+    std::list<NavMeshNode *> temp = std::list<NavMeshNode *>();
 
-    for each (Node::NodeEdge * ne in node->g_edges)
+    for each (NavMeshNode::NavConnection * nc in node->g_connections)
     {
-        if (ne->p_nodeA != node)
+        if (nc->p_nodeA != node)
         {
-            temp.push_back(ne->p_nodeA);
+            temp.push_back(nc->p_nodeA);
         }
         else
         {
-            temp.push_back(ne->p_nodeB);
+            temp.push_back(nc->p_nodeB);
         }
     }
 

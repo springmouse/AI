@@ -3,10 +3,12 @@
 #include <Input.h>
 #include <list>
 #include <Vector2.h>
-#include "Node.h"
 #include "Information.h"
 #include "GetAStarPath.h"
 #include <Texture.h>
+
+#include "MapNode.h"
+#include "NavMeshNode.h"
 
 #define NAVMANAGER NavManager::GetInstanceOfNavManager()
 
@@ -17,6 +19,8 @@ public:
     static NavManager * GetInstanceOfNavManager();
 
     void Update(float deltaTime);
+
+    void CreatNavMesh();
 
     void SetUpStartUpNodeConections();
 
@@ -30,13 +34,16 @@ public:
 
     void Nothing();
 
-    std::list<Node *> GetEdgeConnections(Node * node);
+    std::list<NavMeshNode *> GetEdgeConnections(NavMeshNode * node);
 
-    Node * GetNode(Vector2 pos);
+    NavMeshNode * GetNode(Vector2 pos);
 
+    void SwapDrawToNode();
     ////////////////////////////////////////////////
 
-    std::list<Node *> g_nodes;
+    std::list<MapNode *> g_mapNodes;
+    std::list<NavMeshNode *> g_NavNodes;
+
 
 private:
 
@@ -48,8 +55,10 @@ private:
 
     float m_timer, m_pathTimer;
 
-	std::list<Node *> nodeTest;
+	std::list<NavMeshNode *> nodeTest;
 
     aie::Texture * m_tileTexture[3];
+
+    bool m_drawToNode;
 };
 

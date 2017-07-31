@@ -30,9 +30,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Node.cpp">
-      <Filter>Source Files\PathFinding</Filter>
-    </ClCompile>
     <ClCompile Include="Factory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -66,11 +63,14 @@
     <ClCompile Include="MouseState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="NavMeshNode.cpp">
+      <Filter>Source Files\PathFinding</Filter>
+    </ClCompile>
+    <ClCompile Include="MapNode.cpp">
+      <Filter>Source Files\PathFinding</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Node.h">
-      <Filter>Source Files\PathFinding</Filter>
-    </ClInclude>
     <ClInclude Include="Factory.h">
       <Filter>Source Files</Filter>
     </ClInclude>
@@ -103,6 +103,12 @@
     </ClInclude>
     <ClInclude Include="TypesAndDefines.h">
       <Filter>Source Files\Global</Filter>
+    </ClInclude>
+    <ClInclude Include="MapNode.h">
+      <Filter>Source Files\PathFinding</Filter>
+    </ClInclude>
+    <ClInclude Include="NavMeshNode.h">
+      <Filter>Source Files\PathFinding</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

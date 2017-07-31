@@ -21,7 +21,8 @@ void MouseState::Update(float deltaTime)
     mousePosGameSpace = Vector2((int)mousePosGameSpace.x, (int)mousePosGameSpace.y);
     mousePosGameSpace *= 20;
 
-    mousePosGameSpace.y -= 20;
+    mousePosGameSpace.y -= 30;
+    mousePosGameSpace.x -= 10;
 
     mousePosGUI.x = AIEINPUT->getMouseX();
     mousePosGUI.y = AIEINPUT->getMouseY();

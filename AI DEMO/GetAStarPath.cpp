@@ -19,25 +19,25 @@ GetAStarPath * GetAStarPath::GetInstanceOfpathFinder()
 }
 
 //finds us a path between two nodes
-std::list<Node *> GetAStarPath::FindPath(Vector2 start, Vector2 end)
+std::list<NavMeshNode *> GetAStarPath::FindPath(Vector2 start, Vector2 end)
 {
     //the start Node
-    Node * startNode = NAVMANAGER->GetNode(start);
+    NavMeshNode * startNode = NAVMANAGER->GetNode(start);
 
     //the target node we are trying to get to
-    Node * targetNode = NAVMANAGER->GetNode(end);
+    NavMeshNode * targetNode = NAVMANAGER->GetNode(end);
 
     //if the start or target node does not exist we escape
     if (startNode == nullptr || targetNode == nullptr)
     {
-        std::list<Node *> temp = std::list<Node *>();
+        std::list<NavMeshNode *> temp = std::list<NavMeshNode *>();
         return temp;
     }
 
     //tiles we can look at
-    std::list<Node *> openSet;
+    std::list<NavMeshNode *> openSet;
     //tiles we have looked at
-    std::list<Node *> closedSet;
+    std::list<NavMeshNode *> closedSet;
 
     //we add the start node to the open set so we can begin the search
     openSet.push_back(startNode);
@@ -45,10 +45,10 @@ std::list<Node *> GetAStarPath::FindPath(Vector2 start, Vector2 end)
     while (openSet.size() > 0)
     {
         //sets the node we are currently looking at
-        Node * currentNode = openSet.front();
+        NavMeshNode * currentNode = openSet.front();
 
         //look through the open set to see if there is a better tile with a lower cost wich equal closer too the target (sort of)
-        for (std::list<Node *>::iterator it = openSet.begin(); it != openSet.end(); it++)
+        for (std::list<NavMeshNode *>::iterator it = openSet.begin(); it != openSet.end(); it++)
         {
             if ((*it)->GetFCost() < currentNode->GetFCost())
             {
@@ -74,7 +74,7 @@ std::list<Node *> GetAStarPath::FindPath(Vector2 start, Vector2 end)
         }
 
         //else we get the naiughbours of the current node and add them to the open set
-        for each (Node * N in NAVMANAGER->GetEdgeConnections(currentNode))
+        for each (NavMeshNode * N in NAVMANAGER->GetEdgeConnections(currentNode))
         {
             //if we cant move on the tile we skip over it
             if (N->GetIsPasible() == false || FindInContainer(& closedSet, N))
@@ -101,13 +101,13 @@ std::list<Node *> GetAStarPath::FindPath(Vector2 start, Vector2 end)
     }
 
     //this was added to avoid bad evil crashes where no path could be found
-    std::list<Node *> empty = std::list<Node *>();
+    std::list<NavMeshNode *> empty = std::list<NavMeshNode *>();
     return empty;
 }
 
-bool GetAStarPath::FindInContainer(std::list<Node *> * holder, Node * node)
+bool GetAStarPath::FindInContainer(std::list<NavMeshNode *> * holder, NavMeshNode * node)
 {
-    for each (Node * n in *holder)
+    for each (NavMeshNode * n in *holder)
     {
         if (n == node)
         {
@@ -119,10 +119,10 @@ bool GetAStarPath::FindInContainer(std::list<Node *> * holder, Node * node)
 }
 
 //we retrace the path by following the parents of each node starting at the end moving all the way to the begining
-std::list<Node *>  GetAStarPath::RetracePath(Node * startTile, Node * endTile)
+std::list<NavMeshNode *>  GetAStarPath::RetracePath(NavMeshNode * startTile, NavMeshNode * endTile)
 {
-    std::list<Node *> path;
-    Node * currentTile = endTile;
+    std::list<NavMeshNode *> path;
+    NavMeshNode * currentTile = endTile;
 
     //we keep looping while the current tile
     //dose not equal the stat tile
@@ -145,10 +145,10 @@ std::list<Node *>  GetAStarPath::RetracePath(Node * startTile, Node * endTile)
 
 //this finds the distance between two tile were left right up and down have a cost of 10
 //and diaginoals have a cost of 14
-int GetAStarPath::GetDistance(Node * nodeA, Node * nodeB)
+int GetAStarPath::GetDistance(NavMeshNode * nodeA, NavMeshNode * nodeB)
 {
-    int disX = std::abs(nodeA->GetPos().x - nodeB->GetPos().x);
-    int disY = std::abs(nodeA->GetPos().y - nodeB->GetPos().y);
+    int disX = std::abs(nodeA->GetCenter().x - nodeB->GetCenter().x);
+    int disY = std::abs(nodeA->GetCenter().y - nodeB->GetCenter().y);
 
     if (disX > disY)
     {

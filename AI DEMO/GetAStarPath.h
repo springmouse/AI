@@ -1,6 +1,6 @@
 #pragma once
 #include <list>
-#include "Node.h"
+#include "NavMeshNode.h"
 #include <Vector2.h>
 
 #define PATH_FINDER GetAStarPath::GetInstanceOfpathFinder() /*this creates a static instance of the pathfinder that can be easily called any where*/
@@ -22,10 +22,10 @@ public:
     *
     * Return: a vector of tiles makeing up the path from the start to the end tile
     */
-    std::list<Node *> FindPath(Vector2 start, Vector2 end);
+    std::list<NavMeshNode *> FindPath(Vector2 start, Vector2 end);
 
 
-    bool FindInContainer(std::list<Node *> * holder, Node * n);
+    bool FindInContainer(std::list<NavMeshNode *> * holder, NavMeshNode * n);
 
     /*
     * Function: GetDistance
@@ -40,7 +40,7 @@ public:
     *
     * Return: an int that is the value of the distance between the two tiles
     */
-    int GetDistance(Node * nodeA, Node * nodeB);
+    int GetDistance(NavMeshNode * nodeA, NavMeshNode * nodeB);
 
     /*
     * Function: RetracePath
@@ -54,7 +54,7 @@ public:
     *
     * Return: a vector holding only our path tiles from start to end
     */
-    std::list<Node *>  RetracePath(Node * startTile, Node * endTile);
+    std::list<NavMeshNode *>  RetracePath(NavMeshNode * startTile, NavMeshNode * endTile);
 
     /*
     * Function: GetInstanceOfpathFinder
