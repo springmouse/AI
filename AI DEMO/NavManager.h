@@ -24,6 +24,8 @@ public:
 
     void SetUpStartUpNodeConections();
 
+    void MakeConnectionsToNode(NavMeshNode * nodeA);
+
     void CreatNewNode();
 
     void DestroyNode();
@@ -31,6 +33,8 @@ public:
     void Draw(aie::Renderer2D * m_2dRenderer);
 
 	void ClearParents();
+
+    void Slect();
 
     void Nothing();
 

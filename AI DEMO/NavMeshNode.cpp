@@ -15,13 +15,14 @@ NavMeshNode::NavMeshNode(MapNode & one, MapNode & two, MapNode & three, MapNode 
     m_lowerRightCornor  = & four;
 
     CalculateCenter();
+
+    m_isPassable = true;
 }
 
 NavMeshNode::~NavMeshNode()
 {
+    DeleteAllConections();
 }
-
-
 
 void NavMeshNode::SetAllCornors(MapNode & one, MapNode & two, MapNode & three, MapNode & four)
 {
@@ -105,6 +106,13 @@ void NavMeshNode::Draw(aie::Renderer2D * m_2dRenderer)
     m_2dRenderer->setRenderColour(0, 0.5f, 0.5f, 1);
 
     m_2dRenderer->drawBox(m_centerPoint.x, m_centerPoint.y, 19, 19);
+
+    m_2dRenderer->setRenderColour(0.5f, 0, 0.5f, 1);
+
+    for each (NavConnection * nc in g_connections)
+    {
+        m_2dRenderer->drawLine(nc->p_nodeA->GetCenter().x, nc->p_nodeA->GetCenter().y, nc->p_nodeB->GetCenter().x, nc->p_nodeB->GetCenter().y);
+    }
 
     m_2dRenderer->setRenderColour(1, 1, 1, 1);
 }

@@ -122,6 +122,39 @@ void NavManager::SetUpStartUpNodeConections()
     }
 }
 
+void NavManager::MakeConnectionsToNode(NavMeshNode * nodeA)
+{
+    for each (NavMeshNode * nodeB in g_NavNodes)
+    {
+        if (nodeA != nodeB)
+        {
+            if (nodeA->CheckIfMapNodeIsShared(nodeB->GetUpperLeft()))
+            {
+                nodeA->CheckIfConectionExists(nodeB);
+                nodeA->AddConnection(nodeB);
+            }
+
+            if (nodeA->CheckIfMapNodeIsShared(nodeB->GetLowerLeft()))
+            {
+                nodeA->CheckIfConectionExists(nodeB);
+                nodeA->AddConnection(nodeB);
+            }
+
+            if (nodeA->CheckIfMapNodeIsShared(nodeB->GetUpperRight()))
+            {
+                nodeA->CheckIfConectionExists(nodeB);
+                nodeA->AddConnection(nodeB);
+            }
+
+            if (nodeA->CheckIfMapNodeIsShared(nodeB->GetLowerRight()))
+            {
+                nodeA->CheckIfConectionExists(nodeB);
+                nodeA->AddConnection(nodeB);
+            }
+        }
+    }
+}
+
 void NavManager::Update(float deltaTime)
 {
     if (AIEINPUT->isMouseButtonDown(2))
@@ -143,53 +176,88 @@ void NavManager::Update(float deltaTime)
 
 void NavManager::CreatNewNode()
 {
-    /*for each (Node * n in g_nodes)
+    for each (NavMeshNode * n in g_NavNodes)
     {
-        if (*n == MOUSE->mousePosGameSpace)
+        if (n->CheckIfInMeshBounds(MOUSE->mousePosGameSpace))
         {
             return;
         }
     }
 
-    Node * node = new Node(MOUSE->mousePosGameSpace.x, MOUSE->mousePosGameSpace.y);
+    MapNode * one = nullptr;
+    MapNode * two = nullptr;
+    MapNode * three = nullptr;
+    MapNode * four = nullptr;
 
-    for (int x = -1; x < 2; x++)
+    for each (MapNode * mn  in g_mapNodes)
     {
-        for (int y = -1; y < 2; y++)
+        if (*mn == Vector2(MOUSE->mousePosGameSpace.x - 10, MOUSE->mousePosGameSpace.y + 10))
         {
-            if (x == 0 && y == 0)
-            {
-                continue;
-            }
+            one = mn;
+        }
 
-            for each (Node * n in g_nodes)
-            {
-                if (*n == Vector2(node->GetPos().x + (x * 20), node->GetPos().y + (y * 20)))
-                {
-                    node->AddEdge(n);
-                }
-            }
+        if (*mn == Vector2(MOUSE->mousePosGameSpace.x - 10, MOUSE->mousePosGameSpace.y - 10))
+        {
+            two = mn;
+        }
+
+        if (*mn == Vector2(MOUSE->mousePosGameSpace.x + 10, MOUSE->mousePosGameSpace.y + 10))
+        {
+            three = mn;
+        }
+
+        if (*mn == Vector2(MOUSE->mousePosGameSpace.x + 10, MOUSE->mousePosGameSpace.y - 10))
+        {
+            four = mn;
         }
     }
 
-    g_nodes.push_back(node);*/
+    if (one == nullptr)
+    {
+        one = new MapNode(MOUSE->mousePosGameSpace.x - 10, MOUSE->mousePosGameSpace.y + 10);
+        g_mapNodes.push_back(one);
+    }
+
+    if (two == nullptr)
+    {
+        two = new MapNode(MOUSE->mousePosGameSpace.x - 10, MOUSE->mousePosGameSpace.y - 10);
+        g_mapNodes.push_back(two);
+    }
+
+    if (three == nullptr)
+    {
+        three = new MapNode(MOUSE->mousePosGameSpace.x + 10, MOUSE->mousePosGameSpace.y + 10);
+        g_mapNodes.push_back(three);
+    }
+
+    if (four == nullptr)
+    {
+        four = new MapNode(MOUSE->mousePosGameSpace.x + 10, MOUSE->mousePosGameSpace.y - 10);
+        g_mapNodes.push_back(four);
+    }
+
+    NavMeshNode * node = new NavMeshNode(*one, *two, *three, *four);
+    
+    MakeConnectionsToNode(node);
+
+    g_NavNodes.push_back(node);
 }
 
 void NavManager::DestroyNode()
 {
-   /* Node * n = nullptr;
+    NavMeshNode * n = nullptr;
 
-    for each (Node * N in g_nodes)
+    for each (NavMeshNode * N in g_NavNodes)
     {
-        if (*N == MOUSE->mousePosGameSpace)
+        if (N->CheckIfInMeshBounds(MOUSE->mousePosGameSpace))
         {
             n = N;
         }
     }
 
-    g_nodes.remove(n);
+    g_NavNodes.remove(n);
 
-    delete n;*/
+    delete n;
 }
 
 void NavManager::SwapDrawToNode()
@@ -245,6 +313,11 @@ void NavManager::ClearParents()
 	{
 		n->SetParent(nullptr);
 	}
+}
+
+void NavManager::Slect()
+{
+
 }
 
 void NavManager::Nothing()

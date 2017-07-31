@@ -1,6 +1,4 @@
 ﻿  NavMeshNode.cpp
-  MouseState.cpp
-c:\users\s171669\documents\github\ai\ai demo\mousestate.cpp(19): warning C4244: 'argument': conversion from 'int' to 'realNum', possible loss of data
-c:\users\s171669\documents\github\ai\ai demo\mousestate.cpp(21): warning C4244: 'argument': conversion from 'int' to 'realNum', possible loss of data
+  NavManager.cpp
   Generating Code...
   AI DEMO.vcxproj -> C:\Users\s171669\Documents\GitHub\AI\temp\AI DEMO\Debug\AI DEMO.exe
