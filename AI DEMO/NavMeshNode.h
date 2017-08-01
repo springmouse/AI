@@ -104,7 +104,7 @@ public:
 
     void SetHCost(float set);
 
-    void SetWeightCost(float set);
+    void ModifyWeightCost(float set);
 
     bool GetIsPasible() const;
 

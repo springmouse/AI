@@ -1,4 +1,5 @@
 #include "Factory.h"
+#include "Villager.h"
 
 
 
@@ -41,4 +42,16 @@ GameStates * Factory::MakeState(eGameStateType type)
     }
 
     return p;
+}
+
+Entity * Factory::MakeEntity(eEntityTyes type, Vector2 pos)
+{
+    switch (type)
+    {
+    case VILLAGER:
+        return new Villager(pos);
+    default:
+        return nullptr;
+    }
+
 }

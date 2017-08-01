@@ -40,21 +40,18 @@ void NavMeshNode::SetRightCornors(MapNode & upper, MapNode & lower)
     m_lowerRightCornor = & lower;
     CalculateCenter();
 }
-
 void NavMeshNode::SetLeftCornors(MapNode & upper, MapNode & lower)
 {
     m_upperLeftCornor = & upper;
     m_lowerLeftCornor = & lower;
     CalculateCenter();
 }
-
 void NavMeshNode::SetUpperCornors(MapNode & left, MapNode & right)
 {
     m_upperLeftCornor   = & left;
     m_upperRightCornor  = & right;
     CalculateCenter();
 }
-
 void NavMeshNode::SetLowerCornors(MapNode & left, MapNode & right)
 {
     m_lowerLeftCornor   = & left;
@@ -66,17 +63,14 @@ MapNode * NavMeshNode::GetUpperLeft()
 {
     return m_upperLeftCornor;
 }
-
 MapNode * NavMeshNode::GetLowerLeft()
 {
     return m_lowerLeftCornor;
 }
-
 MapNode * NavMeshNode::GetUpperRight()
 {
     return m_upperRightCornor;
 }
-
 MapNode * NavMeshNode::GetLowerRight()
 {
     return m_lowerRightCornor;
@@ -232,7 +226,7 @@ void NavMeshNode::SetHCost(float set)
     m_hCost = set;
 }
 
-void NavMeshNode::SetWeightCost(float set)
+void NavMeshNode::ModifyWeightCost(float set)
 {
     weightCost += set;
 }

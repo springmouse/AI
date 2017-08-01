@@ -1,5 +1,6 @@
 #pragma once
 #include "GameStates.h"
+#include "Entity.h"
 #include <assert.h>
 
 #define FACTORY Factory::GetInstanceOfFactory() /*lets us call and use the factory*/
@@ -39,6 +40,8 @@ public:
 	*/
     GameStates * MakeState(eGameStateType type);
     
+    Entity * MakeEntity(eEntityTyes type, Vector2 pos);
+
 private:
     /*
     * Function: Constructor

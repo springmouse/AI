@@ -134,6 +134,17 @@ void InGameState::onUpdate(float deltaTime)
 
         NAVMANAGER->Update(deltaTime);
 
+        /////////////////////////////////////////////////////////
+
+        timmer += deltaTime;
+        if (AIEINPUT->isMouseButtonDown(1) && timmer > 1)
+        {
+            m_units.push_back(FACTORY->MakeEntity(eEntityTyes::VILLAGER, MOUSE->mousePosGameSpace));
+        }
+        for each (Entity * e in m_units)
+        {
+            e->Update(deltaTime);
+        }
     }
 }
 
@@ -151,6 +162,12 @@ void InGameState::onDraw(aie::Renderer2D * m_2dRenderer, aie::Font* font)
         m_2dRenderer->setCameraPos(INFOMATION->cameraPos.x, INFOMATION->cameraPos.y);
 
         m_2dRenderer->drawText(font, "press esc to go back to main menu", INFOMATION->cameraPos.x, INFOMATION->cameraPos.y + 10);
+
+        //////////////////////////////////////
+        for each (Entity * e in m_units)
+        {
+            e->Draw(m_2dRenderer);
+        }
     }
 }
 

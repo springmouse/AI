@@ -28,6 +28,15 @@
     <Filter Include="Source Files\Render and GUI">
       <UniqueIdentifier>{90cc541c-a9cf-4529-8e3c-edda57c5f5db}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Objects">
+      <UniqueIdentifier>{8539d3a1-db32-40f9-a21c-31939bbd3b08}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Behaviours">
+      <UniqueIdentifier>{2fca3750-04b1-46bf-9891-b2296b17e7bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Behaviours\DecsicionTree">
+      <UniqueIdentifier>{8e42ccad-15d9-42e8-8600-6a83f73adfb5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Factory.cpp">
@@ -68,6 +77,18 @@
     </ClCompile>
     <ClCompile Include="MapNode.cpp">
       <Filter>Source Files\PathFinding</Filter>
+    </ClCompile>
+    <ClCompile Include="Object.cpp">
+      <Filter>Source Files\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity.cpp">
+      <Filter>Source Files\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerUnitDecsisionTree.cpp">
+      <Filter>Source Files\Behaviours\DecsicionTree</Filter>
+    </ClCompile>
+    <ClCompile Include="Villager.cpp">
+      <Filter>Source Files\Objects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -110,5 +131,22 @@
     <ClInclude Include="NavMeshNode.h">
       <Filter>Source Files\PathFinding</Filter>
     </ClInclude>
+    <ClInclude Include="Object.h">
+      <Filter>Source Files\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity.h">
+      <Filter>Source Files\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerUnitDecsisionTree.h">
+      <Filter>Source Files\Behaviours\DecsicionTree</Filter>
+    </ClInclude>
+    <ClInclude Include="Villager.h">
+      <Filter>Source Files\Objects</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="AI DEMO.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>
