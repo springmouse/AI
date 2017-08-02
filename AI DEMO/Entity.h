@@ -25,5 +25,8 @@ public:
     std::list<NavMeshNode *> m_path;
     NavMeshNode * m_currLocation;
     NavMeshNode * m_previousLocation;
+
+	float m_colourChangeTimer;
+	float m_colour;
 };
 

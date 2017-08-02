@@ -1,6 +1,3 @@
-﻿  Application.cpp
-  Input.cpp
-  imgui_glfw3.cpp
-libsndfile-1.lib(libsndfile-1.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in opengl32.lib(OPENGL32.dll); second definition ignored
+﻿libsndfile-1.lib(libsndfile-1.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in opengl32.lib(OPENGL32.dll); second definition ignored
 OpenAL32.lib(OpenAL32.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in opengl32.lib(OPENGL32.dll); second definition ignored
   Bootstrap.vcxproj -> C:\Users\s171669\Documents\GitHub\AI\temp\Bootstrap\Release\Bootstrap.lib
