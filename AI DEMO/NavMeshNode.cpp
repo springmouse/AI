@@ -17,6 +17,11 @@ NavMeshNode::NavMeshNode(MapNode & one, MapNode & two, MapNode & three, MapNode 
     CalculateCenter();
 
     m_isPassable = true;
+
+    timer = 0;
+    m_weightCost = 0;
+    m_previousWeightCost = 0;
+    m_averageWeightCost = 0;
 }
 
 NavMeshNode::~NavMeshNode()
@@ -76,6 +81,18 @@ MapNode * NavMeshNode::GetLowerRight()
     return m_lowerRightCornor;
 }
 
+void NavMeshNode::Update(float deltaTime)
+{
+    timer += deltaTime;
+
+    if (timer >= 1)
+    {
+        m_averageWeightCost = (m_previousWeightCost + m_weightCost) * 0.5f;
+        m_previousWeightCost = m_weightCost;
+        timer = 0;
+    }
+}
+
 bool NavMeshNode::CheckIfInMeshBounds(Vector2 & worldPos)
 {
     if (worldPos.x >= m_lowerLeftCornor->m_pos.x && worldPos.x <= m_upperRightCornor->m_pos.x
@@ -97,7 +114,11 @@ void NavMeshNode::CalculateCenter()
 
 void NavMeshNode::Draw(aie::Renderer2D * m_2dRenderer)
 {
-    m_2dRenderer->setRenderColour(0, 0.5f, 0.5f, 1);
+    float num = sqrt(m_averageWeightCost * m_averageWeightCost);
+
+    num *= 0.2;
+
+    m_2dRenderer->setRenderColour(num, 0.5f, 0.5f, 1);
 
     m_2dRenderer->drawBox(m_centerPoint.x, m_centerPoint.y, 19, 19);
 
@@ -202,7 +223,7 @@ bool NavMeshNode::GetIsPasible() const
 
 float NavMeshNode::GetFCost() const
 {
-    float cost = (m_hCost + m_gCost + weightCost);
+    float cost = (m_hCost + m_gCost + m_averageWeightCost);
     return cost;
 }
 
@@ -228,7 +249,7 @@ void NavMeshNode::SetHCost(float set)
 
 void NavMeshNode::ModifyWeightCost(float set)
 {
-    weightCost += set;
+    m_weightCost += set;
 }
 
 NavMeshNode * NavMeshNode::GetParent()

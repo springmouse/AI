@@ -157,20 +157,12 @@ void NavManager::MakeConnectionsToNode(NavMeshNode * nodeA)
 
 void NavManager::Update(float deltaTime)
 {
-    if (AIEINPUT->isMouseButtonDown(2))
+    for each (NavMeshNode * nav in g_NavNodes)
     {
-        finish = MOUSE->mousePosGameSpace;
+        nav->Update(deltaTime);
     }
 
     m_pathTimer += deltaTime;
-    if (AIEINPUT->isKeyDown(aie::INPUT_KEY_SPACE) && m_pathTimer >= 1)
-    {
-        nodeTest.clear();
-
-        nodeTest = PATH_FINDER->FindPath(start, finish);
-
-        m_pathTimer = 0;
-    }
 }
 
 
@@ -278,7 +270,6 @@ void NavManager::Draw(aie::Renderer2D * m_2dRenderer)
     {
         nav->Draw(m_2dRenderer);
     }
-
 
     for each (NavMeshNode * n in nodeTest)
     {

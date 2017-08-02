@@ -74,6 +74,8 @@ public:
     MapNode * GetUpperRight();
     MapNode * GetLowerRight();
 
+    void Update(float deltaTime);
+
     bool CheckIfInMeshBounds(Vector2 & worldPos);
 
     void CalculateCenter();
@@ -130,7 +132,11 @@ private:
     float m_gCost;
     float m_hCost;
 
-    float weightCost;
+    float timer;
+
+    float m_weightCost;
+    float m_previousWeightCost;
+    float m_averageWeightCost;
 
     bool m_isPassable; /*this is our static passible bool a and represents things like this tile is a wall*/
 

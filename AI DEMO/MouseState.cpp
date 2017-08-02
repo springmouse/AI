@@ -29,7 +29,7 @@ void MouseState::Update(float deltaTime)
 
     m_timer += deltaTime;
 
-    if (mousestate == States::INGAME && AIEINPUT->isMouseButtonDown(0) && m_timer > 0.1f)
+    if (mousestate == States::INGAME && AIEINPUT->isMouseButtonDown(0) && m_timer > 0.01f)
     {
         m_event();
         m_timer = 0;

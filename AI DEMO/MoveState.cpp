@@ -15,19 +15,6 @@ MoveState::~MoveState()
 
 void MoveState::onUpdate(float deltaTime)
 {
-    /*if (m_myEntity->m_currLocation == nullptr)
-    {
-        m_myEntity->m_currLocation = NAVMANAGER->GetNode(m_myEntity->GetPos());
-        m_myEntity->m_previousLocation = m_myEntity->m_currLocation;
-
-        if (m_myEntity->m_currLocation == nullptr)
-        {
-            m_myEntity->GetPos() = NAVMANAGER->g_NavNodes.front()->GetCenter();
-            m_myEntity->m_currLocation = NAVMANAGER->g_NavNodes.front();
-        }
-    }
-
-
     if (m_myEntity->m_path.size() > 0)
     {
         if (m_myEntity->m_path.front() == nullptr)
@@ -41,6 +28,9 @@ void MoveState::onUpdate(float deltaTime)
             m_myEntity->m_previousLocation = m_myEntity->m_currLocation;
             m_myEntity->m_currLocation = m_myEntity->m_path.front();
 
+            m_myEntity->m_previousLocation->ModifyWeightCost(-1);
+            m_myEntity->m_currLocation->ModifyWeightCost(1);
+
             m_myEntity->m_path.pop_front();
 
             if (m_myEntity->m_path.size() <= 0)
@@ -53,8 +43,6 @@ void MoveState::onUpdate(float deltaTime)
         move -= m_myEntity->GetPos();
         move.normalise();
 
-        move *= 10;
-
         m_myEntity->UpdatePos((move * deltaTime) * 10);
-    }*/
+    }
 }
