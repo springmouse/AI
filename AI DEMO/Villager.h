@@ -2,6 +2,7 @@
 #include "Entity.h"
 
 class PlayerUnitDecsisionTree;
+class EntityStateMachine;
 
 
 
@@ -20,6 +21,6 @@ public:
 private:
 
     PlayerUnitDecsisionTree * m_decsisionTree;
-
+    EntityStateMachine * m_stateMachine;
 };
 

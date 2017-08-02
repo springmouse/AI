@@ -15,6 +15,8 @@ protected:
 
 public:
 
+    void UpdatePos(Vector2 pos) { m_pos += pos; };
+
     Vector2 GetPos() { return m_pos; };
 
     Object();

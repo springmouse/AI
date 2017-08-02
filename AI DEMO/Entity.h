@@ -24,5 +24,6 @@ public:
     Vector2 m_target;
     std::list<NavMeshNode *> m_path;
     NavMeshNode * m_currLocation;
+    NavMeshNode * m_previousLocation;
 };
 

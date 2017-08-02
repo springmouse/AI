@@ -1,4 +1,5 @@
 #include "Factory.h"
+#include "MoveState.h"
 #include "Villager.h"
 
 
@@ -55,3 +56,16 @@ Entity * Factory::MakeEntity(eEntityTyes type, Vector2 pos)
     }
 
 }
+
+EntityStates * Factory::MakeEntityState(eEntityStateType type, Entity * unit)
+{
+    switch (type)
+    {
+    case MOVE:
+        return new MoveState(unit);
+
+    default:
+        return nullptr;
+    }
+}
+

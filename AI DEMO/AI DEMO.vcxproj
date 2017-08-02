@@ -96,6 +96,7 @@
     <ClCompile Include="AI_DEMOApp.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="EntityStateMachine.cpp" />
     <ClCompile Include="Factory.cpp" />
     <ClCompile Include="GameStateManagmeant.cpp" />
     <ClCompile Include="GameStates.cpp" />
@@ -104,6 +105,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MapNode.cpp" />
     <ClCompile Include="MouseState.cpp" />
+    <ClCompile Include="MoveState.cpp" />
     <ClCompile Include="NavManager.cpp" />
     <ClCompile Include="NavMeshNode.cpp" />
     <ClCompile Include="Object.cpp" />
@@ -115,6 +117,8 @@
     <ClInclude Include="AI_DEMOApp.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="Entity.h" />
+    <ClInclude Include="EntityStateMachine.h" />
+    <ClInclude Include="EntityStates.h" />
     <ClInclude Include="Factory.h" />
     <ClInclude Include="GameStateManagmeant.h" />
     <ClInclude Include="GameStates.h" />
@@ -122,6 +126,7 @@
     <ClInclude Include="Information.h" />
     <ClInclude Include="MapNode.h" />
     <ClInclude Include="MouseState.h" />
+    <ClInclude Include="MoveState.h" />
     <ClInclude Include="NavManager.h" />
     <ClInclude Include="NavMeshNode.h" />
     <ClInclude Include="Object.h" />
@@ -129,9 +134,6 @@
     <ClInclude Include="RenderToMesh.h" />
     <ClInclude Include="TypesAndDefines.h" />
     <ClInclude Include="Villager.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="AI DEMO.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

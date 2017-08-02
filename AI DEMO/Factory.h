@@ -1,5 +1,6 @@
 #pragma once
 #include "GameStates.h"
+#include "EntityStates.h"
 #include "Entity.h"
 #include <assert.h>
 
@@ -41,6 +42,8 @@ public:
     GameStates * MakeState(eGameStateType type);
     
     Entity * MakeEntity(eEntityTyes type, Vector2 pos);
+
+    EntityStates * MakeEntityState(eEntityStateType type, Entity * unit);
 
 private:
     /*

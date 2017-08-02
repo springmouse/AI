@@ -37,6 +37,9 @@
     <Filter Include="Source Files\Behaviours\DecsicionTree">
       <UniqueIdentifier>{8e42ccad-15d9-42e8-8600-6a83f73adfb5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Behaviours\StateMachine">
+      <UniqueIdentifier>{ed96be66-f0c0-4a26-8e79-3435d5839124}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Factory.cpp">
@@ -89,6 +92,12 @@
     </ClCompile>
     <ClCompile Include="Villager.cpp">
       <Filter>Source Files\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="EntityStateMachine.cpp">
+      <Filter>Source Files\Behaviours\StateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="MoveState.cpp">
+      <Filter>Source Files\Behaviours\StateMachine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -143,10 +152,14 @@
     <ClInclude Include="Villager.h">
       <Filter>Source Files\Objects</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="AI DEMO.rc">
-      <Filter>Resource Files</Filter>
-    </ResourceCompile>
+    <ClInclude Include="EntityStateMachine.h">
+      <Filter>Source Files\Behaviours\StateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityStates.h">
+      <Filter>Source Files\Behaviours\StateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveState.h">
+      <Filter>Source Files\Behaviours\StateMachine</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

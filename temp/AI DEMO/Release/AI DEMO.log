@@ -1,8 +1,8 @@
 ﻿  Villager.cpp
   Generating code
-  1 of 3305 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
+  1 of 3398 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    3 functions had inline decision re-evaluated but remain unchanged
+    1 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
 MathsLibary.lib(Vector2.obj) : warning LNK4099: PDB 'MathsLibary.pdb' was not found with 'MathsLibary.lib(Vector2.obj)' or at 'C:\Users\s171669\Documents\GitHub\AI\temp\AI DEMO\Release\MathsLibary.pdb'; linking object as if no debug info
 MathsLibary.lib(Vector4.obj) : warning LNK4099: PDB 'MathsLibary.pdb' was not found with 'MathsLibary.lib(Vector4.obj)' or at 'C:\Users\s171669\Documents\GitHub\AI\temp\AI DEMO\Release\MathsLibary.pdb'; linking object as if no debug info
