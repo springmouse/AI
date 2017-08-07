@@ -2,10 +2,12 @@
 #include "MapNode.h"
 #include <list>
 #include <Renderer2D.h>
+#include "TypesAndDefines.h"
 
 class NavMeshNode
 {
 public:
+
 
     class NavConnection
     {
@@ -15,7 +17,7 @@ public:
     public:
         NavConnection() {};
 
-        NavConnection(NavMeshNode * nodeA, NavMeshNode * nodeB)
+        NavConnection(SharedMeshPtr nodeA, SharedMeshPtr nodeB)
         {
             p_nodeA = nodeA;
             p_nodeB = nodeB;
@@ -23,8 +25,8 @@ public:
 
         ~NavConnection() {};
 
-        NavMeshNode * p_nodeA;
-        NavMeshNode * p_nodeB;
+        SharedMeshPtr p_nodeA;
+        SharedMeshPtr p_nodeB;
 
         bool operator== (const NavConnection & other)
         {
@@ -38,7 +40,7 @@ public:
 
         bool operator== (NavMeshNode & other)
         {
-            if (other == *p_nodeA || other == *p_nodeB)
+            if (other == p_nodeA || other == p_nodeB)
             {
                 return true;
             }
@@ -57,22 +59,25 @@ public:
 
     };
 
+
+    typedef std::shared_ptr<NavConnection> sharedNavConnectionPtr;
+
     NavMeshNode();
-    NavMeshNode(MapNode & one, MapNode & two, MapNode & three, MapNode & four);
+    NavMeshNode(SharedMapNodePtr one, SharedMapNodePtr two, SharedMapNodePtr three, SharedMapNodePtr four);
 
     ~NavMeshNode();
 
-    void SetAllCornors(MapNode & one, MapNode & two, MapNode & three, MapNode & four);
+    void SetAllCornors(SharedMapNodePtr one, SharedMapNodePtr two, SharedMapNodePtr three, SharedMapNodePtr four);
 
-    void SetRightCornors(MapNode & upper, MapNode & lower);
-    void SetLeftCornors(MapNode & upper, MapNode & lower);
-    void SetUpperCornors(MapNode & left, MapNode & right);
-    void SetLowerCornors(MapNode & left, MapNode & right);
+    void SetRightCornors(SharedMapNodePtr upper, SharedMapNodePtr lower);
+    void SetLeftCornors(SharedMapNodePtr upper, SharedMapNodePtr lower);
+    void SetUpperCornors(SharedMapNodePtr left, SharedMapNodePtr right);
+    void SetLowerCornors(SharedMapNodePtr left, SharedMapNodePtr right);
 
-    MapNode * GetUpperLeft();
-    MapNode * GetLowerLeft();
-    MapNode * GetUpperRight();
-    MapNode * GetLowerRight();
+    SharedMapNodePtr GetUpperLeft();
+    SharedMapNodePtr GetLowerLeft();
+    SharedMapNodePtr GetUpperRight();
+    SharedMapNodePtr GetLowerRight();
 
     void Update(float deltaTime);
 
@@ -86,15 +91,15 @@ public:
 
     Vector2 GetCenter() const;
 
-    bool CheckIfMapNodeIsShared(MapNode * mn);
+    bool CheckIfMapNodeIsShared(SharedMapNodePtr mn);
 
-    void AddConnection(NavMeshNode * nodeB);
+    void AddConnection(SharedMeshPtr nodeB);
 
-    bool CheckIfConectionExists(NavMeshNode * nodeB);
+    bool CheckIfConectionExists(SharedMeshPtr nodeB);
 
     void DeleteAllConections();
 
-    void DeleteConection(NavConnection * ne);
+    void DeleteConection(sharedNavConnectionPtr ne);
 
     float GetFCost() const;
 
@@ -110,22 +115,22 @@ public:
 
     bool GetIsPasible() const;
 
-    NavMeshNode * GetParent();
+    SharedMeshPtr GetParent();
 
-    void SetParent(NavMeshNode * parent);
+    void SetParent(SharedMeshPtr parent);
 
-    bool operator== (const NavMeshNode & other);
+    bool operator== (const SharedMeshPtr other);
 
     bool operator== (Vector2 & other);
 
-    std::list<NavConnection *> g_connections;
+    std::list<sharedNavConnectionPtr> g_connections;
 
 private:
     
-    MapNode * m_upperLeftCornor;
-    MapNode * m_lowerLeftCornor;
-    MapNode * m_upperRightCornor;
-    MapNode * m_lowerRightCornor;
+    SharedMapNodePtr m_upperLeftCornor;
+    SharedMapNodePtr m_lowerLeftCornor;
+    SharedMapNodePtr m_upperRightCornor;
+    SharedMapNodePtr m_lowerRightCornor;
 
     Vector2 m_centerPoint;
 
@@ -140,6 +145,6 @@ private:
 
     bool m_isPassable; /*this is our static passible bool a and represents things like this tile is a wall*/
 
-    NavMeshNode * m_pParent; /*this is the tiles parent used to find the path in the A* pathfinding calculations by retracing the path of parents leading from the end tile to the start tile*/
+    SharedMeshPtr m_pParent; /*this is the tiles parent used to find the path in the A* pathfinding calculations by retracing the path of parents leading from the end tile to the start tile*/
 };
 

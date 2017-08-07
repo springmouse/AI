@@ -19,25 +19,25 @@ GetAStarPath * GetAStarPath::GetInstanceOfpathFinder()
 }
 
 //finds us a path between two nodes
-std::list<NavMeshNode *> GetAStarPath::FindPath(Vector2 start, Vector2 end)
+std::list<SharedMeshPtr> GetAStarPath::FindPath(Vector2 start, Vector2 end)
 {
     //the start Node
-    NavMeshNode * startNode = NAVMANAGER->GetNode(start);
+    SharedMeshPtr startNode = NAVMANAGER->GetNode(start);
 
     //the target node we are trying to get to
-    NavMeshNode * targetNode = NAVMANAGER->GetNode(end);
+    SharedMeshPtr targetNode = NAVMANAGER->GetNode(end);
 
     //if the start or target node does not exist we escape
     if (startNode == nullptr || targetNode == nullptr)
     {
-        std::list<NavMeshNode *> temp = std::list<NavMeshNode *>();
+        std::list<SharedMeshPtr> temp = std::list<SharedMeshPtr>();
         return temp;
     }
 
     //tiles we can look at
-    std::list<NavMeshNode *> openSet;
+    std::list<SharedMeshPtr> openSet;
     //tiles we have looked at
-    std::list<NavMeshNode *> closedSet;
+    std::list<SharedMeshPtr> closedSet;
 
     //we add the start node to the open set so we can begin the search
     openSet.push_back(startNode);
@@ -45,10 +45,10 @@ std::list<NavMeshNode *> GetAStarPath::FindPath(Vector2 start, Vector2 end)
     while (openSet.size() > 0)
     {
         //sets the node we are currently looking at
-        NavMeshNode * currentNode = openSet.front();
+        SharedMeshPtr currentNode = openSet.front();
 
         //look through the open set to see if there is a better tile with a lower cost wich equal closer too the target (sort of)
-        for (std::list<NavMeshNode *>::iterator it = openSet.begin(); it != openSet.end(); it++)
+        for (std::list<SharedMeshPtr>::iterator it = openSet.begin(); it != openSet.end(); it++)
         {
             if ((*it)->GetFCost() < currentNode->GetFCost())
             {
@@ -67,14 +67,14 @@ std::list<NavMeshNode *> GetAStarPath::FindPath(Vector2 start, Vector2 end)
         closedSet.push_back(currentNode);
 
         //if the current tile is equal to the target tile we have reached the end of the path
-        if (*currentNode == *targetNode)
+        if (currentNode == targetNode)
         {
             //we retrace the path add that to a new vector only holding the path tiles and return that
             return RetracePath(startNode, currentNode);;
         }
 
         //else we get the naiughbours of the current node and add them to the open set
-        for each (NavMeshNode * N in NAVMANAGER->GetEdgeConnections(currentNode))
+        for each (SharedMeshPtr N in NAVMANAGER->GetEdgeConnections(currentNode))
         {
             //if we cant move on the tile we skip over it
             if (N->GetIsPasible() == false || FindInContainer(& closedSet, N))
@@ -101,13 +101,13 @@ std::list<NavMeshNode *> GetAStarPath::FindPath(Vector2 start, Vector2 end)
     }
 
     //this was added to avoid bad evil crashes where no path could be found
-    std::list<NavMeshNode *> empty = std::list<NavMeshNode *>();
+    std::list<SharedMeshPtr> empty = std::list<SharedMeshPtr>();
     return empty;
 }
 
-bool GetAStarPath::FindInContainer(std::list<NavMeshNode *> * holder, NavMeshNode * node)
+bool GetAStarPath::FindInContainer(std::list<SharedMeshPtr> * holder, SharedMeshPtr node)
 {
-    for each (NavMeshNode * n in *holder)
+    for each (SharedMeshPtr n in *holder)
     {
         if (n == node)
         {
@@ -119,10 +119,10 @@ bool GetAStarPath::FindInContainer(std::list<NavMeshNode *> * holder, NavMeshNod
 }
 
 //we retrace the path by following the parents of each node starting at the end moving all the way to the begining
-std::list<NavMeshNode *>  GetAStarPath::RetracePath(NavMeshNode * startTile, NavMeshNode * endTile)
+std::list<SharedMeshPtr>  GetAStarPath::RetracePath(SharedMeshPtr startTile, SharedMeshPtr endTile)
 {
-    std::list<NavMeshNode *> path;
-    NavMeshNode * currentTile = endTile;
+    std::list<SharedMeshPtr> path;
+    SharedMeshPtr currentTile = endTile;
 
     //we keep looping while the current tile
     //dose not equal the stat tile
@@ -136,8 +136,10 @@ std::list<NavMeshNode *>  GetAStarPath::RetracePath(NavMeshNode * startTile, Nav
     //and not end tile to start tile
     std::reverse(path.begin(), path.end());
 
-	//makes sure the nodes dont have random loss paths
-	//NAVMANAGER->ClearParents();
+    for each (SharedMeshPtr n in path)
+    {
+        n->SetParent(nullptr);
+    }
 
     //we return the path
     return path;
@@ -145,7 +147,7 @@ std::list<NavMeshNode *>  GetAStarPath::RetracePath(NavMeshNode * startTile, Nav
 
 //this finds the distance between two tile were left right up and down have a cost of 10
 //and diaginoals have a cost of 14
-int GetAStarPath::GetDistance(NavMeshNode * nodeA, NavMeshNode * nodeB)
+int GetAStarPath::GetDistance(SharedMeshPtr nodeA, SharedMeshPtr nodeB)
 {
     int disX = std::abs(nodeA->GetCenter().x - nodeB->GetCenter().x);
     int disY = std::abs(nodeA->GetCenter().y - nodeB->GetCenter().y);

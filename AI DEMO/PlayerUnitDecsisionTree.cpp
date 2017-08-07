@@ -94,7 +94,7 @@ void PlayerUnitDecsisionTree::CreatNodes()
     {
         int random = std::rand() % NAVMANAGER->g_NavNodes.size();
 
-        for each (NavMeshNode * n in NAVMANAGER->g_NavNodes)
+        for each (SharedMeshPtr n in NAVMANAGER->g_NavNodes)
         {
             random--;
             if (random == 0)

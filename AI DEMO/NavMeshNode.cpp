@@ -7,12 +7,12 @@ NavMeshNode::NavMeshNode()
 }
 
 
-NavMeshNode::NavMeshNode(MapNode & one, MapNode & two, MapNode & three, MapNode & four)
+NavMeshNode::NavMeshNode(SharedMapNodePtr one, SharedMapNodePtr two, SharedMapNodePtr three, SharedMapNodePtr four)
 {
-    m_upperLeftCornor   = & one;
-    m_lowerLeftCornor   = & two;
-    m_upperRightCornor  = & three;
-    m_lowerRightCornor  = & four;
+    m_upperLeftCornor   = one;
+    m_lowerLeftCornor   = two;
+    m_upperRightCornor  = three;
+    m_lowerRightCornor  = four;
 
     CalculateCenter();
 
@@ -29,54 +29,53 @@ NavMeshNode::~NavMeshNode()
     DeleteAllConections();
 }
 
-void NavMeshNode::SetAllCornors(MapNode & one, MapNode & two, MapNode & three, MapNode & four)
+void NavMeshNode::SetAllCornors(SharedMapNodePtr one, SharedMapNodePtr two, SharedMapNodePtr three, SharedMapNodePtr four)
 {
-    m_upperLeftCornor = &one;
-    m_lowerLeftCornor = &two;
-    m_upperRightCornor = &three;
-    m_lowerRightCornor = &four;
-
+    m_upperLeftCornor   = one;
+    m_lowerLeftCornor   = two;
+    m_upperRightCornor  = three;
+    m_lowerRightCornor  = four;
     CalculateCenter();
 }
 
-void NavMeshNode::SetRightCornors(MapNode & upper, MapNode & lower)
+void NavMeshNode::SetRightCornors(SharedMapNodePtr upper, SharedMapNodePtr lower)
 {
-    m_upperRightCornor = & upper;
-    m_lowerRightCornor = & lower;
+    m_upperRightCornor = upper;
+    m_lowerRightCornor = lower;
     CalculateCenter();
 }
-void NavMeshNode::SetLeftCornors(MapNode & upper, MapNode & lower)
+void NavMeshNode::SetLeftCornors(SharedMapNodePtr upper, SharedMapNodePtr lower)
 {
-    m_upperLeftCornor = & upper;
-    m_lowerLeftCornor = & lower;
+    m_upperLeftCornor = upper;
+    m_lowerLeftCornor = lower;
     CalculateCenter();
 }
-void NavMeshNode::SetUpperCornors(MapNode & left, MapNode & right)
+void NavMeshNode::SetUpperCornors(SharedMapNodePtr left, SharedMapNodePtr right)
 {
-    m_upperLeftCornor   = & left;
-    m_upperRightCornor  = & right;
+    m_upperLeftCornor   = left;
+    m_upperRightCornor  = right;
     CalculateCenter();
 }
-void NavMeshNode::SetLowerCornors(MapNode & left, MapNode & right)
+void NavMeshNode::SetLowerCornors(SharedMapNodePtr left, SharedMapNodePtr right)
 {
-    m_lowerLeftCornor   = & left;
-    m_lowerRightCornor  = & right;
+    m_lowerLeftCornor   = left;
+    m_lowerRightCornor  = right;
     CalculateCenter();
 }
 
-MapNode * NavMeshNode::GetUpperLeft()
+SharedMapNodePtr NavMeshNode::GetUpperLeft()
 {
     return m_upperLeftCornor;
 }
-MapNode * NavMeshNode::GetLowerLeft()
+SharedMapNodePtr NavMeshNode::GetLowerLeft()
 {
     return m_lowerLeftCornor;
 }
-MapNode * NavMeshNode::GetUpperRight()
+SharedMapNodePtr NavMeshNode::GetUpperRight()
 {
     return m_upperRightCornor;
 }
-MapNode * NavMeshNode::GetLowerRight()
+SharedMapNodePtr NavMeshNode::GetLowerRight()
 {
     return m_lowerRightCornor;
 }
@@ -124,7 +123,7 @@ void NavMeshNode::Draw(aie::Renderer2D * m_2dRenderer)
 
     m_2dRenderer->setRenderColour(0.5f, 0, 0.5f, 1);
 
-    for each (NavConnection * nc in g_connections)
+    for each (sharedNavConnectionPtr nc in g_connections)
     {
         m_2dRenderer->drawLine(nc->p_nodeA->GetCenter().x, nc->p_nodeA->GetCenter().y, nc->p_nodeB->GetCenter().x, nc->p_nodeB->GetCenter().y);
     }
@@ -142,24 +141,24 @@ Vector2 NavMeshNode::GetCenter() const
     return m_centerPoint;
 }
 
-bool NavMeshNode::CheckIfMapNodeIsShared(MapNode * mn)
+bool NavMeshNode::CheckIfMapNodeIsShared(SharedMapNodePtr mn)
 {
-    if (*mn == *m_upperLeftCornor)
+    if (mn == m_upperLeftCornor)
     {
         return true;
     }
 
-    if (*mn == *m_lowerLeftCornor)
+    if (mn == m_lowerLeftCornor)
     {
         return true;
     }
 
-    if (*mn == *m_upperRightCornor)
+    if (mn == m_upperRightCornor)
     {
         return true;
     }
 
-    if (*mn == *m_lowerRightCornor)
+    if (mn == m_lowerRightCornor)
     {
         return true;
     }
@@ -167,16 +166,16 @@ bool NavMeshNode::CheckIfMapNodeIsShared(MapNode * mn)
     return false;
 }
 
-void NavMeshNode::AddConnection(NavMeshNode * nodeB)
+void NavMeshNode::AddConnection(SharedMeshPtr nodeB)
 {
-    NavConnection * edge = new NavConnection(this, nodeB);
+    sharedNavConnectionPtr edge = sharedNavConnectionPtr(new NavConnection(SharedMeshPtr(this), nodeB));
     g_connections.push_back(edge);
     nodeB->g_connections.push_back(edge);
 }
 
-bool NavMeshNode::CheckIfConectionExists(NavMeshNode * nodeB)
+bool NavMeshNode::CheckIfConectionExists(SharedMeshPtr nodeB)
 {
-    for each (NavConnection * navConnection in g_connections)
+    for each (sharedNavConnectionPtr navConnection in g_connections)
     {
         if (*navConnection == *nodeB)
         {
@@ -189,13 +188,13 @@ bool NavMeshNode::CheckIfConectionExists(NavMeshNode * nodeB)
 
 void NavMeshNode::DeleteAllConections()
 {
-    for each (NavConnection * nc in g_connections)
+    for each (sharedNavConnectionPtr nc in g_connections)
     {
-        if (nc->p_nodeA != this)
+        if (nc->p_nodeA != SharedMeshPtr(this))
         {
             nc->p_nodeA->DeleteConection(nc);
         }
-        else if (nc->p_nodeB != this)
+        else if (nc->p_nodeB != SharedMeshPtr(this))
         {
             nc->p_nodeB->DeleteConection(nc);
         }
@@ -204,7 +203,7 @@ void NavMeshNode::DeleteAllConections()
     g_connections.clear();
 }
 
-void NavMeshNode::DeleteConection(NavConnection * ne)
+void NavMeshNode::DeleteConection(sharedNavConnectionPtr ne)
 {
     g_connections.remove(ne);
 }
@@ -252,19 +251,19 @@ void NavMeshNode::ModifyWeightCost(float set)
     m_weightCost += set;
 }
 
-NavMeshNode * NavMeshNode::GetParent()
+SharedMeshPtr NavMeshNode::GetParent()
 {
     return m_pParent;
 }
 
-void NavMeshNode::SetParent(NavMeshNode * parent)
+void NavMeshNode::SetParent(SharedMeshPtr parent)
 {
     m_pParent = parent;
 }
 
-bool NavMeshNode::operator==(const NavMeshNode & other)
+bool NavMeshNode::operator==(const SharedMeshPtr other)
 {
-    if (other.GetCenter() == m_centerPoint)
+    if (other->GetCenter() == m_centerPoint)
     {
         return true;
     }

@@ -1,5 +1,15 @@
 #pragma once
 #include <functional>
+#include <memory>
+
+
+class NavMeshNode;
+class MapNode;
+class Entity;
+
+typedef std::shared_ptr<MapNode>        SharedMapNodePtr;
+typedef std::shared_ptr<NavMeshNode>     SharedMeshPtr;
+typedef std::shared_ptr<Entity>         SharedEntityPtr;
 
 #define myFUNC_0(ret_)                      std::function<##ret_()>
 #define myBIND_0(func_, objectAddr_)        std::bind(&##func_,##objectAddr_)

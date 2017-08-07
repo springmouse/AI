@@ -5,6 +5,7 @@
 #include <Vector2.h>
 #include "Information.h"
 #include "GetAStarPath.h"
+#include "TypesAndDefines.h"
 #include <Texture.h>
 
 #include "MapNode.h"
@@ -24,7 +25,7 @@ public:
 
     void SetUpStartUpNodeConections();
 
-    void MakeConnectionsToNode(NavMeshNode * nodeA);
+    void MakeConnectionsToNode(SharedMeshPtr nodeA);
 
     void CreatNewNode();
 
@@ -38,15 +39,15 @@ public:
 
     void Nothing();
 
-    std::list<NavMeshNode *> GetEdgeConnections(NavMeshNode * node);
+    std::list<SharedMeshPtr> GetEdgeConnections(SharedMeshPtr node);
 
-    NavMeshNode * GetNode(Vector2 pos);
+    SharedMeshPtr GetNode(Vector2 pos);
 
     void SwapDrawToNode();
     ////////////////////////////////////////////////
 
-    std::list<MapNode *> g_mapNodes;
-    std::list<NavMeshNode *> g_NavNodes;
+    std::list<SharedMapNodePtr> g_mapNodes;
+    std::list<SharedMeshPtr> g_NavNodes;
 
 
 private:

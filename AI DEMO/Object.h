@@ -1,6 +1,7 @@
 #pragma once
 #include <Vector2.h>
 #include <Renderer2D.h>
+#include "TypesAndDefines.h"
 
 class Object
 {

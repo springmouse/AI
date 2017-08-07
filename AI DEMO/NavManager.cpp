@@ -16,7 +16,7 @@ NavManager::NavManager()
     {
         for (int y = 0; y < 20; y++)
         {
-            g_mapNodes.push_back(new MapNode(x * INFOMATION->nodeSize, y * INFOMATION->nodeSize));
+            g_mapNodes.push_back(SharedMapNodePtr(new MapNode(x * INFOMATION->nodeSize, y * INFOMATION->nodeSize)));
         }
     }
 
@@ -44,17 +44,17 @@ NavManager::~NavManager()
 
 void NavManager::CreatNavMesh()
 {
-    for each (MapNode * nodeA in g_mapNodes)
+    for each (SharedMapNodePtr nodeA in g_mapNodes)
     {
-        MapNode * one = nullptr;
+        SharedMapNodePtr one = nullptr;
 
-        MapNode * two = nodeA;
+        SharedMapNodePtr two = nodeA;
 
-        MapNode * three = nullptr;
-        MapNode * four = nullptr;
+        SharedMapNodePtr three = nullptr;
+        SharedMapNodePtr four = nullptr;
 
         int count = 0;
-        for each (MapNode * nodeB in g_mapNodes)
+        for each (SharedMapNodePtr nodeB in g_mapNodes)
         {
             //Upper Left
             if (*nodeB == Vector2(nodeA->m_pos.x, nodeA->m_pos.y + INFOMATION->nodeSize))
@@ -79,7 +79,7 @@ void NavManager::CreatNavMesh()
 
             if (count == 3)
             {
-                g_NavNodes.push_back(new NavMeshNode(*one, *two, *three, *four));
+                g_NavNodes.push_back(SharedMeshPtr(new NavMeshNode(one, two, three, four)));
                 break;
             }
         }
@@ -88,43 +88,51 @@ void NavManager::CreatNavMesh()
 
 void NavManager::SetUpStartUpNodeConections()
 {
-    for each (NavMeshNode * nodeA in g_NavNodes)
+    for each (SharedMeshPtr nodeA in g_NavNodes)
     {
-        for each (NavMeshNode * nodeB in g_NavNodes)
+        for each (SharedMeshPtr nodeB in g_NavNodes)
         {
             if (nodeA != nodeB)
             {
                 if (nodeA->CheckIfMapNodeIsShared(nodeB->GetUpperLeft()))
                 {
-                    nodeA->CheckIfConectionExists(nodeB);
-                    nodeA->AddConnection(nodeB);
+                    if (nodeA->CheckIfConectionExists(nodeB) == false)
+                    {
+                        nodeA->AddConnection(nodeB);
+                    }
                 }
                 
                 if (nodeA->CheckIfMapNodeIsShared(nodeB->GetLowerLeft()))
                 {
-                    nodeA->CheckIfConectionExists(nodeB);
-                    nodeA->AddConnection(nodeB);
+                    if (nodeA->CheckIfConectionExists(nodeB) == false)
+                    {
+                        nodeA->AddConnection(nodeB);
+                    }                    
                 }
 
                 if (nodeA->CheckIfMapNodeIsShared(nodeB->GetUpperRight()))
                 {
-                    nodeA->CheckIfConectionExists(nodeB);
-                    nodeA->AddConnection(nodeB);
+                    if (nodeA->CheckIfConectionExists(nodeB) == false)
+                    {
+                        nodeA->AddConnection(nodeB);
+                    }                    
                 }
 
                 if (nodeA->CheckIfMapNodeIsShared(nodeB->GetLowerRight()))
                 {
-                    nodeA->CheckIfConectionExists(nodeB);
-                    nodeA->AddConnection(nodeB);
+                    if (nodeA->CheckIfConectionExists(nodeB) == false)
+                    {
+                        nodeA->AddConnection(nodeB);
+                    }
                 }
             }
         }
     }
 }
 
-void NavManager::MakeConnectionsToNode(NavMeshNode * nodeA)
+void NavManager::MakeConnectionsToNode(SharedMeshPtr nodeA)
 {
-    for each (NavMeshNode * nodeB in g_NavNodes)
+    for each (SharedMeshPtr nodeB in g_NavNodes)
     {
         if (nodeA != nodeB)
         {
@@ -157,7 +165,7 @@ void NavManager::MakeConnectionsToNode(NavMeshNode * nodeA)
 
 void NavManager::Update(float deltaTime)
 {
-    for each (NavMeshNode * nav in g_NavNodes)
+    for each (SharedMeshPtr nav in g_NavNodes)
     {
         nav->Update(deltaTime);
     }
@@ -168,7 +176,7 @@ void NavManager::Update(float deltaTime)
 
 void NavManager::CreatNewNode()
 {
-    for each (NavMeshNode * n in g_NavNodes)
+    for each (SharedMeshPtr n in g_NavNodes)
     {
         if (n->CheckIfInMeshBounds(MOUSE->mousePosGameSpace))
         {
@@ -176,12 +184,12 @@ void NavManager::CreatNewNode()
         }
     }
 
-    MapNode * one = nullptr;
-    MapNode * two = nullptr;
-    MapNode * three = nullptr;
-    MapNode * four = nullptr;
+    SharedMapNodePtr one = nullptr;
+    SharedMapNodePtr two = nullptr;
+    SharedMapNodePtr three = nullptr;
+    SharedMapNodePtr four = nullptr;
 
-    for each (MapNode * mn  in g_mapNodes)
+    for each (SharedMapNodePtr mn  in g_mapNodes)
     {
         if (*mn == Vector2(MOUSE->mousePosGameSpace.x - 10, MOUSE->mousePosGameSpace.y + 10))
         {
@@ -206,29 +214,29 @@ void NavManager::CreatNewNode()
 
     if (one == nullptr)
     {
-        one = new MapNode(MOUSE->mousePosGameSpace.x - 10, MOUSE->mousePosGameSpace.y + 10);
+        one = SharedMapNodePtr(new MapNode(MOUSE->mousePosGameSpace.x - 10, MOUSE->mousePosGameSpace.y + 10));
         g_mapNodes.push_back(one);
     }
 
     if (two == nullptr)
     {
-        two = new MapNode(MOUSE->mousePosGameSpace.x - 10, MOUSE->mousePosGameSpace.y - 10);
+        two = SharedMapNodePtr(new MapNode(MOUSE->mousePosGameSpace.x - 10, MOUSE->mousePosGameSpace.y - 10));
         g_mapNodes.push_back(two);
     }
 
     if (three == nullptr)
     {
-        three = new MapNode(MOUSE->mousePosGameSpace.x + 10, MOUSE->mousePosGameSpace.y + 10);
+        three = SharedMapNodePtr(new MapNode(MOUSE->mousePosGameSpace.x + 10, MOUSE->mousePosGameSpace.y + 10));
         g_mapNodes.push_back(three);
     }
 
     if (four == nullptr)
     {
-        four = new MapNode(MOUSE->mousePosGameSpace.x + 10, MOUSE->mousePosGameSpace.y - 10);
+        four = SharedMapNodePtr(new MapNode(MOUSE->mousePosGameSpace.x + 10, MOUSE->mousePosGameSpace.y - 10));
         g_mapNodes.push_back(four);
     }
 
-    NavMeshNode * node = new NavMeshNode(*one, *two, *three, *four);
+    SharedMeshPtr node = SharedMeshPtr(new NavMeshNode(one, two, three, four));
     
     MakeConnectionsToNode(node);
 
@@ -237,9 +245,9 @@ void NavManager::CreatNewNode()
 
 void NavManager::DestroyNode()
 {
-    NavMeshNode * n = nullptr;
+    SharedMeshPtr n = nullptr;
 
-    for each (NavMeshNode * N in g_NavNodes)
+    for each (SharedMeshPtr N in g_NavNodes)
     {
         if (N->CheckIfInMeshBounds(MOUSE->mousePosGameSpace))
         {
@@ -248,8 +256,6 @@ void NavManager::DestroyNode()
     }
 
     g_NavNodes.remove(n);
-
-    delete n;
 }
 
 void NavManager::SwapDrawToNode()
@@ -266,12 +272,12 @@ void NavManager::SwapDrawToNode()
 
 void NavManager::Draw(aie::Renderer2D * m_2dRenderer)
 {
-    for each (NavMeshNode * nav in g_NavNodes)
+    for each (SharedMeshPtr nav in g_NavNodes)
     {
         nav->Draw(m_2dRenderer);
     }
 
-    for each (NavMeshNode * n in nodeTest)
+    for each (SharedMeshPtr n in nodeTest)
     {
         m_2dRenderer->setRenderColour(1, 0, 0, 1);
         m_2dRenderer->drawCircle(n->GetCenter().x, n->GetCenter().y, 5);
@@ -285,9 +291,9 @@ void NavManager::Draw(aie::Renderer2D * m_2dRenderer)
     m_2dRenderer->setRenderColour(1, 1, 1, 1);
 }
 
-NavMeshNode * NavManager::GetNode(Vector2 pos)
+SharedMeshPtr NavManager::GetNode(Vector2 pos)
 {
-    for each (NavMeshNode * n in g_NavNodes)
+    for each (SharedMeshPtr n in g_NavNodes)
     {
         if (n->CheckIfInMeshBounds(pos)) 
         {
@@ -300,7 +306,7 @@ NavMeshNode * NavManager::GetNode(Vector2 pos)
 
 void NavManager::ClearParents()
 {
-	for each (NavMeshNode * n in g_NavNodes)
+	for each (SharedMeshPtr n in g_NavNodes)
 	{
 		n->SetParent(nullptr);
 	}
@@ -315,11 +321,11 @@ void NavManager::Nothing()
 {
 }
 
-std::list<NavMeshNode *> NavManager::GetEdgeConnections(NavMeshNode * node)
+std::list<SharedMeshPtr> NavManager::GetEdgeConnections(SharedMeshPtr node)
 {
-    std::list<NavMeshNode *> temp = std::list<NavMeshNode *>();
+    std::list<SharedMeshPtr> temp = std::list<SharedMeshPtr>();
 
-    for each (NavMeshNode::NavConnection * nc in node->g_connections)
+    for each (NavMeshNode::sharedNavConnectionPtr nc in node->g_connections)
     {
         if (nc->p_nodeA != node)
         {
