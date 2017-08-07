@@ -12,9 +12,9 @@ NavManager * NavManager::GetInstanceOfNavManager()
 
 NavManager::NavManager()
 {
-    for (int x = 0; x < 40; x++)
+    for (int x = 0; x <= 3; x++)
     {
-        for (int y = 0; y < 20; y++)
+        for (int y = 0; y <= 3; y++)
         {
             g_mapNodes.push_back(SharedMapNodePtr(new MapNode(x * INFOMATION->nodeSize, y * INFOMATION->nodeSize)));
         }
@@ -94,35 +94,35 @@ void NavManager::SetUpStartUpNodeConections()
         {
             if (nodeA != nodeB)
             {
-                if (nodeA->CheckIfMapNodeIsShared(nodeB->GetUpperLeft()))
+                if (nodeA->CheckIfMapNodeIsShared(nodeB->GetUpperLeft()) && nodeA->CheckIfMapNodeIsShared(nodeB->GetUpperRight()))
                 {
                     if (nodeA->CheckIfConectionExists(nodeB) == false)
                     {
-                        nodeA->AddConnection(nodeB);
+                        nodeA->AddConnection(nodeA, nodeB);
                     }
                 }
                 
-                if (nodeA->CheckIfMapNodeIsShared(nodeB->GetLowerLeft()))
+                if (nodeA->CheckIfMapNodeIsShared(nodeB->GetLowerLeft()) && nodeA->CheckIfMapNodeIsShared(nodeB->GetUpperLeft()))
                 {
                     if (nodeA->CheckIfConectionExists(nodeB) == false)
                     {
-                        nodeA->AddConnection(nodeB);
+                        nodeA->AddConnection(nodeA, nodeB);
                     }                    
                 }
 
-                if (nodeA->CheckIfMapNodeIsShared(nodeB->GetUpperRight()))
+                if (nodeA->CheckIfMapNodeIsShared(nodeB->GetUpperRight()) && nodeA->CheckIfMapNodeIsShared(nodeB->GetLowerRight()))
                 {
                     if (nodeA->CheckIfConectionExists(nodeB) == false)
                     {
-                        nodeA->AddConnection(nodeB);
+                        nodeA->AddConnection(nodeA,nodeB);
                     }                    
                 }
 
-                if (nodeA->CheckIfMapNodeIsShared(nodeB->GetLowerRight()))
+                if (nodeA->CheckIfMapNodeIsShared(nodeB->GetLowerRight()) && nodeA->CheckIfMapNodeIsShared(nodeB->GetLowerLeft()))
                 {
                     if (nodeA->CheckIfConectionExists(nodeB) == false)
                     {
-                        nodeA->AddConnection(nodeB);
+                        nodeA->AddConnection(nodeA, nodeB);
                     }
                 }
             }
@@ -136,28 +136,28 @@ void NavManager::MakeConnectionsToNode(SharedMeshPtr nodeA)
     {
         if (nodeA != nodeB)
         {
-            if (nodeA->CheckIfMapNodeIsShared(nodeB->GetUpperLeft()))
+            if (nodeA->CheckIfMapNodeIsShared(nodeB->GetUpperLeft()) && nodeA->CheckIfMapNodeIsShared(nodeB->GetUpperRight()))
             {
                 nodeA->CheckIfConectionExists(nodeB);
-                nodeA->AddConnection(nodeB);
+                nodeA->AddConnection(nodeA, nodeB);
             }
 
-            if (nodeA->CheckIfMapNodeIsShared(nodeB->GetLowerLeft()))
+            if (nodeA->CheckIfMapNodeIsShared(nodeB->GetLowerLeft()) && nodeA->CheckIfMapNodeIsShared(nodeB->GetUpperLeft()))
             {
                 nodeA->CheckIfConectionExists(nodeB);
-                nodeA->AddConnection(nodeB);
+                nodeA->AddConnection(nodeA, nodeB);
             }
 
-            if (nodeA->CheckIfMapNodeIsShared(nodeB->GetUpperRight()))
+            if (nodeA->CheckIfMapNodeIsShared(nodeB->GetUpperRight()) && nodeA->CheckIfMapNodeIsShared(nodeB->GetLowerRight()))
             {
                 nodeA->CheckIfConectionExists(nodeB);
-                nodeA->AddConnection(nodeB);
+                nodeA->AddConnection(nodeA, nodeB);
             }
 
-            if (nodeA->CheckIfMapNodeIsShared(nodeB->GetLowerRight()))
+            if (nodeA->CheckIfMapNodeIsShared(nodeB->GetLowerRight()) && nodeA->CheckIfMapNodeIsShared(nodeB->GetLowerLeft()))
             {
                 nodeA->CheckIfConectionExists(nodeB);
-                nodeA->AddConnection(nodeB);
+                nodeA->AddConnection(nodeA, nodeB);
             }
         }
     }
@@ -255,7 +255,12 @@ void NavManager::DestroyNode()
         }
     }
 
-    g_NavNodes.remove(n);
+    if (n != nullptr)
+    {
+        n->DeleteAllConections(n);
+        g_NavNodes.remove(n);
+    }
+
 }
 
 void NavManager::SwapDrawToNode()
@@ -327,13 +332,13 @@ std::list<SharedMeshPtr> NavManager::GetEdgeConnections(SharedMeshPtr node)
 
     for each (NavMeshNode::sharedNavConnectionPtr nc in node->g_connections)
     {
-        if (nc->p_nodeA != node)
+        if (nc->p_nodeA.lock() != node)
         {
-            temp.push_back(nc->p_nodeA);
+            temp.push_back(nc->p_nodeA.lock());
         }
         else
         {
-            temp.push_back(nc->p_nodeB);
+            temp.push_back(nc->p_nodeB.lock());
         }
     }
 

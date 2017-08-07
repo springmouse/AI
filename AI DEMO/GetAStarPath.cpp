@@ -129,7 +129,7 @@ std::list<SharedMeshPtr>  GetAStarPath::RetracePath(SharedMeshPtr startTile, Sha
     while (currentTile != startTile)
     {
         path.push_back(currentTile);
-        currentTile = currentTile->GetParent();
+        currentTile = currentTile->GetParent().lock();
     }
 
     //we reverse the path so that it goes from start Tile to end tile

@@ -19,18 +19,20 @@ public:
 
         NavConnection(SharedMeshPtr nodeA, SharedMeshPtr nodeB)
         {
-            p_nodeA = nodeA;
-            p_nodeB = nodeB;
+            p_nodeA = WeakMeshPtr(nodeA);
+            p_nodeB = WeakMeshPtr(nodeB);
         };
 
-        ~NavConnection() {};
+        ~NavConnection() 
+        {
+        };
 
-        SharedMeshPtr p_nodeA;
-        SharedMeshPtr p_nodeB;
+        WeakMeshPtr p_nodeA;
+        WeakMeshPtr p_nodeB;
 
         bool operator== (const NavConnection & other)
         {
-            if (other.p_nodeA == p_nodeA && other.p_nodeB == p_nodeB)
+            if (other.p_nodeA.lock() == p_nodeA.lock() && other.p_nodeB.lock() == p_nodeB.lock())
             {
                 return true;
             }
@@ -40,7 +42,7 @@ public:
 
         bool operator== (NavMeshNode & other)
         {
-            if (other == p_nodeA || other == p_nodeB)
+            if (other == p_nodeA.lock() || other == p_nodeB.lock())
             {
                 return true;
             }
@@ -50,7 +52,7 @@ public:
 
         float GetDCost() 
         { 
-            m_dCost = p_nodeA->m_centerPoint.magnitude() - p_nodeB->m_centerPoint.magnitude();
+            m_dCost = p_nodeA.lock()->m_centerPoint.magnitude() - p_nodeB.lock()->m_centerPoint.magnitude();
             
             m_dCost = (m_dCost * m_dCost) * 0.5f;
 
@@ -93,11 +95,11 @@ public:
 
     bool CheckIfMapNodeIsShared(SharedMapNodePtr mn);
 
-    void AddConnection(SharedMeshPtr nodeB);
+    void AddConnection(SharedMeshPtr nodeA, SharedMeshPtr nodeB);
 
     bool CheckIfConectionExists(SharedMeshPtr nodeB);
 
-    void DeleteAllConections();
+    void DeleteAllConections(SharedMeshPtr me);
 
     void DeleteConection(sharedNavConnectionPtr ne);
 
@@ -115,7 +117,7 @@ public:
 
     bool GetIsPasible() const;
 
-    SharedMeshPtr GetParent();
+    WeakMeshPtr GetParent();
 
     void SetParent(SharedMeshPtr parent);
 
@@ -145,6 +147,6 @@ private:
 
     bool m_isPassable; /*this is our static passible bool a and represents things like this tile is a wall*/
 
-    SharedMeshPtr m_pParent; /*this is the tiles parent used to find the path in the A* pathfinding calculations by retracing the path of parents leading from the end tile to the start tile*/
+    WeakMeshPtr m_pParent; /*this is the tiles parent used to find the path in the A* pathfinding calculations by retracing the path of parents leading from the end tile to the start tile*/
 };
 

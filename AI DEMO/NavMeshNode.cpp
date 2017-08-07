@@ -26,7 +26,7 @@ NavMeshNode::NavMeshNode(SharedMapNodePtr one, SharedMapNodePtr two, SharedMapNo
 
 NavMeshNode::~NavMeshNode()
 {
-    DeleteAllConections();
+    //DeleteAllConections();
 }
 
 void NavMeshNode::SetAllCornors(SharedMapNodePtr one, SharedMapNodePtr two, SharedMapNodePtr three, SharedMapNodePtr four)
@@ -125,7 +125,7 @@ void NavMeshNode::Draw(aie::Renderer2D * m_2dRenderer)
 
     for each (sharedNavConnectionPtr nc in g_connections)
     {
-        m_2dRenderer->drawLine(nc->p_nodeA->GetCenter().x, nc->p_nodeA->GetCenter().y, nc->p_nodeB->GetCenter().x, nc->p_nodeB->GetCenter().y);
+        m_2dRenderer->drawLine(nc->p_nodeA.lock()->GetCenter().x, nc->p_nodeA.lock()->GetCenter().y, nc->p_nodeB.lock()->GetCenter().x, nc->p_nodeB.lock()->GetCenter().y);
     }
 
     m_2dRenderer->setRenderColour(1, 1, 1, 1);
@@ -166,9 +166,9 @@ bool NavMeshNode::CheckIfMapNodeIsShared(SharedMapNodePtr mn)
     return false;
 }
 
-void NavMeshNode::AddConnection(SharedMeshPtr nodeB)
+void NavMeshNode::AddConnection(SharedMeshPtr nodeA, SharedMeshPtr nodeB)
 {
-    sharedNavConnectionPtr edge = sharedNavConnectionPtr(new NavConnection(SharedMeshPtr(this), nodeB));
+    sharedNavConnectionPtr edge = sharedNavConnectionPtr(new NavConnection(nodeA, nodeB));
     g_connections.push_back(edge);
     nodeB->g_connections.push_back(edge);
 }
@@ -186,17 +186,18 @@ bool NavMeshNode::CheckIfConectionExists(SharedMeshPtr nodeB)
     return false;
 }
 
-void NavMeshNode::DeleteAllConections()
+void NavMeshNode::DeleteAllConections(SharedMeshPtr me)
 {
+
     for each (sharedNavConnectionPtr nc in g_connections)
     {
-        if (nc->p_nodeA != SharedMeshPtr(this))
+        if (nc->p_nodeA.lock() != me)
         {
-            nc->p_nodeA->DeleteConection(nc);
+            nc->p_nodeA.lock()->DeleteConection(nc);
         }
-        else if (nc->p_nodeB != SharedMeshPtr(this))
+        else if (nc->p_nodeB.lock() != me)
         {
-            nc->p_nodeB->DeleteConection(nc);
+            nc->p_nodeB.lock()->DeleteConection(nc);
         }
     }
 
@@ -251,9 +252,9 @@ void NavMeshNode::ModifyWeightCost(float set)
     m_weightCost += set;
 }
 
-SharedMeshPtr NavMeshNode::GetParent()
+WeakMeshPtr NavMeshNode::GetParent()
 {
-    return m_pParent;
+    return m_pParent.lock();
 }
 
 void NavMeshNode::SetParent(SharedMeshPtr parent)

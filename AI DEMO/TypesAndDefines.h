@@ -8,7 +8,10 @@ class MapNode;
 class Entity;
 
 typedef std::shared_ptr<MapNode>        SharedMapNodePtr;
-typedef std::shared_ptr<NavMeshNode>     SharedMeshPtr;
+
+typedef std::shared_ptr<NavMeshNode>    SharedMeshPtr;
+typedef std::weak_ptr<NavMeshNode>      WeakMeshPtr;
+
 typedef std::shared_ptr<Entity>         SharedEntityPtr;
 
 #define myFUNC_0(ret_)                      std::function<##ret_()>
