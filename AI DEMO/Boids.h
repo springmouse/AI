@@ -10,6 +10,9 @@ public:
     Boids(BoidsBlackBoard * blackBoard, Vector2 center);
     ~Boids();
 
+    bool operator== (Boids & other);
+    bool operator!= (ShareBoidPtr & other);
+
     void Update(float deltaTime);
 
     void CalculateSeperation();
