@@ -6,6 +6,7 @@
 class NavMeshNode;
 class MapNode;
 class Entity;
+class Boids;
 
 typedef std::shared_ptr<MapNode>        SharedMapNodePtr;
 
@@ -13,6 +14,8 @@ typedef std::shared_ptr<NavMeshNode>    SharedMeshPtr;
 typedef std::weak_ptr<NavMeshNode>      WeakMeshPtr;
 
 typedef std::shared_ptr<Entity>         SharedEntityPtr;
+
+typedef std::shared_ptr<Boids>          ShareBoidPtr;
 
 #define myFUNC_0(ret_)                      std::function<##ret_()>
 #define myBIND_0(func_, objectAddr_)        std::bind(&##func_,##objectAddr_)

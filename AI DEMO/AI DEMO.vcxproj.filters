@@ -40,6 +40,9 @@
     <Filter Include="Source Files\Behaviours\StateMachine">
       <UniqueIdentifier>{ed96be66-f0c0-4a26-8e79-3435d5839124}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Behaviours\BlackBoard">
+      <UniqueIdentifier>{50f164a7-1694-49be-8a66-29da3d96dc94}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Factory.cpp">
@@ -98,6 +101,12 @@
     </ClCompile>
     <ClCompile Include="MoveState.cpp">
       <Filter>Source Files\Behaviours\StateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="Boids.cpp">
+      <Filter>Source Files\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="BoidsBlackBoard.cpp">
+      <Filter>Source Files\Behaviours\BlackBoard</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -160,6 +169,12 @@
     </ClInclude>
     <ClInclude Include="MoveState.h">
       <Filter>Source Files\Behaviours\StateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="Boids.h">
+      <Filter>Source Files\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="BoidsBlackBoard.h">
+      <Filter>Source Files\Behaviours\BlackBoard</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -23,6 +23,7 @@ bool AI_DEMOApp::startup() {
     //creates the states to be used
     m_gameSM.registerState(FACTORY->MakeState(eGameStateType::MENU));
     m_gameSM.registerState(FACTORY->MakeState(eGameStateType::INGAME));
+    m_gameSM.registerState(FACTORY->MakeState(eGameStateType::FLOCKING));
 
     //adds Menu to the states being run
     m_gameSM.pushState((int)eGameStateType::MENU);

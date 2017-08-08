@@ -17,6 +17,9 @@ void MouseState::connect(myFUNC_0(void) setEvent)
 void MouseState::Update(float deltaTime)
 {
     mousePosGameSpace = Vector2((int)AIEINPUT->getMouseX(), (int)AIEINPUT->getMouseY());
+
+    mousePosExact = mousePosGameSpace;
+
     mousePosGameSpace *= 0.05f;
     mousePosGameSpace = Vector2((int)mousePosGameSpace.x, (int)mousePosGameSpace.y);
     mousePosGameSpace *= 20;

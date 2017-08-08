@@ -18,6 +18,7 @@ public:
     
     POINT mousePosGUI;
     Vector2 mousePosGameSpace;
+    Vector2 mousePosExact;
 
     void connect(myFUNC_0(void) setEvent);
 

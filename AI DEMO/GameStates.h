@@ -4,6 +4,7 @@
 #include "Button.h"
 
 #include "Entity.h"
+#include "BoidsBlackBoard.h"
 
 #include <Vector3.h>
 #include <List>
@@ -15,6 +16,7 @@ enum eGameStateType
 {
     MENU,
     INGAME,
+    FLOCKING,
 	Total
 };
 
@@ -233,6 +235,60 @@ public:
     void onPopped();
 
 private:
+
+
+
+};
+
+
+class InGameFlockStake :
+    public GameStates
+{
+public:
+    InGameFlockStake();
+    ~InGameFlockStake();
+
+    /*
+    * Function: onUpdate
+    * ------------------
+    *
+    * this runs the update function to update the game
+    *
+    * Parameters: this takes in a float delta time to be used to update things
+    *
+    * returns: nothing
+    */
+    void onUpdate(float deltaTime);
+
+    /*
+    * Function: onDraw
+    * ----------------
+    *
+    * this gets called when we want to draw what ever the state wants to draw on the screen
+    *
+    * Parameters: aie::Renderer2D * the reder so the state can render things to screen
+    *	aie::Font * so we can print words to the screen
+    *
+    * returns: nothing
+    */
+    void onDraw(aie::Renderer2D * m_2dRenderer, aie::Font * font);
+
+    /*
+    * Function: onPushed
+    * ------------------
+    *
+    * this gets called when the stack gets poped off the stack
+    *
+    * Parameters: this takes no parameters
+    *
+    * returns: nothing
+    */
+    void onPopped();
+
+private:
+
+    BoidsBlackBoard * m_boidsBlackBoard;
+    std::list<ShareBoidPtr> m_boids;
 };
 
 

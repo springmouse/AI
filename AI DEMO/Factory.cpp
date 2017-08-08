@@ -37,6 +37,10 @@ GameStates * Factory::MakeState(eGameStateType type)
         p = new InGameState;
         break;
 
+    case eGameStateType::FLOCKING:
+        p = new InGameFlockStake;
+        break;
+
     default:
         assert(false && "Factory was passed an invalid Game State type to try and create or type does not yet exist in factory.");
         break;
@@ -68,4 +72,3 @@ EntityStates * Factory::MakeEntityState(eEntityStateType type, Entity * unit)
         return nullptr;
     }
 }
-

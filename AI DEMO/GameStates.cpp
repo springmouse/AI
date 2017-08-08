@@ -41,12 +41,18 @@ void MenuState::onUpdate(float deltaTime)
     if (m_active)
     {
 		//checks to see if game should run or close down
-        if (AIEINPUT->isKeyDown(aie::INPUT_KEY_1))
+
+        if (AIEINPUT->isKeyDown(aie::INPUT_KEY_3))
+        {
+            INFOMATION->pushInfo(eGameStateType::FLOCKING);
+        }
+
+        if (AIEINPUT->isKeyDown(aie::INPUT_KEY_2))
         {
             INFOMATION->pushInfo(eGameStateType::INGAME);
         }
 
-        if (AIEINPUT->isKeyDown(aie::INPUT_KEY_2))
+        if (AIEINPUT->isKeyDown(aie::INPUT_KEY_1))
         {
             INFOMATION->pop = true;
         }
@@ -59,8 +65,9 @@ void MenuState::onDraw(aie::Renderer2D * m_2dRenderer, aie::Font* font)
     if (m_active)
     {
         m_2dRenderer->setCameraPos(INFOMATION->cameraPos.x, INFOMATION->cameraPos.y);
-        m_2dRenderer->drawText(font, "1: start game", INFOMATION->cameraPos.x + 500, INFOMATION->cameraPos.y + 360);
-        m_2dRenderer->drawText(font, "2: close game", INFOMATION->cameraPos.x + 500, INFOMATION->cameraPos.y + 180);
+        m_2dRenderer->drawText(font, "3: start Flocking and Sterring Behaviours", INFOMATION->cameraPos.x + (500 - 252), INFOMATION->cameraPos.y + 360);
+        m_2dRenderer->drawText(font, "2: start Path Finding and Desciscions", INFOMATION->cameraPos.x + (500 - 228), INFOMATION->cameraPos.y + 300);
+        m_2dRenderer->drawText(font, "1: close game", INFOMATION->cameraPos.x + 500, INFOMATION->cameraPos.y + 180);
     }
 }
 
@@ -68,6 +75,67 @@ void MenuState::onPopped()
 {
 	//slates the programe to close down
     INFOMATION->quit = true;
+}
+
+#pragma endregion
+
+///////////////////////////////////
+
+#pragma region Flocking
+
+InGameFlockStake::InGameFlockStake()
+{
+    m_boidsBlackBoard = new BoidsBlackBoard();
+
+    for (int i = 0; i <= 25; i++)
+    {
+        m_boids.push_back(ShareBoidPtr(new Boids(m_boidsBlackBoard, INFOMATION->cameraPos)));
+    }
+
+    m_boidsBlackBoard->m_boids = m_boids;
+}
+
+InGameFlockStake::~InGameFlockStake()
+{
+}
+
+void InGameFlockStake::onUpdate(float deltaTime)
+{
+    if (m_active)
+    {
+        //check if we need to pop the game out
+        if (AIEINPUT->isKeyDown(aie::INPUT_KEY_ESCAPE))
+        {
+            INFOMATION->pop = true;
+        }
+
+        MOUSE->Update(deltaTime);
+
+        for each (ShareBoidPtr boid in m_boids)
+        {
+            boid->Update(deltaTime);
+        }
+
+        m_boidsBlackBoard->Update(deltaTime);
+    }
+}
+
+void InGameFlockStake::onDraw(aie::Renderer2D * m_2dRenderer, aie::Font * font)
+{
+    if (m_active)
+    {  
+        for each (ShareBoidPtr boid in m_boids)
+        {
+            boid->Draw(m_2dRenderer);
+        }
+
+        m_2dRenderer->drawText(font, "Flocking", INFOMATION->cameraPos.x + 25, INFOMATION->cameraPos.y + 25);
+
+    }
+}
+
+void InGameFlockStake::onPopped()
+{
 }
 
 #pragma endregion

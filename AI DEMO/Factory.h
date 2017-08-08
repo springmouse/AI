@@ -1,6 +1,7 @@
 #pragma once
 #include "GameStates.h"
 #include "EntityStates.h"
+#include "Boids.h"
 #include "Entity.h"
 #include <assert.h>
 
