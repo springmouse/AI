@@ -28,8 +28,8 @@ void MoveState::onUpdate(float deltaTime)
             m_myEntity->m_previousLocation = m_myEntity->m_currLocation;
             m_myEntity->m_currLocation = m_myEntity->m_path.front();
 
-            m_myEntity->m_previousLocation->ModifyWeightCost(-1);
-            m_myEntity->m_currLocation->ModifyWeightCost(1);
+            m_myEntity->m_previousLocation->ModifyWeightCost(-5);
+            m_myEntity->m_currLocation->ModifyWeightCost(5);
 
             m_myEntity->m_path.pop_front();
 

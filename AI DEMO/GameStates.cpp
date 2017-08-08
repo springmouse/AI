@@ -87,7 +87,7 @@ InGameFlockStake::InGameFlockStake()
 {
     m_boidsBlackBoard = new BoidsBlackBoard();
 
-    for (int i = 0; i <= 25; i++)
+    for (int i = 0; i <= 50; i++)
     {
         m_boids.push_back(ShareBoidPtr(new Boids(m_boidsBlackBoard, INFOMATION->cameraPos)));
     }
@@ -207,8 +207,15 @@ void InGameState::onUpdate(float deltaTime)
         timmer += deltaTime;
         if (AIEINPUT->isMouseButtonDown(1) && timmer > 1)
         {
-            m_units.push_back(FACTORY->MakeEntity(eEntityTyes::VILLAGER, MOUSE->mousePosGameSpace));
+            for each (SharedMeshPtr mesh in NAVMANAGER->g_NavNodes)
+            {
+                if (mesh->CheckIfInMeshBounds(MOUSE->mousePosGameSpace) == true)
+                {
+                    m_units.push_back(FACTORY->MakeEntity(eEntityTyes::VILLAGER, MOUSE->mousePosGameSpace));
+                }
+            }
         }
+
         for each (Entity * e in m_units)
         {
             e->Update(deltaTime);

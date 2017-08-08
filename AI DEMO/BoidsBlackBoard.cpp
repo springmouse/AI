@@ -52,6 +52,11 @@ Vector2 BoidsBlackBoard::GetTarget(Vector2 pos)
             isInBounds = false;
             int amount = std::rand() % 5;
 
+            if (amount == 0)
+            {
+                amount = 1;
+            }
+
             for each (ShareBoidPtr boid in m_boids)
             {
                 if (amount >= 0)

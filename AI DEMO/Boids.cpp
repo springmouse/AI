@@ -14,14 +14,14 @@ Boids::Boids(BoidsBlackBoard * blackBoard, Vector2 center)
     m_velocity = Vector2(0, 0);
     m_acceleration = Vector2(0, 0);
 
-    m_maxVelocity = 120;
+    m_maxVelocity = 240;
 
     m_septerationRadius = 30;
     m_alignmentRadius = 80;
     m_cohesionRadius = 120;
 
-    m_seperationWeight = 80;
-    m_alignmentWeight = 40;
+    m_seperationWeight = 160;
+    m_alignmentWeight = 20;
     m_cohesionWeight = 10;
 
     m_seekWeight = 9;
@@ -44,10 +44,10 @@ void Boids::Update(float deltaTime)
         CalculateSeperation();
         CalculateAlignment();
         CalculateCohesion();
-        CalculateSeek();
+        CalculateWonder();
     }
 
-    CalculateWonder();
+    CalculateSeek();
 
     if (m_blackBoard->sprMagnatude(m_acceleration) > (m_maxVelocity * m_maxVelocity))
     {
@@ -55,7 +55,7 @@ void Boids::Update(float deltaTime)
         m_acceleration *= m_maxVelocity;
     }
 
-    m_velocity += m_acceleration;
+    m_velocity = m_acceleration;
 
     if (m_blackBoard->sprMagnatude(m_velocity) > (m_maxVelocity * m_maxVelocity))
     {
@@ -77,6 +77,23 @@ void Boids::Update(float deltaTime)
     }
 
     m_pos += (m_velocity * deltaTime);
+
+    if (m_pos.x > INFOMATION->ScreenWidth)
+    {
+        m_pos.x = 0;
+    }
+    if (m_pos.x < 0)
+    {
+        m_pos.x = INFOMATION->ScreenWidth;
+    }
+    if (m_pos.y > INFOMATION->ScreenHeight)
+    {
+        m_pos.y = 0;
+    }
+    if (m_pos.y < 0)
+    {
+        m_pos.y = INFOMATION->ScreenHeight;
+    }
 }
 
 void Boids::CalculateSeperation()
@@ -94,10 +111,7 @@ void Boids::CalculateSeperation()
             seperationAcceleration += holder;
         }
     }
-/*
-    count = (1 / count);
-    seperationAcceleration *= count;*/
-    
+        
     m_acceleration += (seperationAcceleration * m_seperationWeight);
 }
 
@@ -152,10 +166,25 @@ void Boids::CalculateCohesion()
 
 void Boids::CalculateSeek()
 {
-    Vector2 holder = m_blackBoard->GetTarget(m_pos);
-    holder -= m_pos;
+    if (m_leader == false)
+    {
+        Vector2 holder = m_blackBoard->GetTarget(m_pos);
+        holder -= m_pos;
 
-    m_acceleration += (holder * m_seekWeight);
+        m_acceleration += (holder * m_seekWeight);
+    }
+    else
+    {
+        if (m_blackBoard->sprMagnatude(m_leaderTarget - m_pos) < (40 * 40))
+        {
+            m_leaderTarget = Vector2((std::rand() % (INFOMATION->ScreenWidth - 10)) + 10, std::rand() % (INFOMATION->ScreenHeight - 20) + 10);
+        }
+
+        Vector2 holder = m_leaderTarget;
+        holder -= m_pos;
+
+        m_acceleration += (holder * 10);
+    }
 }
 
 void Boids::CalculateWonder()
@@ -175,6 +204,11 @@ void Boids::CalculateWonder()
 
 void Boids::SetLeader(bool seter)
 {
+    if (seter == true)
+    {
+        m_leaderTarget = Vector2((std::rand() % (INFOMATION->ScreenWidth - 10)) + 10, std::rand() % (INFOMATION->ScreenHeight - 20) + 10);
+    }
+
     m_leader = seter;
 }
 

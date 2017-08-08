@@ -57,7 +57,7 @@ void Villager::Update(float deltaTime)
             m_currLocation = NAVMANAGER->g_NavNodes.front();
         }
 
-        m_currLocation->ModifyWeightCost(1);
+        m_currLocation->ModifyWeightCost(5);
     }
 
     m_decsisionTree->Update();

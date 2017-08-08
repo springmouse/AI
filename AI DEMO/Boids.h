@@ -50,5 +50,6 @@ private:
 
     bool m_leader;
         
+    Vector2 m_leaderTarget;
 };
 
