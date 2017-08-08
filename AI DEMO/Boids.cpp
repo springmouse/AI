@@ -1,5 +1,6 @@
 #include "Boids.h"
 #include "BoidsBlackBoard.h"
+#include "Information.h"
 
 
 Boids::Boids(BoidsBlackBoard * blackBoard, Vector2 center)
@@ -19,11 +20,12 @@ Boids::Boids(BoidsBlackBoard * blackBoard, Vector2 center)
     m_alignmentRadius = 80;
     m_cohesionRadius = 120;
 
-    m_seperationWeight = 50;
-    m_alignmentWeight = 20;
-    m_cohesionWeight = 4;
+    m_seperationWeight = 80;
+    m_alignmentWeight = 40;
+    m_cohesionWeight = 10;
 
-    m_seekWeight = 2;
+    m_seekWeight = 9;
+    m_wonderWeight = 2;
 
     m_leader = false;
 }
@@ -37,10 +39,15 @@ void Boids::Update(float deltaTime)
 {
     m_acceleration = Vector2(0, 0);
 
-    CalculateSeperation();
-    CalculateAlignment();
-    CalculateCohesion();
-    CalculateSeek();
+    if (m_leader == false)
+    {
+        CalculateSeperation();
+        CalculateAlignment();
+        CalculateCohesion();
+        CalculateSeek();
+    }
+
+    CalculateWonder();
 
     if (m_blackBoard->sprMagnatude(m_acceleration) > (m_maxVelocity * m_maxVelocity))
     {
@@ -54,6 +61,19 @@ void Boids::Update(float deltaTime)
     {
         m_velocity.normalise();
         m_velocity *= m_maxVelocity;
+    }
+
+    if (m_leader == true)
+    {
+        if ((m_pos.x + m_velocity.x) <= 0 || (m_pos.x + m_velocity.x) >= INFOMATION->ScreenWidth)
+        {
+            m_velocity.x -= (m_velocity.x * 2);
+        }
+
+        if ((m_pos.y + m_velocity.y) <= 0 || (m_pos.y + m_velocity.y) >= INFOMATION->ScreenHeight)
+        {
+            m_velocity.y -= (m_velocity.y * 2);
+        }
     }
 
     m_pos += (m_velocity * deltaTime);
@@ -132,10 +152,30 @@ void Boids::CalculateCohesion()
 
 void Boids::CalculateSeek()
 {
-    Vector2 holder = m_blackBoard->GetTarget();
+    Vector2 holder = m_blackBoard->GetTarget(m_pos);
     holder -= m_pos;
 
     m_acceleration += (holder * m_seekWeight);
+}
+
+void Boids::CalculateWonder()
+{
+
+    Vector2 wonder = m_velocity;
+    wonder.normalise();
+
+    wonder.x *= (std::rand() % (int)(m_septerationRadius * 2)) - m_septerationRadius;
+    wonder.x *= (std::rand() % (int)(m_septerationRadius * 2)) - m_septerationRadius;
+
+    wonder += m_pos;
+
+    m_acceleration += (wonder * m_wonderWeight);
+
+}
+
+void Boids::SetLeader(bool seter)
+{
+    m_leader = seter;
 }
 
 Vector2 Boids::GetVelocity()

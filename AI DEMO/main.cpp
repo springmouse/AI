@@ -1,4 +1,5 @@
 #include "AI_DEMOApp.h"
+#include "Information.h"
 
 int main() {
 	
@@ -6,7 +7,7 @@ int main() {
 	auto app = new AI_DEMOApp();
 
 	// initialise and loop
-	app->run("AIE", 1280, 720, false);
+	app->run("AIE", INFOMATION->ScreenWidth, INFOMATION->ScreenHeight, false);
 
 	// deallocation
 	delete app;

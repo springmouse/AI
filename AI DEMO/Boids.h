@@ -16,6 +16,9 @@ public:
     void CalculateAlignment();
     void CalculateCohesion();
     void CalculateSeek();
+    void CalculateWonder();
+
+    void SetLeader(bool seter);
 
     Vector2 GetVelocity();
 
@@ -43,6 +46,7 @@ private:
     float m_cohesionWeight;
 
     float m_seekWeight;
+    float m_wonderWeight;
 
     bool m_leader;
         

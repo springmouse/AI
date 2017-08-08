@@ -44,6 +44,9 @@ public:
     bool pop = false; /*flag if we should pop a state on the m_stateStack in GameStateManager*/
 
     Vector2 cameraPos;
+    
+    int ScreenWidth = 1280;
+    int ScreenHeight = 720;
 
     float nodeSize = 20;
 

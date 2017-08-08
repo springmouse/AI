@@ -1,3 +1,4 @@
-﻿  BoidsBlackBoard.cpp
-LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
+﻿  Boids.cpp
+c:\users\s171669\documents\github\ai\ai demo\boids.cpp(10): warning C4244: '=': conversion from 'int' to 'realNum', possible loss of data
+c:\users\s171669\documents\github\ai\ai demo\boids.cpp(11): warning C4244: '=': conversion from 'int' to 'realNum', possible loss of data
   AI DEMO.vcxproj -> C:\Users\s171669\Documents\GitHub\AI\temp\AI DEMO\Debug\AI DEMO.exe
