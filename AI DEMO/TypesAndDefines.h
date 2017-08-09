@@ -7,10 +7,16 @@ class NavMeshNode;
 class MapNode;
 class Entity;
 class Boids;
+class MapEdges;
 
 typedef std::shared_ptr<MapNode>        SharedMapNodePtr;
+typedef std::weak_ptr<MapNode>          WeakMapNodePtr;
 
 typedef std::shared_ptr<NavMeshNode>    SharedMeshPtr;
+
+typedef std::shared_ptr<MapEdges>       SharedEdge;
+typedef std::weak_ptr<MapEdges>         WeakEdge;
+
 typedef std::weak_ptr<NavMeshNode>      WeakMeshPtr;
 
 typedef std::shared_ptr<Entity>         SharedEntityPtr;

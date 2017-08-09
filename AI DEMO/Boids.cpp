@@ -15,16 +15,17 @@ Boids::Boids(BoidsBlackBoard * blackBoard, Vector2 center)
     m_acceleration = Vector2(0, 0);
 
     m_maxVelocity = 240;
+    m_minVolocity = 150;
 
-    m_septerationRadius = 80;
+    m_septerationRadius = 40;
     m_alignmentRadius = 250;
     m_cohesionRadius = 150;
 
-    m_seperationWeight = 12;
-    m_alignmentWeight = 15;
-    m_cohesionWeight = 10;
+    m_seperationWeight = 18;
+    m_alignmentWeight = 18;
+    m_cohesionWeight = 20;
 
-    m_seekWeight = 9;
+    m_seekWeight = 1;
     m_wonderWeight = 2;
 
     m_leader = false;
@@ -61,9 +62,12 @@ void Boids::Update(float deltaTime)
     CalculateAlignment();
     CalculateCohesion();
     CalculateWonder();
-   // CalculateSeek();
+    CalculateSeek();
 
-    m_acceleration *= 0.25f;  
+    m_acceleration *= 0.25f;
+
+
+
     if (m_blackBoard->sprMagnatude(m_acceleration) > (m_maxVelocity * m_maxVelocity))
     {
         m_acceleration.normalise();
@@ -76,6 +80,12 @@ void Boids::Update(float deltaTime)
     {
         m_velocity.normalise();
         m_velocity *= m_maxVelocity;
+    }
+
+    if (m_blackBoard->sprMagnatude(m_velocity) < (m_minVolocity * m_minVolocity))
+    {
+        m_velocity.normalise();
+        m_velocity *= m_minVolocity;
     }
 
     m_pos += (m_velocity * deltaTime);

@@ -66,7 +66,20 @@ public:
     *
     * returns: returns nothing as it is a null function
     */
-    virtual void draw();
+    virtual void draw() {
+
+        // wipe the screen to the background colour
+        clearScreen();
+
+        // begin drawing sprites
+        m_2dRenderer->begin();
+
+        //draws the game to the screen
+        m_gameSM.draw(m_2dRenderer, m_font);
+
+        // done drawing sprites
+        m_2dRenderer->end();
+    }
 
 protected:
 

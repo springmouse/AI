@@ -1,6 +1,2 @@
-﻿  Boids.cpp
-c:\users\s171669\documents\github\ai\ai demo\boids.cpp(11): warning C4244: '=': conversion from 'int' to 'realNum', possible loss of data
-c:\users\s171669\documents\github\ai\ai demo\boids.cpp(12): warning C4244: '=': conversion from 'int' to 'realNum', possible loss of data
-c:\users\s171669\documents\github\ai\ai demo\boids.cpp(84): warning C4244: '=': conversion from 'int' to 'realNum', possible loss of data
-c:\users\s171669\documents\github\ai\ai demo\boids.cpp(92): warning C4244: '=': conversion from 'int' to 'realNum', possible loss of data
-LINK : fatal error LNK1201: error writing to program database 'C:\Users\s171669\Documents\GitHub\AI\temp\AI DEMO\Debug\AI DEMO.pdb'; check for insufficient disk space, invalid path, or insufficient privilege
+﻿  NavManager.cpp
+  AI DEMO.vcxproj -> C:\Users\s171669\Documents\GitHub\AI\temp\AI DEMO\Debug\AI DEMO.exe

@@ -26,6 +26,30 @@ bool MapNode::operator==(MapNode & other)
     }
 }
 
+bool MapNode::operator==(SharedMapNodePtr & other)
+{
+    if (other->m_pos == m_pos)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+bool MapNode::operator!=(WeakMapNodePtr & other)
+{
+    if (other.lock()->m_pos == m_pos)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
 bool MapNode::operator==(Vector2 & other)
 {
     if (other == m_pos)

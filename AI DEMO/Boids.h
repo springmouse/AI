@@ -35,6 +35,7 @@ private:
 
     Vector2 m_velocity;
     float m_maxVelocity;
+    float m_minVolocity;
 
     Vector2 m_acceleration;
 

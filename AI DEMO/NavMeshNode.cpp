@@ -14,6 +14,11 @@ NavMeshNode::NavMeshNode(SharedMapNodePtr one, SharedMapNodePtr two, SharedMapNo
     m_upperRightCornor  = three;
     m_lowerRightCornor  = four;
 
+    m_WestEdge = SharedEdge(new MapEdges(one, two));
+    m_SouthEdge = SharedEdge(new MapEdges(two, four));
+    m_EastEdge = SharedEdge(new MapEdges(four, three));
+    m_NorthEdge = SharedEdge(new MapEdges(three, one));
+
     CalculateCenter();
 
     m_isPassable = true;
@@ -127,7 +132,7 @@ void NavMeshNode::Draw(aie::Renderer2D * m_2dRenderer)
     {
         m_2dRenderer->drawLine(nc->p_nodeA.lock()->GetCenter().x, nc->p_nodeA.lock()->GetCenter().y, nc->p_nodeB.lock()->GetCenter().x, nc->p_nodeB.lock()->GetCenter().y);
     }
-
+    
     m_2dRenderer->setRenderColour(1, 1, 1, 1);
 }
 
@@ -139,6 +144,92 @@ Vector2 NavMeshNode::GetCenter()
 Vector2 NavMeshNode::GetCenter() const
 {
     return m_centerPoint;
+}
+
+void NavMeshNode::DefineMapEdges()
+{
+    for each (sharedNavConnectionPtr conector in g_connections)
+    {
+        if (*this == conector->p_nodeA.lock())
+        {
+            CheckEdge(conector->p_nodeB);
+        }
+
+        if (*this == conector->p_nodeB.lock())
+        {
+            CheckEdge(conector->p_nodeA);
+        }
+    }
+}
+
+void NavMeshNode::CheckEdge(WeakMeshPtr nodeB)
+{
+    if (*m_NorthEdge == nodeB.lock()->m_SouthEdge)
+    {
+        m_NorthEdge->mapEdge = false;
+        nodeB.lock()->m_SouthEdge = false;
+    }
+    else
+    {
+        m_NorthEdge->mapEdge = true;
+    }
+
+    if (*m_EastEdge == nodeB.lock()->m_WestEdge)
+    {
+        m_EastEdge->mapEdge = false;
+        nodeB.lock()->m_WestEdge = false;
+    }
+    else
+    {
+        m_EastEdge->mapEdge = true;
+    }
+
+    if (*m_SouthEdge == nodeB.lock()->m_NorthEdge)
+    {
+        m_SouthEdge->mapEdge = false;
+        nodeB.lock()->m_NorthEdge = false;
+    }
+    else
+    {
+        m_SouthEdge->mapEdge = true;
+    }
+
+    if (*m_WestEdge == nodeB.lock()->m_EastEdge)
+    {
+        m_WestEdge->mapEdge = false;
+        nodeB.lock()->m_EastEdge = false;
+    }
+    else
+    {
+        m_WestEdge->mapEdge = true;
+    }
+}
+
+std::list<SharedEdge> NavMeshNode::GetMapEdges()
+{
+    std::list<SharedEdge> edges;
+
+    if (m_NorthEdge->mapEdge)
+    {
+        edges.push_back(m_NorthEdge);
+    }
+
+    if (m_EastEdge->mapEdge)
+    {
+        edges.push_back(m_EastEdge);
+    }
+
+    if (m_SouthEdge->mapEdge)
+    {
+        edges.push_back(m_SouthEdge);
+    }
+
+    if (m_WestEdge->mapEdge)
+    {
+        edges.push_back(m_WestEdge);
+    }
+
+    return edges;
 }
 
 bool NavMeshNode::CheckIfMapNodeIsShared(SharedMapNodePtr mn)
@@ -265,6 +356,18 @@ void NavMeshNode::SetParent(SharedMeshPtr parent)
 bool NavMeshNode::operator==(const SharedMeshPtr other)
 {
     if (other->GetCenter() == m_centerPoint)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+bool NavMeshNode::operator!=(const WeakMeshPtr other)
+{
+    if (other.lock()->GetCenter() == m_centerPoint)
     {
         return true;
     }

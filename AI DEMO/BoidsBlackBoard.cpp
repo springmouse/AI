@@ -29,7 +29,10 @@ float BoidsBlackBoard::sprMagnatude(Vector2 pos)
 
 Vector2 BoidsBlackBoard::GetTarget(Vector2 pos)
 {
-    if (target.x >= (0 + boundsModifier) && target.y >= (0 + boundsModifier) && target.x <= (upperBounds.x - boundsModifier) && target.y <= (upperBounds.y - boundsModifier))
+
+    return Vector2(INFOMATION->ScreenWidth * 0.5, INFOMATION->ScreenHeight * 0.5);
+
+    /*if (target.x >= (0 + boundsModifier) && target.y >= (0 + boundsModifier) && target.x <= (upperBounds.x - boundsModifier) && target.y <= (upperBounds.y - boundsModifier))
     {
         if (isInBounds == false)
         {
@@ -83,7 +86,7 @@ Vector2 BoidsBlackBoard::GetTarget(Vector2 pos)
         }
 
         return closes;
-    }
+    }*/
 
 }
 

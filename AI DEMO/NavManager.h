@@ -22,6 +22,8 @@ public:
     void Update(float deltaTime);
 
     void CreatNavMesh();
+    void CreatEdges();
+    void GatherEdges();
 
     void SetUpStartUpNodeConections();
 
@@ -47,8 +49,8 @@ public:
     ////////////////////////////////////////////////
 
     std::list<SharedMapNodePtr> g_mapNodes;
-    std::list<SharedMeshPtr> g_NavNodes;
-
+    std::list<SharedMeshPtr>    g_NavNodes;
+    std::list<SharedEdge>         g_mapEdges;
 
 private:
 

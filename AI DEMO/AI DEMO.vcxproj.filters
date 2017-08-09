@@ -108,6 +108,9 @@
     <ClCompile Include="BoidsBlackBoard.cpp">
       <Filter>Source Files\Behaviours\BlackBoard</Filter>
     </ClCompile>
+    <ClCompile Include="MapEdges.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Factory.h">
@@ -175,6 +178,9 @@
     </ClInclude>
     <ClInclude Include="BoidsBlackBoard.h">
       <Filter>Source Files\Behaviours\BlackBoard</Filter>
+    </ClInclude>
+    <ClInclude Include="MapEdges.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

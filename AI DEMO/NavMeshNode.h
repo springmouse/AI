@@ -3,6 +3,7 @@
 #include <list>
 #include <Renderer2D.h>
 #include "TypesAndDefines.h"
+#include "MapEdges.h"
 
 class NavMeshNode
 {
@@ -93,6 +94,11 @@ public:
 
     Vector2 GetCenter() const;
 
+    void DefineMapEdges();
+    void CheckEdge(WeakMeshPtr nodeB);
+
+    std::list<SharedEdge> GetMapEdges();
+
     bool CheckIfMapNodeIsShared(SharedMapNodePtr mn);
 
     void AddConnection(SharedMeshPtr nodeA, SharedMeshPtr nodeB);
@@ -123,6 +129,8 @@ public:
 
     bool operator== (const SharedMeshPtr other);
 
+    bool operator!= (const WeakMeshPtr other);
+
     bool operator== (Vector2 & other);
 
     std::list<sharedNavConnectionPtr> g_connections;
@@ -133,6 +141,11 @@ private:
     SharedMapNodePtr m_lowerLeftCornor;
     SharedMapNodePtr m_upperRightCornor;
     SharedMapNodePtr m_lowerRightCornor;
+
+    SharedEdge m_NorthEdge;
+    SharedEdge m_EastEdge;
+    SharedEdge m_SouthEdge;
+    SharedEdge m_WestEdge;
 
     Vector2 m_centerPoint;
 

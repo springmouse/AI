@@ -87,7 +87,7 @@ InGameFlockStake::InGameFlockStake()
 {
     m_boidsBlackBoard = new BoidsBlackBoard();
 
-    for (int i = 0; i <= 50; i++)
+    for (int i = 0; i <= 100; i++)
     {
         m_boids.push_back(ShareBoidPtr(new Boids(m_boidsBlackBoard, INFOMATION->cameraPos)));
     }
