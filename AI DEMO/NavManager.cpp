@@ -89,7 +89,6 @@ void NavManager::CreatNavMesh()
 
 void NavManager::CreatEdges()
 {
-
     for each (SharedMeshPtr nav in g_NavNodes)
     {
         nav->DefineMapEdges();
@@ -99,6 +98,8 @@ void NavManager::CreatEdges()
 
 void NavManager::GatherEdges()
 {
+	g_mapEdges.clear();
+
     for each (SharedMeshPtr node in g_NavNodes)
     {
         for each (SharedEdge edge in node->GetMapEdges())
@@ -269,16 +270,13 @@ void NavManager::CreatNewNode()
     SharedMeshPtr node = SharedMeshPtr(new NavMeshNode(one, two, three, four));
     
     MakeConnectionsToNode(node);
-
-    node->DefineMapEdges();
-
-    
-    for each (SharedEdge edge in node->GetMapEdges())
-    {
-        g_mapEdges.push_back(edge);
-    }
-
+	
     g_NavNodes.push_back(node);
+    
+	node->DefineMapEdges();
+
+	GatherEdges();
+
 }
 
 void NavManager::DestroyNode()

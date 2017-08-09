@@ -167,41 +167,25 @@ void NavMeshNode::CheckEdge(WeakMeshPtr nodeB)
     if (*m_NorthEdge == nodeB.lock()->m_SouthEdge)
     {
         m_NorthEdge->mapEdge = false;
-        nodeB.lock()->m_SouthEdge = false;
-    }
-    else
-    {
-        m_NorthEdge->mapEdge = true;
+        nodeB.lock()->m_SouthEdge->mapEdge = false;
     }
 
     if (*m_EastEdge == nodeB.lock()->m_WestEdge)
     {
         m_EastEdge->mapEdge = false;
-        nodeB.lock()->m_WestEdge = false;
-    }
-    else
-    {
-        m_EastEdge->mapEdge = true;
+        nodeB.lock()->m_WestEdge->mapEdge = false;
     }
 
     if (*m_SouthEdge == nodeB.lock()->m_NorthEdge)
     {
         m_SouthEdge->mapEdge = false;
-        nodeB.lock()->m_NorthEdge = false;
-    }
-    else
-    {
-        m_SouthEdge->mapEdge = true;
+        nodeB.lock()->m_NorthEdge->mapEdge = false;
     }
 
     if (*m_WestEdge == nodeB.lock()->m_EastEdge)
     {
         m_WestEdge->mapEdge = false;
-        nodeB.lock()->m_EastEdge = false;
-    }
-    else
-    {
-        m_WestEdge->mapEdge = true;
+        nodeB.lock()->m_EastEdge->mapEdge = false;
     }
 }
 

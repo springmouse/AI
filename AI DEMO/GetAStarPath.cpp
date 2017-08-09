@@ -21,6 +21,9 @@ GetAStarPath * GetAStarPath::GetInstanceOfpathFinder()
 //finds us a path between two nodes
 std::list<SharedMeshPtr> GetAStarPath::FindPath(Vector2 start, Vector2 end)
 {
+	
+	
+
     //the start Node
     SharedMeshPtr startNode = NAVMANAGER->GetNode(start);
 
@@ -33,6 +36,18 @@ std::list<SharedMeshPtr> GetAStarPath::FindPath(Vector2 start, Vector2 end)
         std::list<SharedMeshPtr> temp = std::list<SharedMeshPtr>();
         return temp;
     }
+
+	if (LineCheck(start, end) == false)
+	{
+		std::list<SharedMeshPtr> tempPath;
+		tempPath.push_back(targetNode);
+
+		std::cout << "Line of Sight \n";
+
+		return tempPath;
+	}
+
+	std::cout << "NO Line of Sight!!!! \n";
 
     //tiles we can look at
     std::list<SharedMeshPtr> openSet;
@@ -103,6 +118,64 @@ std::list<SharedMeshPtr> GetAStarPath::FindPath(Vector2 start, Vector2 end)
     //this was added to avoid bad evil crashes where no path could be found
     std::list<SharedMeshPtr> empty = std::list<SharedMeshPtr>();
     return empty;
+}
+
+
+
+bool GetAStarPath::LineCheck(Vector2 start, Vector2 end)
+{
+	//Based on concept from https://stackoverflow.com/a/1968345
+
+	double p0_x = start.x;
+	double p0_y = start.y;
+	double p1_x = end.x;
+	double p1_y = end.y;
+
+	double p2_x = 0;
+	double p2_y = 0;
+	double p3_x = 0;
+	double p3_y = 0;
+
+	double s1_x, s1_y, s2_x, s2_y;
+
+	double s, t, b;
+
+	for each (SharedEdge edge  in NAVMANAGER->g_mapEdges)
+	{
+		p2_x = edge->pointOne.lock()->m_pos.x;
+		p2_y = edge->pointOne.lock()->m_pos.y;
+		p3_x = edge->pointTwo.lock()->m_pos.x;
+		p3_y = edge->pointTwo.lock()->m_pos.y;
+
+		s1_x = p1_x - p0_x;
+		s1_y = p1_y - p0_y;
+		s2_x = p3_x - p2_x;
+		s2_y = p3_y - p2_y;
+
+		b = (-s2_x * s1_y + s1_x * s2_y);
+
+		//Avoid divide by 0 error.
+		if (b != 0)
+		{
+			s = (-s1_y * (p0_x - p2_x) + s1_x * (p0_y - p2_y)) / b;
+			t = (s2_x * (p0_y - p2_y) - s2_y * (p0_x - p2_x)) / b;
+		}
+		else
+		{
+			//No collision
+			break;
+		}
+
+		if (s >= 0 && s <= 1 && t >= 0 && t <= 1)
+		{
+			//Collision detected
+			return true;
+		}
+
+	}
+
+	//No collision
+	return false;
 }
 
 bool GetAStarPath::FindInContainer(std::list<SharedMeshPtr> * holder, SharedMeshPtr node)

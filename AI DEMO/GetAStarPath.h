@@ -25,6 +25,7 @@ public:
     */
     std::list<SharedMeshPtr> FindPath(Vector2 start, Vector2 end);
 
+	bool LineCheck(Vector2 start, Vector2 end);
 
     bool FindInContainer(std::list<SharedMeshPtr> * holder, SharedMeshPtr n);
 
