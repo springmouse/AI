@@ -21,7 +21,7 @@ Boids::Boids(BoidsBlackBoard * blackBoard, Vector2 center)
     m_alignmentRadius = 250;
     m_cohesionRadius = 150;
 
-    m_seperationWeight = 18;
+    m_seperationWeight = 40;
     m_alignmentWeight = 18;
     m_cohesionWeight = 20;
 

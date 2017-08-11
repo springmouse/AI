@@ -19,11 +19,8 @@ GetAStarPath * GetAStarPath::GetInstanceOfpathFinder()
 }
 
 //finds us a path between two nodes
-std::list<SharedMeshPtr> GetAStarPath::FindPath(Vector2 start, Vector2 end)
+std::list<Vector2> GetAStarPath::FindPath(Vector2 start, Vector2 end)
 {
-	
-	
-
     //the start Node
     SharedMeshPtr startNode = NAVMANAGER->GetNode(start);
 
@@ -33,21 +30,16 @@ std::list<SharedMeshPtr> GetAStarPath::FindPath(Vector2 start, Vector2 end)
     //if the start or target node does not exist we escape
     if (startNode == nullptr || targetNode == nullptr)
     {
-        std::list<SharedMeshPtr> temp = std::list<SharedMeshPtr>();
+        std::list<Vector2> temp = std::list<Vector2>();
         return temp;
     }
 
 	if (LineCheck(start, end) == false)
 	{
-		std::list<SharedMeshPtr> tempPath;
-		tempPath.push_back(targetNode);
-
-		std::cout << "Line of Sight \n";
-
+		std::list<Vector2> tempPath;
+		tempPath.push_back(end);
 		return tempPath;
 	}
-
-	std::cout << "NO Line of Sight!!!! \n";
 
     //tiles we can look at
     std::list<SharedMeshPtr> openSet;
@@ -116,11 +108,9 @@ std::list<SharedMeshPtr> GetAStarPath::FindPath(Vector2 start, Vector2 end)
     }
 
     //this was added to avoid bad evil crashes where no path could be found
-    std::list<SharedMeshPtr> empty = std::list<SharedMeshPtr>();
+    std::list<Vector2> empty = std::list<Vector2>();
     return empty;
 }
-
-
 
 bool GetAStarPath::LineCheck(Vector2 start, Vector2 end)
 {
@@ -192,28 +182,34 @@ bool GetAStarPath::FindInContainer(std::list<SharedMeshPtr> * holder, SharedMesh
 }
 
 //we retrace the path by following the parents of each node starting at the end moving all the way to the begining
-std::list<SharedMeshPtr>  GetAStarPath::RetracePath(SharedMeshPtr startTile, SharedMeshPtr endTile)
+std::list<Vector2>  GetAStarPath::RetracePath(SharedMeshPtr startTile, SharedMeshPtr endTile)
 {
-    std::list<SharedMeshPtr> path;
-    SharedMeshPtr currentTile = endTile;
+    std::list<Vector2> path;
+
+	SharedMeshPtr startPos = endTile;
+    SharedMeshPtr currentTile = endTile->GetParent().lock();
+	SharedMeshPtr holder = currentTile;
 
     //we keep looping while the current tile
     //dose not equal the stat tile
     while (currentTile != startTile)
     {
-        path.push_back(currentTile);
-        currentTile = currentTile->GetParent().lock();
-    }
+        path.push_back(startPos->GetCenter());
+		
+		while (LineCheck(startPos->GetCenter(), currentTile->GetCenter())== false && currentTile != startTile)
+		{
+			holder = currentTile;
+			currentTile = currentTile->GetParent().lock();
+		}
+
+		startPos = holder;
+		currentTile = startPos->GetParent().lock();
+	}
 
     //we reverse the path so that it goes from start Tile to end tile
     //and not end tile to start tile
     std::reverse(path.begin(), path.end());
-
-    for each (SharedMeshPtr n in path)
-    {
-        n->SetParent(nullptr);
-    }
-
+	
     //we return the path
     return path;
 }

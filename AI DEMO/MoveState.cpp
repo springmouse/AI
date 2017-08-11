@@ -3,6 +3,7 @@
 #include "NavManager.h"
 
 
+
 MoveState::MoveState(Entity * ent)
 {
     m_myEntity = ent;
@@ -23,14 +24,11 @@ void MoveState::onUpdate(float deltaTime)
             return;
         }
 
-        if (m_myEntity->m_path.front()->CheckIfInMeshBounds(m_myEntity->GetPos()))
+		Vector2 holder = m_myEntity->m_path.front();
+		holder -= m_myEntity->GetPos();
+
+        if (sprMagnatude(holder) < (100))
         {
-            m_myEntity->m_previousLocation = m_myEntity->m_currLocation;
-            m_myEntity->m_currLocation = m_myEntity->m_path.front();
-
-            m_myEntity->m_previousLocation->ModifyWeightCost(-5);
-            m_myEntity->m_currLocation->ModifyWeightCost(5);
-
             m_myEntity->m_path.pop_front();
 
             if (m_myEntity->m_path.size() <= 0)
@@ -39,10 +37,15 @@ void MoveState::onUpdate(float deltaTime)
             }
         }
 
-        Vector2 move = m_myEntity->m_path.front()->GetCenter();
+        Vector2 move = m_myEntity->m_path.front();
         move -= m_myEntity->GetPos();
         move.normalise();
 
-        m_myEntity->UpdatePos((move * deltaTime) * 10);
+        m_myEntity->UpdatePos((move * 10) * deltaTime);
     }
+}
+
+float MoveState::sprMagnatude(Vector2 pos)
+{
+	return ((pos.x * pos.x) + (pos.y * pos.y));
 }

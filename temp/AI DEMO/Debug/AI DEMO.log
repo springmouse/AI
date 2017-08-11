@@ -1,7 +1,4 @@
-﻿  GetAStarPath.cpp
-c:\users\s171669\documents\github\ai\ai demo\getastarpath.cpp(100): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-c:\users\s171669\documents\github\ai\ai demo\getastarpath.cpp(106): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\s171669\documents\github\ai\ai demo\getastarpath.cpp(107): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\s171669\documents\github\ai\ai demo\getastarpath.cpp(225): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-c:\users\s171669\documents\github\ai\ai demo\getastarpath.cpp(226): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-  AI DEMO.vcxproj -> C:\Users\s171669\Documents\GitHub\AI\temp\AI DEMO\Debug\AI DEMO.exe
+﻿  PlayerUnitDecsisionTree.cpp
+LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
+  AI DEMO.vcxproj -> C:\Users\callu.DESKTOP-LVUVE2B\Documents\GitHub\AI\temp\AI DEMO\Debug\AI DEMO.exe
+  AI DEMO.vcxproj -> C:\Users\callu.DESKTOP-LVUVE2B\Documents\GitHub\AI\temp\AI DEMO\Debug\AI DEMO.pdb (Full PDB)

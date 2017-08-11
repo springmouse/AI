@@ -10,7 +10,7 @@ Villager::Villager()
 {
     m_decsisionTree = new PlayerUnitDecsisionTree(this);
     m_health = 10;
-    m_pos = Vector2(0,0);
+    m_pos = NAVMANAGER->g_NavNodes.front()->GetCenter();
 
     m_stateMachine = new EntityStateMachine(this);
     m_stateMachine->registerState(FACTORY->MakeEntityState(eEntityStateType::MOVE, this));
@@ -46,20 +46,6 @@ Villager::~Villager()
 
 void Villager::Update(float deltaTime)
 {
-    if (m_currLocation == nullptr)
-    {
-        m_currLocation = NAVMANAGER->GetNode(m_pos);
-        m_previousLocation = m_currLocation;
-
-        if (m_currLocation == nullptr)
-        {
-            GetPos() = NAVMANAGER->g_NavNodes.front()->GetCenter();
-            m_currLocation = NAVMANAGER->g_NavNodes.front();
-        }
-
-        m_currLocation->ModifyWeightCost(5);
-    }
-
     m_decsisionTree->Update();
     m_stateMachine->Update(deltaTime);
 

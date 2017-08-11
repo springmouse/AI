@@ -29,65 +29,7 @@ float BoidsBlackBoard::sprMagnatude(Vector2 pos)
 
 Vector2 BoidsBlackBoard::GetTarget(Vector2 pos)
 {
-
     return Vector2(INFOMATION->ScreenWidth * 0.5, INFOMATION->ScreenHeight * 0.5);
-
-    /*if (target.x >= (0 + boundsModifier) && target.y >= (0 + boundsModifier) && target.x <= (upperBounds.x - boundsModifier) && target.y <= (upperBounds.y - boundsModifier))
-    {
-        if (isInBounds == false)
-        {
-            isInBounds = true;
-
-            for each (ShareBoidPtr boid in m_leaders)
-            {
-                boid->SetLeader(false);
-            }
-
-            m_leaders.clear();
-        }
-
-        return target;
-    }
-    else
-    {
-        if (isInBounds)
-        {
-            isInBounds = false;
-            int amount = std::rand() % 5;
-
-            if (amount == 0)
-            {
-                amount = 1;
-            }
-
-            for each (ShareBoidPtr boid in m_boids)
-            {
-                if (amount >= 0)
-                {
-                    boid->SetLeader(true);
-                    m_leaders.push_back(boid);
-                    amount--;
-                }
-                else
-                {
-                    break;
-                }
-            }
-        }
-
-        Vector2 closes = Vector2(10000, 10000);
-
-        for each (ShareBoidPtr boid in m_leaders)
-        {
-            if (sprMagnatude(boid->GetPos()) < sprMagnatude(closes))
-            {
-                closes = boid->GetPos();
-            }
-        }
-
-        return closes;
-    }*/
-
 }
 
 void BoidsBlackBoard::MakeLeaders()

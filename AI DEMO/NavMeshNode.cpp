@@ -146,6 +146,14 @@ Vector2 NavMeshNode::GetCenter() const
     return m_centerPoint;
 }
 
+void NavMeshNode::SetEdgesToTrue()
+{
+	m_NorthEdge->mapEdge = true;
+	m_EastEdge->mapEdge = true;
+	m_SouthEdge->mapEdge = true;
+	m_WestEdge->mapEdge = true;
+}
+
 void NavMeshNode::DefineMapEdges()
 {
     for each (sharedNavConnectionPtr conector in g_connections)
@@ -269,10 +277,15 @@ void NavMeshNode::DeleteAllConections(SharedMeshPtr me)
         if (nc->p_nodeA.lock() != me)
         {
             nc->p_nodeA.lock()->DeleteConection(nc);
+			nc->p_nodeA.lock()->SetEdgesToTrue();
+			nc->p_nodeA.lock()->DefineMapEdges();
+			
         }
         else if (nc->p_nodeB.lock() != me)
         {
             nc->p_nodeB.lock()->DeleteConection(nc);
+			nc->p_nodeB.lock()->SetEdgesToTrue();
+			nc->p_nodeB.lock()->DefineMapEdges();
         }
     }
 

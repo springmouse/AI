@@ -1,5 +1,6 @@
 #pragma once
 #include "EntityStates.h"
+#include <Vector2.h>
 
 class MoveState :
     public EntityStates
@@ -13,5 +14,6 @@ public:
 
     void onUpdate(float deltaTime);
 
+	float sprMagnatude(Vector2 pos);
 };
 

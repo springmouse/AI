@@ -12,14 +12,6 @@ NavManager * NavManager::GetInstanceOfNavManager()
 
 NavManager::NavManager()
 {
-    /*for (int x = 0; x <= 3; x++)
-    {
-        for (int y = 0; y <= 3; y++)
-        {
-            g_mapNodes.push_back(SharedMapNodePtr(new MapNode(x * INFOMATION->nodeSize, y * INFOMATION->nodeSize)));
-        }
-    }*/
-
     CreatNavMesh();
     SetUpStartUpNodeConections();
     CreatEdges();
@@ -295,6 +287,7 @@ void NavManager::DestroyNode()
     {
         n->DeleteAllConections(n);
         g_NavNodes.remove(n);
+		GatherEdges();
     }
 
 }

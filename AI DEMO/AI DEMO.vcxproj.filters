@@ -43,6 +43,9 @@
     <Filter Include="Source Files\Behaviours\BlackBoard">
       <UniqueIdentifier>{50f164a7-1694-49be-8a66-29da3d96dc94}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Behaviours\Utility">
+      <UniqueIdentifier>{abf295b0-6d3b-4d37-8089-9b9baf52a384}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Factory.cpp">
@@ -108,8 +111,14 @@
     <ClCompile Include="BoidsBlackBoard.cpp">
       <Filter>Source Files\Behaviours\BlackBoard</Filter>
     </ClCompile>
+    <ClCompile Include="VillagerBlackBoard.cpp">
+      <Filter>Source Files\Behaviours\BlackBoard</Filter>
+    </ClCompile>
     <ClCompile Include="MapEdges.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\PathFinding</Filter>
+    </ClCompile>
+    <ClCompile Include="VillegerUtility.cpp">
+      <Filter>Source Files\Behaviours\Utility</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -179,8 +188,14 @@
     <ClInclude Include="BoidsBlackBoard.h">
       <Filter>Source Files\Behaviours\BlackBoard</Filter>
     </ClInclude>
+    <ClInclude Include="VillagerBlackBoard.h">
+      <Filter>Source Files\Behaviours\BlackBoard</Filter>
+    </ClInclude>
     <ClInclude Include="MapEdges.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files\PathFinding</Filter>
+    </ClInclude>
+    <ClInclude Include="VillegerUtility.h">
+      <Filter>Source Files\Behaviours\Utility</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

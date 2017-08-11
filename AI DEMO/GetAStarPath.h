@@ -23,7 +23,7 @@ public:
     *
     * Return: a vector of tiles makeing up the path from the start to the end tile
     */
-    std::list<SharedMeshPtr> FindPath(Vector2 start, Vector2 end);
+    std::list<Vector2> FindPath(Vector2 start, Vector2 end);
 
 	bool LineCheck(Vector2 start, Vector2 end);
 
@@ -56,8 +56,8 @@ public:
     *
     * Return: a vector holding only our path tiles from start to end
     */
-    std::list<SharedMeshPtr>  RetracePath(SharedMeshPtr startTile, SharedMeshPtr endTile);
-
+    std::list<Vector2>  RetracePath(SharedMeshPtr startTile, SharedMeshPtr endTile);
+	
     /*
     * Function: GetInstanceOfpathFinder
     * ---------------------------------

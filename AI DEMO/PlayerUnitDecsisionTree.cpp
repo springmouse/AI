@@ -87,7 +87,17 @@ void PlayerUnitDecsisionTree::CreatNodes()
 
     N3->run = [unit]()->bool 
     { 
-        return unit->m_currLocation->CheckIfInMeshBounds(unit->m_target); 
+		Vector2 holder = unit->m_target;
+		holder -= unit->GetPos();
+
+		float f = ((holder.x * holder.x) + (holder.y * holder.y));
+
+		if (f < (100))
+		{
+			return true;
+		}
+
+		return false;
     };
 
     N4->run = [unit]()->bool

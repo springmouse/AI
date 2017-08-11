@@ -115,6 +115,8 @@
     <ClCompile Include="PlayerUnitDecsisionTree.cpp" />
     <ClCompile Include="RenderToMesh.cpp" />
     <ClCompile Include="Villager.cpp" />
+    <ClCompile Include="VillagerBlackBoard.cpp" />
+    <ClCompile Include="VillegerUtility.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AI_DEMOApp.h" />
@@ -140,6 +142,8 @@
     <ClInclude Include="RenderToMesh.h" />
     <ClInclude Include="TypesAndDefines.h" />
     <ClInclude Include="Villager.h" />
+    <ClInclude Include="VillagerBlackBoard.h" />
+    <ClInclude Include="VillegerUtility.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

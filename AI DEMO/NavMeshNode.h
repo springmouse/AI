@@ -94,7 +94,10 @@ public:
 
     Vector2 GetCenter() const;
 
+	void SetEdgesToTrue();
+
     void DefineMapEdges();
+
     void CheckEdge(WeakMeshPtr nodeB);
 
     std::list<SharedEdge> GetMapEdges();

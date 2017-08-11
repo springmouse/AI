@@ -25,11 +25,7 @@ public:
 
     Vector2 m_target;
 
-    std::list<SharedMeshPtr> m_path;
-
-    SharedMeshPtr m_currLocation;
-
-    SharedMeshPtr m_previousLocation;
+    std::list<Vector2> m_path;
 
 	float m_colourChangeTimer;
 
