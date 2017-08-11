@@ -109,7 +109,7 @@ void PlayerUnitDecsisionTree::CreatNodes()
             random--;
             if (random == 0)
             {
-                unit->m_target = n->GetCenter();
+                unit->m_target = Vector2(n->GetCenter().x + (std::rand() % 10 - 5), n->GetCenter().y + (std::rand() % 10 - 5));
             }
         }
 

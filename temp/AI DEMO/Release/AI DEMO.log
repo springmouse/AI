@@ -1,10 +1,8 @@
-﻿  MapEdges.cpp
+﻿  Food.cpp
   Generating code
-  322 of 3879 functions ( 8.3%) were compiled, the rest were copied from previous compilation.
-    144 functions were new in current compilation
-    159 functions had inline decision re-evaluated but remain unchanged
+  2 of 4067 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    1 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
-MathsLibary.lib(Vector2.obj) : warning LNK4099: PDB 'MathsLibary.pdb' was not found with 'MathsLibary.lib(Vector2.obj)' or at 'C:\Users\s171669\Documents\GitHub\AI\temp\AI DEMO\Release\MathsLibary.pdb'; linking object as if no debug info
-MathsLibary.lib(Vector4.obj) : warning LNK4099: PDB 'MathsLibary.pdb' was not found with 'MathsLibary.lib(Vector4.obj)' or at 'C:\Users\s171669\Documents\GitHub\AI\temp\AI DEMO\Release\MathsLibary.pdb'; linking object as if no debug info
-MathsLibary.lib(Vector3.obj) : warning LNK4099: PDB 'MathsLibary.pdb' was not found with 'MathsLibary.lib(Vector3.obj)' or at 'C:\Users\s171669\Documents\GitHub\AI\temp\AI DEMO\Release\MathsLibary.pdb'; linking object as if no debug info
-  AI DEMO.vcxproj -> C:\Users\s171669\Documents\GitHub\AI\temp\AI DEMO\Release\AI DEMO.exe
+  AI DEMO.vcxproj -> C:\Users\callu.DESKTOP-LVUVE2B\Documents\GitHub\AI\temp\AI DEMO\Release\AI DEMO.exe
+  AI DEMO.vcxproj -> C:\Users\callu.DESKTOP-LVUVE2B\Documents\GitHub\AI\temp\AI DEMO\Release\AI DEMO.pdb (Full PDB)

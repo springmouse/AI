@@ -1,6 +1,7 @@
 #include "MoveState.h"
 #include "Entity.h"
 #include "NavManager.h"
+#include "GetAStarPath.h"
 
 
 
@@ -23,6 +24,12 @@ void MoveState::onUpdate(float deltaTime)
             m_myEntity->m_path.clear();
             return;
         }
+
+		if (PATH_FINDER->LineCheck(m_myEntity->GetPos(), m_myEntity->m_path.front()))
+		{
+			m_myEntity->m_path.clear();
+			return;
+		}
 
 		Vector2 holder = m_myEntity->m_path.front();
 		holder -= m_myEntity->GetPos();

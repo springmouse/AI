@@ -217,7 +217,7 @@ void InGameState::onUpdate(float deltaTime)
             {
                 if (mesh->CheckIfInMeshBounds(MOUSE->mousePosGameSpace) == true)
                 {
-                    m_units.push_back(FACTORY->MakeEntity(eEntityTyes::VILLAGER, MOUSE->mousePosGameSpace));
+                    m_units.push_back(FACTORY->MakeEntity(eEntityTyes::VILLAGER,Vector2(MOUSE->mousePosGameSpace.x + (std::rand() % 10 - 5), MOUSE->mousePosGameSpace.y + (std::rand() % 10 - 5))));
                 }
             }
         }
