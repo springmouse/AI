@@ -222,6 +222,8 @@ void InGameState::onUpdate(float deltaTime)
             }
         }
 
+		CheckToRemoveFood();
+
         for each (Entity * e in m_units)
         {
             e->Update(deltaTime);
@@ -301,6 +303,22 @@ void InGameState::CreatInfiniteFood()
 			NAVMANAGER->GatherEdges();
 		}
 	}
+}
+
+void InGameState::CheckToRemoveFood()
+{
+	sharedFoodPtr holder;
+
+	for each (sharedFoodPtr food in m_food)
+	{
+		if (food->CheckIFPosValid() == false)
+		{
+			holder = food;
+			break;
+		}
+	}
+
+	m_food.remove(holder);
 }
 
 #pragma endregion

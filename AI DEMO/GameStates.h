@@ -364,6 +364,8 @@ public:
 
 	void CreatInfiniteFood();
 
+	void CheckToRemoveFood();
+
     //void SlectState();
 
 private:

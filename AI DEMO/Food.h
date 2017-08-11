@@ -14,6 +14,10 @@ public:
 	Food();
 	~Food();
 
+	void Update(float deltaTime) {};
+
+	bool CheckIFPosValid();
+
 	virtual void Draw(aie::Renderer2D * m_2dRenderer) {};
 };
 

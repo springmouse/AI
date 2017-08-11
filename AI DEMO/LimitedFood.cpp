@@ -12,6 +12,10 @@ LimitedFood::~LimitedFood()
 {
 }
 
+void LimitedFood::Update(float deltaTime)
+{
+}
+
 void LimitedFood::Draw(aie::Renderer2D * m_2dRenderer)
 {
 

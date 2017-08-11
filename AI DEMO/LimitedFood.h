@@ -8,6 +8,8 @@ public:
 	LimitedFood(Vector2 pos);
 	~LimitedFood();
 
+	void Update(float deltaTime);
+
 	void Draw(aie::Renderer2D * m_2dRenderer);
 };
 

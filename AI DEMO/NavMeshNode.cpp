@@ -148,10 +148,10 @@ Vector2 NavMeshNode::GetCenter() const
 
 void NavMeshNode::SetEdgesToTrue()
 {
-	m_NorthEdge->mapEdge = true;
-	m_EastEdge->mapEdge = true;
-	m_SouthEdge->mapEdge = true;
-	m_WestEdge->mapEdge = true;
+		m_NorthEdge->mapEdge = true;
+		m_EastEdge->mapEdge = true;
+		m_SouthEdge->mapEdge = true;
+		m_WestEdge->mapEdge = true;
 }
 
 void NavMeshNode::DefineMapEdges()

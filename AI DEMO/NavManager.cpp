@@ -287,6 +287,15 @@ void NavManager::DestroyNode()
     {
         n->DeleteAllConections(n);
         g_NavNodes.remove(n);
+
+		for each (SharedMeshPtr node in g_NavNodes)
+		{
+			if (node->GetIsPasible() == false)
+			{
+				node->SetPassible(false);
+			}
+		}
+
 		GatherEdges();
     }
 
