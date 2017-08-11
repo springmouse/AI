@@ -62,6 +62,15 @@ void Villager::Draw(aie::Renderer2D * renderer)
 	    m_colour += 0.5f;
 	}
 
+	/*Vector2 holder = m_pos;
+
+	for each (Vector2 vec in m_path)
+	{
+		renderer->setRenderColour(0.5, 1, 0, 1);
+		renderer->drawLine(holder.x, holder.y, vec.x, vec.y);
+		holder = vec;
+	}*/
+
     renderer->setRenderColour(m_colour, m_colour, 0, 1);
     renderer->drawCircle(m_pos.x, m_pos.y, 5);
     renderer->setRenderColour(1, 1, 1, 1);

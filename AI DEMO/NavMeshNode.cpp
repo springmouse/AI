@@ -172,25 +172,25 @@ void NavMeshNode::DefineMapEdges()
 
 void NavMeshNode::CheckEdge(WeakMeshPtr nodeB)
 {
-    if (*m_NorthEdge == nodeB.lock()->m_SouthEdge)
+    if (*m_NorthEdge == nodeB.lock()->m_SouthEdge && nodeB.lock()->GetIsPasible())
     {
         m_NorthEdge->mapEdge = false;
         nodeB.lock()->m_SouthEdge->mapEdge = false;
     }
 
-    if (*m_EastEdge == nodeB.lock()->m_WestEdge)
+    if (*m_EastEdge == nodeB.lock()->m_WestEdge && nodeB.lock()->GetIsPasible())
     {
         m_EastEdge->mapEdge = false;
         nodeB.lock()->m_WestEdge->mapEdge = false;
     }
 
-    if (*m_SouthEdge == nodeB.lock()->m_NorthEdge)
+    if (*m_SouthEdge == nodeB.lock()->m_NorthEdge && nodeB.lock()->GetIsPasible())
     {
         m_SouthEdge->mapEdge = false;
         nodeB.lock()->m_NorthEdge->mapEdge = false;
     }
 
-    if (*m_WestEdge == nodeB.lock()->m_EastEdge)
+    if (*m_WestEdge == nodeB.lock()->m_EastEdge && nodeB.lock()->GetIsPasible())
     {
         m_WestEdge->mapEdge = false;
         nodeB.lock()->m_EastEdge->mapEdge = false;
@@ -333,6 +333,23 @@ void NavMeshNode::SetGCost(float set)
 void NavMeshNode::SetHCost(float set)
 {
     m_hCost = set;
+}
+
+void NavMeshNode::SetPassible(bool seter)
+{
+	m_isPassable = seter;
+
+	if (m_isPassable == false)
+	{
+		m_NorthEdge->mapEdge = true;
+		m_EastEdge->mapEdge = true;
+		m_SouthEdge->mapEdge = true;
+		m_WestEdge->mapEdge = true;
+	}
+	else
+	{
+		DefineMapEdges();
+	}
 }
 
 void NavMeshNode::ModifyWeightCost(float set)

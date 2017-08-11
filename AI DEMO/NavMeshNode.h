@@ -122,6 +122,8 @@ public:
 
     void SetHCost(float set);
 
+	void SetPassible(bool seter);
+
     void ModifyWeightCost(float set);
 
     bool GetIsPasible() const;

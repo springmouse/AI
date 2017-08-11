@@ -8,6 +8,7 @@
 #include "RenderToMesh.h"
 #include "MouseState.h"
 
+
 #include <iostream>
 
 #pragma region GameStates
@@ -166,10 +167,15 @@ InGameState::InGameState()
     button2->setTextures(buttonTexPaths);
     m_buttons.push_back(button2);
 
-    Button::SharedPtr button3(new Button((INFOMATION->cameraPos.x + 32), (INFOMATION->cameraPos.y + (2 * INFOMATION->nodeSize) + 605), 128, 32, "Swap Draw To Node", new aie::Font("./font/consolas.ttf", 12)));
-    button3->connect(myBIND_0(NavManager::SwapDrawToNode, NAVMANAGER));
+    Button::SharedPtr button3(new Button((INFOMATION->cameraPos.x + 32), (INFOMATION->cameraPos.y + (2 * INFOMATION->nodeSize) + 605), 128, 32, "Limited Food", new aie::Font("./font/consolas.ttf", 12)));
+    button3->connect(myBIND_0(InGameState::ButtonAssignLimitedFood, this));
     button3->setTextures(buttonTexPaths);
     m_buttons.push_back(button3);
+
+	Button::SharedPtr button4(new Button((INFOMATION->cameraPos.x + 32), (INFOMATION->cameraPos.y + (2 * INFOMATION->nodeSize) + 570), 128, 32, "Infinite Food", new aie::Font("./font/consolas.ttf", 12)));
+	button4->connect(myBIND_0(InGameState::ButtonAssignInfiniteFood, this));
+	button4->setTextures(buttonTexPaths);
+	m_buttons.push_back(button4);
 }
 
 InGameState::~InGameState()
@@ -239,6 +245,11 @@ void InGameState::onDraw(aie::Renderer2D * m_2dRenderer, aie::Font* font)
         m_2dRenderer->drawText(font, "press esc to go back to main menu", INFOMATION->cameraPos.x, INFOMATION->cameraPos.y + 10);
 
         //////////////////////////////////////
+		for each (sharedFoodPtr food in m_food)
+		{
+			food->Draw(m_2dRenderer);
+		}
+
         for each (Entity * e in m_units)
         {
             e->Draw(m_2dRenderer);
@@ -254,6 +265,42 @@ void InGameState::ButtonAssignBuildMode()
 void InGameState::ButtonAssignDestroyMode()
 {
     MOUSE->connect(myBIND_0(NavManager::DestroyNode, NAVMANAGER));
+}
+
+void InGameState::ButtonAssignLimitedFood()
+{
+	MOUSE->connect(myBIND_0(InGameState::CreatLimitedFood, this));
+}
+
+void InGameState::ButtonAssignInfiniteFood()
+{
+	MOUSE->connect(myBIND_0(InGameState::CreatInfiniteFood, this));
+}
+
+void InGameState::CreatLimitedFood()
+{
+	for each (SharedMeshPtr mesh in NAVMANAGER->g_NavNodes)
+	{
+		if (mesh->CheckIfInMeshBounds(MOUSE->mousePosGameSpace) == true && mesh->GetIsPasible())
+		{
+			m_food.push_back(FACTORY->MakeFood(eFoodTypes::FOOD_LIMITED, MOUSE->mousePosGameSpace));
+			mesh->SetPassible(false);
+			NAVMANAGER->GatherEdges();
+		}
+	}
+}
+
+void InGameState::CreatInfiniteFood()
+{
+	for each (SharedMeshPtr mesh in NAVMANAGER->g_NavNodes)
+	{
+		if (mesh->CheckIfInMeshBounds(MOUSE->mousePosGameSpace) == true && mesh->GetIsPasible())
+		{
+			m_food.push_back(FACTORY->MakeFood(eFoodTypes::FOOD_INFINITE, MOUSE->mousePosGameSpace));
+			mesh->SetPassible(false);
+			NAVMANAGER->GatherEdges();
+		}
+	}
 }
 
 #pragma endregion

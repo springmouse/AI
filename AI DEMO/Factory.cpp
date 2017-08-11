@@ -1,6 +1,8 @@
 #include "Factory.h"
 #include "MoveState.h"
 #include "Villager.h"
+#include "LimitedFood.h"
+#include "InfiniteFood.h"
 
 
 
@@ -71,4 +73,15 @@ EntityStates * Factory::MakeEntityState(eEntityStateType type, Entity * unit)
     default:
         return nullptr;
     }
+}
+
+sharedFoodPtr Factory::MakeFood(eFoodTypes type, Vector2 pos)
+{
+	switch (type)
+	{
+	case FOOD_LIMITED:
+		return sharedFoodPtr(new LimitedFood(pos));
+	case FOOD_INFINITE:
+		return sharedFoodPtr(new InfiniteFood(pos));
+	}
 }

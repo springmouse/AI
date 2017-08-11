@@ -46,6 +46,9 @@
     <Filter Include="Source Files\Behaviours\Utility">
       <UniqueIdentifier>{abf295b0-6d3b-4d37-8089-9b9baf52a384}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Behaviours\StateMachine\States">
+      <UniqueIdentifier>{45ecef4b-ed1d-4f43-a4fa-16238bb20e70}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Factory.cpp">
@@ -102,9 +105,6 @@
     <ClCompile Include="EntityStateMachine.cpp">
       <Filter>Source Files\Behaviours\StateMachine</Filter>
     </ClCompile>
-    <ClCompile Include="MoveState.cpp">
-      <Filter>Source Files\Behaviours\StateMachine</Filter>
-    </ClCompile>
     <ClCompile Include="Boids.cpp">
       <Filter>Source Files\Objects</Filter>
     </ClCompile>
@@ -119,6 +119,18 @@
     </ClCompile>
     <ClCompile Include="VillegerUtility.cpp">
       <Filter>Source Files\Behaviours\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="MoveState.cpp">
+      <Filter>Source Files\Behaviours\StateMachine\States</Filter>
+    </ClCompile>
+    <ClCompile Include="Food.cpp">
+      <Filter>Source Files\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="LimitedFood.cpp">
+      <Filter>Source Files\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="InfiniteFood.cpp">
+      <Filter>Source Files\Objects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -179,9 +191,6 @@
     <ClInclude Include="EntityStates.h">
       <Filter>Source Files\Behaviours\StateMachine</Filter>
     </ClInclude>
-    <ClInclude Include="MoveState.h">
-      <Filter>Source Files\Behaviours\StateMachine</Filter>
-    </ClInclude>
     <ClInclude Include="Boids.h">
       <Filter>Source Files\Objects</Filter>
     </ClInclude>
@@ -196,6 +205,18 @@
     </ClInclude>
     <ClInclude Include="VillegerUtility.h">
       <Filter>Source Files\Behaviours\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveState.h">
+      <Filter>Source Files\Behaviours\StateMachine\States</Filter>
+    </ClInclude>
+    <ClInclude Include="InfiniteFood.h">
+      <Filter>Source Files\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="LimitedFood.h">
+      <Filter>Source Files\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Food.h">
+      <Filter>Source Files\Objects</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -4,6 +4,7 @@
 #include "Boids.h"
 #include "Entity.h"
 #include <assert.h>
+#include "Food.h"
 
 #define FACTORY Factory::GetInstanceOfFactory() /*lets us call and use the factory*/
 
@@ -45,6 +46,8 @@ public:
     Entity * MakeEntity(eEntityTyes type, Vector2 pos);
 
     EntityStates * MakeEntityState(eEntityStateType type, Entity * unit);
+
+	sharedFoodPtr MakeFood(eFoodTypes type , Vector2 pos);
 
 private:
     /*

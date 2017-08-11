@@ -22,5 +22,7 @@ private:
 
     PlayerUnitDecsisionTree * m_decsisionTree;
     EntityStateMachine * m_stateMachine;
+
+	float food;
 };
 

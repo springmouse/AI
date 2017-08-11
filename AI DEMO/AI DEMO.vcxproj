@@ -100,10 +100,13 @@
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="EntityStateMachine.cpp" />
     <ClCompile Include="Factory.cpp" />
+    <ClCompile Include="Food.cpp" />
     <ClCompile Include="GameStateManagmeant.cpp" />
     <ClCompile Include="GameStates.cpp" />
     <ClCompile Include="GetAStarPath.cpp" />
+    <ClCompile Include="InfiniteFood.cpp" />
     <ClCompile Include="Information.cpp" />
+    <ClCompile Include="LimitedFood.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MapEdges.cpp" />
     <ClCompile Include="MapNode.cpp" />
@@ -127,10 +130,13 @@
     <ClInclude Include="EntityStateMachine.h" />
     <ClInclude Include="EntityStates.h" />
     <ClInclude Include="Factory.h" />
+    <ClInclude Include="Food.h" />
     <ClInclude Include="GameStateManagmeant.h" />
     <ClInclude Include="GameStates.h" />
     <ClInclude Include="GetAStarPath.h" />
+    <ClInclude Include="InfiniteFood.h" />
     <ClInclude Include="Information.h" />
+    <ClInclude Include="LimitedFood.h" />
     <ClInclude Include="MapEdges.h" />
     <ClInclude Include="MapNode.h" />
     <ClInclude Include="MouseState.h" />

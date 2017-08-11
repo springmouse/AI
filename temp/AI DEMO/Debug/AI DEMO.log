@@ -1,4 +1,10 @@
-﻿  PlayerUnitDecsisionTree.cpp
-LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
+﻿  NavMeshNode.cpp
+c:\users\callu.desktop-lvuve2b\documents\github\ai\ai demo\navmeshnode.cpp(123): warning C4305: '*=': truncation from 'double' to 'float'
+  GameStates.cpp
+c:\users\callu.desktop-lvuve2b\documents\github\ai\ai demo\gamestates.cpp(160): warning C4244: 'argument': conversion from 'realNum' to 'int', possible loss of data
+c:\users\callu.desktop-lvuve2b\documents\github\ai\ai demo\gamestates.cpp(165): warning C4244: 'argument': conversion from 'realNum' to 'int', possible loss of data
+c:\users\callu.desktop-lvuve2b\documents\github\ai\ai demo\gamestates.cpp(170): warning C4244: 'argument': conversion from 'realNum' to 'int', possible loss of data
+c:\users\callu.desktop-lvuve2b\documents\github\ai\ai demo\gamestates.cpp(175): warning C4244: 'argument': conversion from 'realNum' to 'int', possible loss of data
+  Generating Code...
   AI DEMO.vcxproj -> C:\Users\callu.DESKTOP-LVUVE2B\Documents\GitHub\AI\temp\AI DEMO\Debug\AI DEMO.exe
   AI DEMO.vcxproj -> C:\Users\callu.DESKTOP-LVUVE2B\Documents\GitHub\AI\temp\AI DEMO\Debug\AI DEMO.pdb (Full PDB)

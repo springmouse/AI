@@ -4,6 +4,7 @@
 #include "Button.h"
 
 #include "Entity.h"
+#include "Food.h"
 #include "BoidsBlackBoard.h"
 
 #include <Vector3.h>
@@ -355,13 +356,23 @@ public:
 
     void ButtonAssignDestroyMode();
 
+	void ButtonAssignLimitedFood();
+
+	void ButtonAssignInfiniteFood();
+
+	void CreatLimitedFood();
+
+	void CreatInfiniteFood();
+
     //void SlectState();
 
 private:
 
     std::list<Button::SharedPtr> m_buttons; 
 
-
     std::list<Entity *> m_units;
+
+	std::list<sharedFoodPtr> m_food;
+
     float timmer = 0;
 };
