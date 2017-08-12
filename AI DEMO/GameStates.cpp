@@ -98,6 +98,7 @@ InGameFlockStake::InGameFlockStake()
 
 InGameFlockStake::~InGameFlockStake()
 {
+	delete m_boidsBlackBoard;
 }
 
 void InGameFlockStake::onUpdate(float deltaTime)
@@ -151,6 +152,8 @@ InGameState::InGameState()
 
     std::string buttonTexPaths[4];
 
+	m_villigerBlackBoard = new VillagerBlackBoard();
+
     buttonTexPaths[0] = "./textures/ButtonNormal.png";
     buttonTexPaths[1] = "./textures/ButtonPressed.png";
     buttonTexPaths[2] = "./textures/ButtonDisabled.png";
@@ -180,6 +183,7 @@ InGameState::InGameState()
 
 InGameState::~InGameState()
 {
+	delete m_villigerBlackBoard;
 }
 
 void InGameState::onEnter()
@@ -217,12 +221,16 @@ void InGameState::onUpdate(float deltaTime)
             {
                 if (mesh->CheckIfInMeshBounds(MOUSE->mousePosGameSpace) == true)
                 {
-                    m_units.push_back(FACTORY->MakeEntity(eEntityTyes::VILLAGER,Vector2(MOUSE->mousePosGameSpace.x + (std::rand() % 10 - 5), MOUSE->mousePosGameSpace.y + (std::rand() % 10 - 5))));
+                    m_units.push_back(FACTORY->MakeEntity(eEntityTyes::VILLAGER,Vector2(MOUSE->mousePosGameSpace.x + (std::rand() % 10 - 5), MOUSE->mousePosGameSpace.y + (std::rand() % 10 - 5)), m_villigerBlackBoard));
                 }
             }
         }
 
 		CheckToRemoveFood();
+		CheckUnitsToRemove();
+
+		m_villigerBlackBoard->m_entites = m_units;
+		m_villigerBlackBoard->m_food = m_food;
 
         for each (Entity * e in m_units)
         {
@@ -247,7 +255,7 @@ void InGameState::onDraw(aie::Renderer2D * m_2dRenderer, aie::Font* font)
         m_2dRenderer->drawText(font, "press esc to go back to main menu", INFOMATION->cameraPos.x, INFOMATION->cameraPos.y + 10);
 
         //////////////////////////////////////
-		for each (sharedFoodPtr food in m_food)
+		for each (SharedFoodPtr food in m_food)
 		{
 			food->Draw(m_2dRenderer);
 		}
@@ -307,9 +315,9 @@ void InGameState::CreatInfiniteFood()
 
 void InGameState::CheckToRemoveFood()
 {
-	sharedFoodPtr holder;
+	SharedFoodPtr holder;
 
-	for each (sharedFoodPtr food in m_food)
+	for each (SharedFoodPtr food in m_food)
 	{
 		if (food->CheckIFPosValid() == false)
 		{
@@ -319,6 +327,25 @@ void InGameState::CheckToRemoveFood()
 	}
 
 	m_food.remove(holder);
+}
+
+void InGameState::CheckUnitsToRemove()
+{
+
+	for each (Entity * unit in m_units)
+	{
+		if (unit->m_health <= 0)
+		{
+			m_unitsToRemove.push_back(unit);
+		}
+	}
+
+	for each (Entity * unit in m_unitsToRemove)
+	{
+		m_units.remove(unit);
+	}
+
+	m_unitsToRemove.clear();
 }
 
 #pragma endregion

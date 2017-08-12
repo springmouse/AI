@@ -51,12 +51,12 @@ GameStates * Factory::MakeState(eGameStateType type)
     return p;
 }
 
-Entity * Factory::MakeEntity(eEntityTyes type, Vector2 pos)
+Entity * Factory::MakeEntity(eEntityTyes type, Vector2 pos, VillagerBlackBoard * blackBoard)
 {
     switch (type)
     {
     case VILLAGER:
-        return new Villager(pos);
+        return new Villager(pos, blackBoard);
     default:
         return nullptr;
     }
@@ -75,13 +75,13 @@ EntityStates * Factory::MakeEntityState(eEntityStateType type, Entity * unit)
     }
 }
 
-sharedFoodPtr Factory::MakeFood(eFoodTypes type, Vector2 pos)
+SharedFoodPtr Factory::MakeFood(eFoodTypes type, Vector2 pos)
 {
 	switch (type)
 	{
 	case FOOD_LIMITED:
-		return sharedFoodPtr(new LimitedFood(pos));
+		return SharedFoodPtr(new LimitedFood(pos));
 	case FOOD_INFINITE:
-		return sharedFoodPtr(new InfiniteFood(pos));
+		return SharedFoodPtr(new InfiniteFood(pos));
 	}
 }

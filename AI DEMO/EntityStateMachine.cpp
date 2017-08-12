@@ -35,11 +35,11 @@ void EntityStateMachine::Update(float deltaTime)
         pop = false;
 
         //runs the closing functions of the GameState
-        m_stateStack.back()->exit();
-        auto temp = m_stateStack.back();
-        m_stateStack.pop_back();
+		m_stateToPop->exit();
 
-        temp->onPopped();
+		m_stateStack.remove(m_stateToPop);
+
+		m_stateToPop->onPopped();
 
         //runs the enter functions for the last elemeant in the list
         if (m_stateStack.size() > 0)

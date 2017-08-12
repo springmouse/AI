@@ -5,6 +5,7 @@
 #include "Entity.h"
 #include <assert.h>
 #include "Food.h"
+#include "VillagerBlackBoard.h"
 
 #define FACTORY Factory::GetInstanceOfFactory() /*lets us call and use the factory*/
 
@@ -43,11 +44,11 @@ public:
 	*/
     GameStates * MakeState(eGameStateType type);
     
-    Entity * MakeEntity(eEntityTyes type, Vector2 pos);
+    Entity * MakeEntity(eEntityTyes type, Vector2 pos, VillagerBlackBoard * blackBoard);
 
     EntityStates * MakeEntityState(eEntityStateType type, Entity * unit);
 
-	sharedFoodPtr MakeFood(eFoodTypes type , Vector2 pos);
+	SharedFoodPtr MakeFood(eFoodTypes type , Vector2 pos);
 
 private:
     /*

@@ -91,8 +91,17 @@ public:
         std::advance(it, id);
 
         return *it;
-
     };
+
+	void PopState(int id)
+	{
+		std::list<EntityStates *>::iterator it = m_registeredStates.begin();
+		std::advance(it, id);
+
+		m_stateToPop = *it;
+
+		pop = true;
+	}
 
     bool pop;
 
@@ -101,6 +110,8 @@ protected:
 
     std::list<EntityStates *> m_stateStack; /*holds all states currently in use*/
     std::list<EntityStates *> m_registeredStates; /*holds all states that can be used*/
+
+	EntityStates * m_stateToPop;
 
     Entity * myEntity;
 };

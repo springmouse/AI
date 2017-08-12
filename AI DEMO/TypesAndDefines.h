@@ -10,7 +10,8 @@ class Boids;
 class MapEdges;
 class Food;
 
-typedef std::shared_ptr<Food>			sharedFoodPtr;
+typedef std::shared_ptr<Food>			SharedFoodPtr;
+typedef std::weak_ptr<Food>				WeakFoodPtr;
 
 typedef std::shared_ptr<MapNode>        SharedMapNodePtr;
 typedef std::weak_ptr<MapNode>          WeakMapNodePtr;

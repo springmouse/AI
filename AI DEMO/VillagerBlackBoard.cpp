@@ -4,6 +4,7 @@
 
 VillagerBlackBoard::VillagerBlackBoard()
 {
+	m_murders.clear();
 }
 
 

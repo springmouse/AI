@@ -6,6 +6,7 @@
 #include "Entity.h"
 #include "Food.h"
 #include "BoidsBlackBoard.h"
+#include "VillagerBlackBoard.h"
 
 #include <Vector3.h>
 #include <List>
@@ -366,6 +367,8 @@ public:
 
 	void CheckToRemoveFood();
 
+	void CheckUnitsToRemove();
+
     //void SlectState();
 
 private:
@@ -373,8 +376,11 @@ private:
     std::list<Button::SharedPtr> m_buttons; 
 
     std::list<Entity *> m_units;
+	VillagerBlackBoard * m_villigerBlackBoard;
 
-	std::list<sharedFoodPtr> m_food;
+	std::list<Entity *> m_unitsToRemove;
+
+	std::list<SharedFoodPtr> m_food;
 
     float timmer = 0;
 };

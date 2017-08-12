@@ -3,26 +3,30 @@
 
 class PlayerUnitDecsisionTree;
 class EntityStateMachine;
-
-
+class VillegerUtility;
+class VillagerBlackBoard;
 
 class Villager :
     public Entity
 {
 
 public:
-    Villager();
-    Villager(Vector2 pos);
+    Villager(VillagerBlackBoard * blackBoard);
+    Villager(Vector2 pos, VillagerBlackBoard * blackBoard);
     ~Villager();
 
     void Update(float deltaTime);
     void Draw(aie::Renderer2D * renderer);
 
+	VillagerBlackBoard * GetBlackBoard();
+
+	void ConsumeHunger(float DeltaTime);
+
 private:
 
     PlayerUnitDecsisionTree * m_decsisionTree;
     EntityStateMachine * m_stateMachine;
-
-	float food;
+	VillegerUtility * m_utility;
+	VillagerBlackBoard * m_blackBoard;
 };
 

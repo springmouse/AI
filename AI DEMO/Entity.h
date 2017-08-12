@@ -3,6 +3,8 @@
 #include <list>
 #include "NavMeshNode.h"
 
+class VillagerBlackBoard;
+
 enum eEntityTyes
 {
     VILLAGER
@@ -21,7 +23,14 @@ public:
 
     void Draw(aie::Renderer2D * renderer) {};
 
+	virtual VillagerBlackBoard * GetBlackBoard() =0;
+
     float m_health;
+	float m_maxHealth;
+
+	float m_food;
+	float m_maxFood;
+	float m_foodDecay;
 
     Vector2 m_target;
 
@@ -30,5 +39,7 @@ public:
 	float m_colourChangeTimer;
 
 	float m_colour;
+
+	bool m_murder;
 };
 

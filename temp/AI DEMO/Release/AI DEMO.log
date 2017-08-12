@@ -1,8 +1,8 @@
-﻿  Food.cpp
+﻿  Factory.cpp
   Generating code
-  2 of 4067 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    1 functions had inline decision re-evaluated but remain unchanged
+  103 of 4128 functions ( 2.5%) were compiled, the rest were copied from previous compilation.
+    52 functions were new in current compilation
+    44 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   AI DEMO.vcxproj -> C:\Users\callu.DESKTOP-LVUVE2B\Documents\GitHub\AI\temp\AI DEMO\Release\AI DEMO.exe
   AI DEMO.vcxproj -> C:\Users\callu.DESKTOP-LVUVE2B\Documents\GitHub\AI\temp\AI DEMO\Release\AI DEMO.pdb (Full PDB)
