@@ -19,6 +19,8 @@ public:
     void Draw(aie::Renderer2D * renderer);
 
 	VillagerBlackBoard * GetBlackBoard();
+	VillegerUtility * GetUtility();
+	EntityStateMachine * GetStateMachine();
 
 	void ConsumeHunger(float DeltaTime);
 

@@ -18,7 +18,27 @@ Villager::Villager(VillagerBlackBoard * blackBoard)
 
     m_stateMachine = new EntityStateMachine(this);
     m_stateMachine->registerState(FACTORY->MakeEntityState(eEntityStateType::MOVE, this));
+	m_stateMachine->registerState(FACTORY->MakeEntityState(eEntityStateType::GATHER, this));
+	m_stateMachine->registerState(FACTORY->MakeEntityState(eEntityStateType::MURDER, this));
+	m_stateMachine->registerState(FACTORY->MakeEntityState(eEntityStateType::ATTACK, this));
     m_stateMachine->pushState(0);
+
+#pragma region murder
+	m_murderHealth = 200;
+	m_maxMurderHealth = 200;
+
+	m_murderMoveSpeed = 20;
+	m_murderAttack = 15;
+	m_murderAttackSpeed = 0.1f;
+
+	m_murderTarget = nullptr;
+#pragma endregion
+
+	m_moveSpeed = 10;
+	m_attack = 5;
+	m_attackSpeed = 0.2f;
+
+	m_attackTarget = nullptr;
 
 	m_utility = new VillegerUtility(this);
 
@@ -35,6 +55,10 @@ Villager::Villager(VillagerBlackBoard * blackBoard)
 
 	m_food = m_maxFood = 100;
 	m_foodDecay = 5;
+
+	m_updatePathTimer = 0;
+
+	m_attckCoolDown = 0;
 }
 
 Villager::Villager(Vector2 pos, VillagerBlackBoard * blackBoard)
@@ -45,7 +69,27 @@ Villager::Villager(Vector2 pos, VillagerBlackBoard * blackBoard)
 
     m_stateMachine = new EntityStateMachine(this);
     m_stateMachine->registerState(FACTORY->MakeEntityState(eEntityStateType::MOVE, this));
+	m_stateMachine->registerState(FACTORY->MakeEntityState(eEntityStateType::GATHER, this));
+	m_stateMachine->registerState(FACTORY->MakeEntityState(eEntityStateType::MURDER, this));
+	m_stateMachine->registerState(FACTORY->MakeEntityState(eEntityStateType::ATTACK, this));
     m_stateMachine->pushState(0);
+
+#pragma region murder
+	m_murderHealth = 200;
+	m_maxMurderHealth = 200;
+
+	m_murderMoveSpeed = 20;
+	m_murderAttack = 15;
+	m_murderAttackSpeed = 0.1f;
+
+	m_murderTarget = nullptr;
+#pragma endregion
+
+	m_moveSpeed = 10;
+	m_attack = 5;
+	m_attackSpeed = 0.2f;
+
+	m_attackTarget = nullptr;
 
 	m_utility = new VillegerUtility(this);
 
@@ -62,6 +106,10 @@ Villager::Villager(Vector2 pos, VillagerBlackBoard * blackBoard)
 	m_foodDecay = 5;
 
 	m_health = m_maxHealth = 100;
+
+	m_updatePathTimer = 0;
+
+	m_attckCoolDown = 0;
 }
 
 
@@ -75,6 +123,9 @@ Villager::~Villager()
 
 void Villager::Update(float deltaTime)
 {
+	m_updatePathTimer += deltaTime;
+	m_attckCoolDown += deltaTime;
+
     m_decsisionTree->Update();
     m_stateMachine->Update(deltaTime);
 	m_utility->Update(deltaTime);
@@ -103,8 +154,16 @@ void Villager::Draw(aie::Renderer2D * renderer)
 		holder = vec;
 	}*/
 
-    renderer->setRenderColour(m_colour, m_colour, 0, 1);
-    renderer->drawCircle(m_pos.x, m_pos.y, 5);
+	if (m_murder)
+	{
+		renderer->setRenderColour(1, 0, 0, 1);
+	}
+	else
+	{
+		renderer->setRenderColour(m_colour, m_colour, 0, 1);
+	}
+
+	renderer->drawCircle(m_pos.x, m_pos.y, 5);
     renderer->setRenderColour(1, 1, 1, 1);
 }
 
@@ -113,8 +172,22 @@ VillagerBlackBoard * Villager::GetBlackBoard()
 	return m_blackBoard;
 }
 
+VillegerUtility * Villager::GetUtility()
+{
+	return m_utility;
+}
+
+EntityStateMachine * Villager::GetStateMachine()
+{
+	return m_stateMachine;
+}
+
 void Villager::ConsumeHunger(float DeltaTime)
 {
+	if (m_food > m_maxFood)
+	{
+		m_food = m_maxFood;
+	}
 
 	if (m_food > 0)
 	{
@@ -125,9 +198,29 @@ void Villager::ConsumeHunger(float DeltaTime)
 		m_food = 0;
 	}
 
-	if (m_food <= 0)
+	if (m_food > 75)
 	{
-		m_health -= m_foodDecay * DeltaTime;
+		if (m_murder)
+		{
+			m_murderHealth += (m_foodDecay * DeltaTime) * 0.5;
+			m_food -= m_foodDecay * DeltaTime;
+		}
+		else
+		{
+			m_health += (m_foodDecay * DeltaTime) * 0.5;
+			m_food -= m_foodDecay * DeltaTime;
+		}
 	}
 
+	if (m_food <= 0)
+	{
+		if (m_murder)
+		{
+			m_murderHealth -= m_foodDecay * DeltaTime;
+		}
+		else
+		{
+			m_health -= m_foodDecay * DeltaTime;
+		}
+	}
 }

@@ -8,7 +8,10 @@ class Entity;
 */
     enum eEntityStateType
 {
-    MOVE
+	MOVE,
+	GATHER,
+	MURDER,
+	ATTACK
 };
 
 class EntityStates

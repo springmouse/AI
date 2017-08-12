@@ -48,7 +48,14 @@ void MoveState::onUpdate(float deltaTime)
         move -= m_myEntity->GetPos();
         move.normalise();
 
-        m_myEntity->UpdatePos((move * 10) * deltaTime);
+		if(m_myEntity->m_murder == false)
+		{
+			m_myEntity->UpdatePos((move * m_myEntity->m_moveSpeed) * deltaTime);
+		}
+		else
+		{
+			m_myEntity->UpdatePos((move * m_myEntity->m_murderMoveSpeed) * deltaTime);
+		}
     }
 }
 

@@ -236,6 +236,8 @@ void InGameState::onUpdate(float deltaTime)
         {
             e->Update(deltaTime);
         }
+
+		GatherMurders();
     }
 }
 
@@ -334,7 +336,7 @@ void InGameState::CheckUnitsToRemove()
 
 	for each (Entity * unit in m_units)
 	{
-		if (unit->m_health <= 0)
+		if (unit->IsAlive() == false)
 		{
 			m_unitsToRemove.push_back(unit);
 		}
@@ -346,6 +348,20 @@ void InGameState::CheckUnitsToRemove()
 	}
 
 	m_unitsToRemove.clear();
+}
+
+void InGameState::GatherMurders()
+{
+	m_villigerBlackBoard->m_murders.clear();
+
+	for each (Entity * unit in m_units)
+	{
+		if (unit->m_murder == true)
+		{
+			m_villigerBlackBoard->m_murders.push_back(unit);
+		}
+	}
+
 }
 
 #pragma endregion

@@ -103,6 +103,8 @@ public:
 		pop = true;
 	}
 
+	void Clear() { m_stateStack.clear(); };
+
     bool pop;
 
 protected:

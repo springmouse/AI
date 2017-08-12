@@ -9,6 +9,11 @@
 VillegerUtility::VillegerUtility(Entity * entity)
 {
 	m_myEntity = entity;
+
+	m_getFood = 0;
+	m_murder = 0;
+	m_fight = 0;
+	m_wonder = 0;
 }
 
 
@@ -23,23 +28,40 @@ void VillegerUtility::Update(float deltaTime)
 	ClaculateMurder();
 	ClaculateWander();
 	CalculateFight();
-	ClaculateFlee();
+
+
+	/*std::cout << "m_getFood ";
+	std::cout << m_getFood;
+	std::cout << "\n";
+
+	std::cout << "m_murder ";
+	std::cout << m_murder;
+	std::cout << "\n";
+
+	std::cout << "m_wonder ";
+	std::cout << m_wonder;
+	std::cout << "\n";
+
+	std::cout << "m_fight ";
+	std::cout << m_fight;
+	std::cout << "\n";
+
+	std::cout << "m_flee ";
+	std::cout << m_flee;
+	std::cout << "\n\n";*/
 }
 
 void VillegerUtility::CalculateGetFood()
 {
 	m_getFood = 0;
 
-	if (m_myEntity->m_murder == true)
+	if (m_myEntity->m_murder == true || m_myEntity->GetBlackBoard()->m_food.size() <= 0)
 	{
 		return;
 	}
 
 	m_getFood = - m_myEntity->m_food + m_myEntity->m_maxFood;
 
-	std::cout << "m_getFood ";
-	std::cout << m_getFood;
-	std::cout << "\n";
 }
 
 void VillegerUtility::ClaculateMurder()
@@ -51,9 +73,6 @@ void VillegerUtility::ClaculateMurder()
 	
 	m_murder += (increase * increase);
 
-	std::cout << "m_murder ";
-	std::cout << m_murder;
-	std::cout << "\n";
 }
 
 void VillegerUtility::ClaculateWander()
@@ -62,9 +81,6 @@ void VillegerUtility::ClaculateWander()
 
 	m_wonder = m_myEntity->m_food + m_myEntity->GetBlackBoard()->m_food.size();
 
-	std::cout << "m_wonder ";
-	std::cout << m_wonder;
-	std::cout << "\n";
 }
 
 void VillegerUtility::CalculateFight()
@@ -88,28 +104,6 @@ void VillegerUtility::CalculateFight()
 			}
 		}
 	}
-
-	std::cout << "m_fight ";
-	std::cout << m_fight;
-	std::cout << "\n";
-}
-
-void VillegerUtility::ClaculateFlee()
-{
-	m_flee = 0;
-
-	if (m_myEntity->m_murder == true || m_myEntity->GetBlackBoard()->m_murders.size() <= 0)
-	{
-		return;
-	}
-
-	float increase = m_myEntity->m_maxHealth - m_myEntity->m_health;
-
-	m_murder += (increase * 3);
-
-	std::cout << "m_flee ";
-	std::cout << m_flee;
-	std::cout << "\n\n";
 }
 
 float VillegerUtility::sprMagnatude(Vector2 pos)

@@ -369,6 +369,7 @@ public:
 
 	void CheckUnitsToRemove();
 
+	void GatherMurders();
     //void SlectState();
 
 private:

@@ -1,10 +1,12 @@
 #include "Factory.h"
-#include "MoveState.h"
 #include "Villager.h"
 #include "LimitedFood.h"
 #include "InfiniteFood.h"
 
-
+#include "MoveState.h"
+#include "GatherState.h"
+#include "MurderState.h"
+#include "AttackState.h"
 
 Factory::Factory()
 {
@@ -65,14 +67,19 @@ Entity * Factory::MakeEntity(eEntityTyes type, Vector2 pos, VillagerBlackBoard *
 
 EntityStates * Factory::MakeEntityState(eEntityStateType type, Entity * unit)
 {
-    switch (type)
-    {
-    case MOVE:
-        return new MoveState(unit);
-
-    default:
-        return nullptr;
-    }
+	switch (type)
+	{
+	case MOVE:
+		return new MoveState(unit);
+	case GATHER:
+		return new GatherState(unit);
+	case MURDER:
+		return new MurderState(unit);
+	case ATTACK:
+		return new AttackState(unit);
+	default:
+		return nullptr;
+	}
 }
 
 SharedFoodPtr Factory::MakeFood(eFoodTypes type, Vector2 pos)

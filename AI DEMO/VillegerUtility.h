@@ -15,16 +15,13 @@ public:
 	void ClaculateMurder();
 	void ClaculateWander();
 	void CalculateFight();
-	void ClaculateFlee();
 
 	float sprMagnatude(Vector2 pos);
 
 	float m_getFood;
 	float m_murder;
 	float m_wonder;
-
 	float m_fight;
-	float m_flee;
 
 private:
 	Entity * m_myEntity;
