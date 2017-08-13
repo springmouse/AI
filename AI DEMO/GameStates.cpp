@@ -5,7 +5,6 @@
 #include <string>
 #include <time.h>
 #include "NavManager.h"
-#include "RenderToMesh.h"
 #include "MouseState.h"
 
 
@@ -250,7 +249,7 @@ void InGameState::onDraw(aie::Renderer2D * m_2dRenderer, aie::Font* font)
 {
     if (m_active)
     {
-        RENDER->Draw(m_2dRenderer, font);
+		NAVMANAGER->Draw(m_2dRenderer);
 
 		//draw buttons
         for (auto btn : m_buttons)

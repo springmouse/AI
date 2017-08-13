@@ -25,9 +25,6 @@
     <Filter Include="Source Files\StartUp">
       <UniqueIdentifier>{e9552415-6285-4153-a003-bb96f0718d93}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Render and GUI">
-      <UniqueIdentifier>{90cc541c-a9cf-4529-8e3c-edda57c5f5db}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Objects">
       <UniqueIdentifier>{8539d3a1-db32-40f9-a21c-31939bbd3b08}</UniqueIdentifier>
     </Filter>
@@ -48,6 +45,9 @@
     </Filter>
     <Filter Include="Source Files\Behaviours\StateMachine\States">
       <UniqueIdentifier>{45ecef4b-ed1d-4f43-a4fa-16238bb20e70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GUI">
+      <UniqueIdentifier>{90cc541c-a9cf-4529-8e3c-edda57c5f5db}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -72,11 +72,8 @@
     <ClCompile Include="NavManager.cpp">
       <Filter>Source Files\PathFinding</Filter>
     </ClCompile>
-    <ClCompile Include="RenderToMesh.cpp">
-      <Filter>Source Files\Render and GUI</Filter>
-    </ClCompile>
     <ClCompile Include="Button.cpp">
-      <Filter>Source Files\Render and GUI</Filter>
+      <Filter>Source Files\GUI</Filter>
     </ClCompile>
     <ClCompile Include="MouseState.cpp">
       <Filter>Source Files</Filter>
@@ -161,11 +158,8 @@
     <ClInclude Include="NavManager.h">
       <Filter>Source Files\PathFinding</Filter>
     </ClInclude>
-    <ClInclude Include="RenderToMesh.h">
-      <Filter>Source Files\Render and GUI</Filter>
-    </ClInclude>
     <ClInclude Include="Button.h">
-      <Filter>Source Files\Render and GUI</Filter>
+      <Filter>Source Files\GUI</Filter>
     </ClInclude>
     <ClInclude Include="MouseState.h">
       <Filter>Source Files</Filter>

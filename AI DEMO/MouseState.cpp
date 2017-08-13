@@ -16,10 +16,9 @@ void MouseState::connect(myFUNC_0(void) setEvent)
 
 void MouseState::Update(float deltaTime)
 {
+	//set the mouse position
     mousePosGameSpace = Vector2((int)AIEINPUT->getMouseX(), (int)AIEINPUT->getMouseY());
-
-    mousePosExact = mousePosGameSpace;
-
+	
     mousePosGameSpace *= 0.05f;
     mousePosGameSpace = Vector2((int)mousePosGameSpace.x, (int)mousePosGameSpace.y);
     mousePosGameSpace *= 20;
@@ -27,11 +26,13 @@ void MouseState::Update(float deltaTime)
     mousePosGameSpace.y -= 30;
     mousePosGameSpace.x -= 10;
 
+	//the gui position
     mousePosGUI.x = AIEINPUT->getMouseX();
     mousePosGUI.y = AIEINPUT->getMouseY();
 
     m_timer += deltaTime;
 
+	//checks if you press left mouse button and exacutes its function pointer if you did 
     if (mousestate == States::INGAME && AIEINPUT->isMouseButtonDown(0) && m_timer > 0.01f)
     {
         m_event();
@@ -43,8 +44,6 @@ void MouseState::Update(float deltaTime)
 void MouseState::Nothing()
 {
 }
-
-
 
 MouseState::MouseState()
 {

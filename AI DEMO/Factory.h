@@ -44,10 +44,41 @@ public:
 	*/
     GameStates * MakeState(eGameStateType type);
     
+	/*
+	* Function: MakeEntity
+	* --------------------
+	*
+	* this creates a Entity based on the enum passed and set it up with a position and black board
+	* in and passes it out as a Entity pointer
+	*
+	* Parameters: eEntityTyes type, Vector2 pos, VillagerBlackBoard * blackBoard
+	*
+	* returns: a pointer to a new Entity
+	*/
     Entity * MakeEntity(eEntityTyes type, Vector2 pos, VillagerBlackBoard * blackBoard);
 
+	/*
+	* Function: MakeEntityState
+	* -------------------------
+	*
+	* this creates a EntityStates based on the enum passed in and passes it out as a EntityStates pointer
+	*
+	* Parameters: eEntityStateType type, Entity * unit
+	*
+	* returns: a pointer to a new EntityStates
+	*/
     EntityStates * MakeEntityState(eEntityStateType type, Entity * unit);
 
+	/*
+	* Function: MakeFood
+	* ------------------
+	*
+	* this creates a SharedFoodPtr based on the enum passed in and passes it out as a SharedFoodPtr pointer
+	*
+	* Parameters: eFoodTypes type , Vector2 pos
+	*
+	* returns: a SharedFoodPtr to a new gamestate
+	*/
 	SharedFoodPtr MakeFood(eFoodTypes type , Vector2 pos);
 
 private:

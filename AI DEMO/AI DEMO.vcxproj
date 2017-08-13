@@ -118,7 +118,6 @@
     <ClCompile Include="NavMeshNode.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="PlayerUnitDecsisionTree.cpp" />
-    <ClCompile Include="RenderToMesh.cpp" />
     <ClCompile Include="Villager.cpp" />
     <ClCompile Include="VillagerBlackBoard.cpp" />
     <ClCompile Include="VillegerUtility.cpp" />
@@ -150,7 +149,6 @@
     <ClInclude Include="NavMeshNode.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="PlayerUnitDecsisionTree.h" />
-    <ClInclude Include="RenderToMesh.h" />
     <ClInclude Include="TypesAndDefines.h" />
     <ClInclude Include="Villager.h" />
     <ClInclude Include="VillagerBlackBoard.h" />
