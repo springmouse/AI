@@ -13,6 +13,8 @@ Food::~Food()
 
 bool Food::CheckIFPosValid()
 {
+
+	//check that our current position is still valid
 	for each (SharedMeshPtr node in NAVMANAGER->g_NavNodes)
 	{
 		if (node->CheckIfInMeshBounds(m_pos))

@@ -13,10 +13,6 @@ InfiniteFood::~InfiniteFood()
 {
 }
 
-void InfiniteFood::Update(float deltaTime)
-{
-}
-
 void InfiniteFood::Draw(aie::Renderer2D * m_2dRenderer)
 {
 	m_2dRenderer->setRenderColour(0.75, 0.4, 0, 1);
@@ -26,5 +22,5 @@ void InfiniteFood::Draw(aie::Renderer2D * m_2dRenderer)
 
 float InfiniteFood::GatherFood()
 {
-	return 50.0f;
+	return 25.0f;
 }

@@ -13,10 +13,6 @@ LimitedFood::~LimitedFood()
 {
 }
 
-void LimitedFood::Update(float deltaTime)
-{
-}
-
 void LimitedFood::Draw(aie::Renderer2D * m_2dRenderer)
 {
 
@@ -28,10 +24,12 @@ void LimitedFood::Draw(aie::Renderer2D * m_2dRenderer)
 
 float LimitedFood::GatherFood()
 {
-	m_foodStock -= 20.0f;
+	//you cant gather food if there is non
 	if (m_foodStock <= 0)
 	{
 		return 0.0f;
 	}
+
+	m_foodStock -= 20.0f;
 	return 20.0f;
 }

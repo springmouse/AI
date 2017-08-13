@@ -12,17 +12,23 @@
 
 Villager::Villager(VillagerBlackBoard * blackBoard)
 {
-    m_decsisionTree = new PlayerUnitDecsisionTree(this);
-    m_health = 10;
-    m_pos = NAVMANAGER->g_NavNodes.front()->GetCenter();
+	//set up decision makers
+	m_decsisionTree = new PlayerUnitDecsisionTree(this);
+	m_utility = new VillegerUtility(this);
+	m_blackBoard = blackBoard;
 
-    m_stateMachine = new EntityStateMachine(this);
-    m_stateMachine->registerState(FACTORY->MakeEntityState(eEntityStateType::MOVE, this));
+	//set up state machine
+	m_stateMachine = new EntityStateMachine(this);
+	m_stateMachine->registerState(FACTORY->MakeEntityState(eEntityStateType::MOVE, this));
 	m_stateMachine->registerState(FACTORY->MakeEntityState(eEntityStateType::GATHER, this));
 	m_stateMachine->registerState(FACTORY->MakeEntityState(eEntityStateType::MURDER, this));
 	m_stateMachine->registerState(FACTORY->MakeEntityState(eEntityStateType::ATTACK, this));
-    m_stateMachine->pushState(0);
+	m_stateMachine->pushState(0);
 
+	//make sure path is clear and empty
+	m_path.clear();
+
+	//set up murder values
 #pragma region murder
 	m_murderHealth = 200;
 	m_maxMurderHealth = 200;
@@ -34,39 +40,40 @@ Villager::Villager(VillagerBlackBoard * blackBoard)
 	m_murderTarget = nullptr;
 #pragma endregion
 
+	//move, attack and pos
 	m_moveSpeed = 10;
 	m_attack = 5;
 	m_attackSpeed = 0.2f;
+	m_pos = NAVMANAGER->g_NavNodes.front()->GetCenter();
 
+	//set murder to false and attack target to nothing
 	m_attackTarget = nullptr;
-
-	m_utility = new VillegerUtility(this);
-
-	m_blackBoard = blackBoard;
-
 	m_murder = false;
 
-    m_path.clear();
-
-	m_colourChangeTimer = 0;
+	//colour stuff
 	m_colour = 1;
 
-	m_health = m_maxHealth = 100;
-
+	//set up food
 	m_food = m_maxFood = 100;
 	m_foodDecay = 5;
 
-	m_updatePathTimer = 0;
+	//set up health
+	m_health = m_maxHealth = 100;
 
+	//set up timers
+	m_updatePathTimer = 0;
+	m_colourChangeTimer = 0;
 	m_attckCoolDown = 0;
 }
 
 Villager::Villager(Vector2 pos, VillagerBlackBoard * blackBoard)
 {
+	//set up decision makers
     m_decsisionTree = new PlayerUnitDecsisionTree(this);
-    m_health = 10;
-    m_pos = pos;
+	m_utility = new VillegerUtility(this);
+	m_blackBoard = blackBoard;
 
+	//set up state machine
     m_stateMachine = new EntityStateMachine(this);
     m_stateMachine->registerState(FACTORY->MakeEntityState(eEntityStateType::MOVE, this));
 	m_stateMachine->registerState(FACTORY->MakeEntityState(eEntityStateType::GATHER, this));
@@ -74,6 +81,10 @@ Villager::Villager(Vector2 pos, VillagerBlackBoard * blackBoard)
 	m_stateMachine->registerState(FACTORY->MakeEntityState(eEntityStateType::ATTACK, this));
     m_stateMachine->pushState(0);
 
+	//make sure path is clear and empty
+	m_path.clear();
+
+	//set up murder values
 #pragma region murder
 	m_murderHealth = 200;
 	m_maxMurderHealth = 200;
@@ -85,30 +96,29 @@ Villager::Villager(Vector2 pos, VillagerBlackBoard * blackBoard)
 	m_murderTarget = nullptr;
 #pragma endregion
 
+	//move, attack and pos
 	m_moveSpeed = 10;
 	m_attack = 5;
 	m_attackSpeed = 0.2f;
+	m_pos = pos;
 
+	//set murder to false and attack target to nothing
 	m_attackTarget = nullptr;
-
-	m_utility = new VillegerUtility(this);
-
-	m_blackBoard = blackBoard;
-
 	m_murder = false;
 
-    m_path.clear();
-
-	m_colourChangeTimer = 0;
+	//colour stuff
 	m_colour = 1;
 
+	//set up food
 	m_food = m_maxFood = 100;
 	m_foodDecay = 5;
 
+	//set up health
 	m_health = m_maxHealth = 100;
 
+	//set up timers
 	m_updatePathTimer = 0;
-
+	m_colourChangeTimer = 0;
 	m_attckCoolDown = 0;
 }
 
@@ -123,15 +133,17 @@ Villager::~Villager()
 
 void Villager::Update(float deltaTime)
 {
+	//update timers
 	m_updatePathTimer += deltaTime;
 	m_attckCoolDown += deltaTime;
+	m_colourChangeTimer += deltaTime;
 
+	//update decision makers
     m_decsisionTree->Update();
     m_stateMachine->Update(deltaTime);
 	m_utility->Update(deltaTime);
 
-	m_colourChangeTimer += deltaTime;
-
+	//consume hunger
 	ConsumeHunger(deltaTime);
 }
 
@@ -145,6 +157,7 @@ void Villager::Draw(aie::Renderer2D * renderer)
 	    m_colour += 0.5f;
 	}
 
+	//this will draw out the units path if you want to turn it on
 	/*Vector2 holder = m_pos;
 
 	for each (Vector2 vec in m_path)
@@ -154,6 +167,7 @@ void Villager::Draw(aie::Renderer2D * renderer)
 		holder = vec;
 	}*/
 
+	//if we are a murder we are red not a shade of yellow
 	if (m_murder)
 	{
 		renderer->setRenderColour(1, 0, 0, 1);
@@ -189,6 +203,7 @@ void Villager::ConsumeHunger(float DeltaTime)
 		m_food = m_maxFood;
 	}
 
+	//consume food
 	if (m_food > 0)
 	{
 		m_food -= m_foodDecay * DeltaTime;
@@ -198,6 +213,7 @@ void Villager::ConsumeHunger(float DeltaTime)
 		m_food = 0;
 	}
 
+	//if we have the food and are hurt we heal
 	if (m_food > 75)
 	{
 		if (m_murder && m_murderHealth < m_maxMurderHealth)
@@ -222,6 +238,7 @@ void Villager::ConsumeHunger(float DeltaTime)
 		}
 	}
 
+	//if we have no food we are starving and take damage
 	if (m_food <= 0)
 	{
 		if (m_murder)

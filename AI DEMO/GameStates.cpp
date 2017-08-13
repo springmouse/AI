@@ -91,7 +91,7 @@ InGameFlockStake::InGameFlockStake()
 	//places down all the boids
     for (int i = 0; i <= 100; i++)
     {
-        m_boids.push_back(ShareBoidPtr(new Boids(m_boidsBlackBoard, INFOMATION->cameraPos)));
+        m_boids.push_back(ShareBoidPtr(new Boids(m_boidsBlackBoard)));
     }
 
 	//gives it the list of all the boids
