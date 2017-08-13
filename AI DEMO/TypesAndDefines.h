@@ -3,13 +3,14 @@
 #include <memory>
 
 
-class NavMeshNode;
-class MapNode;
-class Entity;
-class Boids;
-class MapEdges;
-class Food;
+class NavMeshNode;	/*forwards declaration*/
+class MapNode;		/*forwards declaration*/
+class Entity;		/*forwards declaration*/
+class Boids;		/*forwards declaration*/
+class MapEdges;		/*forwards declaration*/
+class Food;			/*forwards declaration*/
 
+//all our shared and weak pointers used over the programe
 typedef std::shared_ptr<Food>			SharedFoodPtr;
 typedef std::weak_ptr<Food>				WeakFoodPtr;
 
@@ -27,6 +28,8 @@ typedef std::shared_ptr<Entity>         SharedEntityPtr;
 
 typedef std::shared_ptr<Boids>          ShareBoidPtr;
 
+
+//defines for function pointer setters not using lamdas, use by the button
 #define myFUNC_0(ret_)                      std::function<##ret_()>
 #define myBIND_0(func_, objectAddr_)        std::bind(&##func_,##objectAddr_)
 

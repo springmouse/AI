@@ -63,9 +63,6 @@
     <ClCompile Include="GameStates.cpp">
       <Filter>Source Files\GameStates</Filter>
     </ClCompile>
-    <ClCompile Include="Information.cpp">
-      <Filter>Source Files\Global</Filter>
-    </ClCompile>
     <ClCompile Include="AI_DEMOApp.cpp">
       <Filter>Source Files\StartUp</Filter>
     </ClCompile>

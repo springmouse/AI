@@ -25,7 +25,11 @@ public:
 	*
 	* returns: a static pointer to Information
 	*/
-    static Information * GetInstanceOfInfo();
+    static Information * GetInstanceOfInfo()
+	{
+		static Information info;
+		return &info;
+	};
 
 	/*
 	* Function: pushInfo
@@ -43,12 +47,12 @@ public:
     bool push = false; /*flag if we should push a state on the m_stateStack in GameStateManager*/
     bool pop = false; /*flag if we should pop a state on the m_stateStack in GameStateManager*/
 
-    Vector2 cameraPos;
+    Vector2 cameraPos; /*camera position*/
     
-    int ScreenWidth = 1280;
-    int ScreenHeight = 720;
+    int ScreenWidth = 1280; /*screen width*/
+    int ScreenHeight = 720; /*screen height*/
 
-    float nodeSize = 20;
+    float nodeSize = 20; /*the edge size of the nodes*/
 
     int pushID = 0; /*ID for what game state we want to push on to the m_stateStack in GameStateManager*/
 

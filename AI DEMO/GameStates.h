@@ -512,7 +512,7 @@ private:
 	std::list<Entity *> m_unitsToRemove; /*list of all the dead units we need to purge*/
 
 	std::list<SharedFoodPtr> m_food; /*list of all the food in the world*/
-	std::list<SharedFoodPtr> m_foodToRemove /*list of all food to remove*/
+	std::list<SharedFoodPtr> m_foodToRemove; /*list of all food to remove*/
 
     float timmer = 0; /*a timer*/
 };

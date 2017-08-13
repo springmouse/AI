@@ -107,7 +107,6 @@
     <ClCompile Include="GatherState.cpp" />
     <ClCompile Include="GetAStarPath.cpp" />
     <ClCompile Include="InfiniteFood.cpp" />
-    <ClCompile Include="Information.cpp" />
     <ClCompile Include="LimitedFood.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MapEdges.cpp" />
