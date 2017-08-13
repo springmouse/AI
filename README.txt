@@ -1,3 +1,6 @@
+GitHub repository
+https://github.com/springmouse/AI.git
+
 Controls:
 escape will bring you back to the main menue while in the flocking or pathinding
 Right click will creat new units while in the pathfinding
