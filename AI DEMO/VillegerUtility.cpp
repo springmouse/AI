@@ -58,6 +58,7 @@ void VillegerUtility::CalculateGetFood()
 {
 	m_getFood = 0;
 
+	//if we are a murder or there is no food we dont bother claculating this
 	if (m_myEntity->m_murder == true || m_myEntity->GetBlackBoard()->m_food.size() <= 0)
 	{
 		return;
@@ -69,11 +70,13 @@ void VillegerUtility::CalculateGetFood()
 
 void VillegerUtility::ClaculateMurder()
 {
+	//or current health food and available food decrease the chances of murdering
 	m_murder = (-m_myEntity->m_food - m_myEntity->GetBlackBoard()->m_food.size());
 	m_murder += (-m_myEntity->m_health);
 	
 	float increase = m_myEntity->m_maxHealth - m_myEntity->m_health;
 	
+	//how much health we are missing^2 is our chance of snapping
 	m_murder += (increase * increase);
 
 }
@@ -82,6 +85,7 @@ void VillegerUtility::ClaculateWander()
 {
 	m_wonder = 0;
 
+	//if we are not very hungery we walk on
 	m_wonder = m_myEntity->m_food + m_myEntity->GetBlackBoard()->m_food.size();
 
 }
@@ -90,13 +94,15 @@ void VillegerUtility::CalculateFight()
 {
 	m_fight = 0;
 
+	//if there are no murders we dont bother
 	if (m_myEntity->GetBlackBoard()->m_murders.size() <= 0)
 	{
 		return;
 	}
 
 	Vector2 pos = m_myEntity->GetPos();
-
+	
+	//find how many friendlys are near us and add 10 to fight chance for every one
 	for each (Entity * unit in m_myEntity->GetBlackBoard()->m_entites)
 	{
 		if ((sprMagnatude((unit->GetPos() - pos)) < (m_checkRadius * m_checkRadius)) && *m_myEntity != unit)
@@ -108,6 +114,7 @@ void VillegerUtility::CalculateFight()
 		}
 	}
 
+	//decrease our willingness depending on how hungery we are
 	m_fight -= m_myEntity->m_maxFood - m_myEntity->m_food;
 }
 
@@ -115,6 +122,7 @@ void VillegerUtility::CalculateFlee()
 {
 	m_flee = 0;
 
+	//how much health we have the less the more we want to flee
 	m_flee = m_myEntity->m_maxHealth - m_myEntity->m_health;
 }
 

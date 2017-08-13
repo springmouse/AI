@@ -1,9 +1,21 @@
-﻿  LimitedFood.cpp
+﻿  AttackState.cpp
+  EntityStateMachine.cpp
+  Factory.cpp
+  GatherState.cpp
+GatherState.cpp(4): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+  MurderState.cpp
+  PlayerUnitDecsisionTree.cpp
+PlayerUnitDecsisionTree.cpp(8): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+  Villager.cpp
+Villager.cpp(142): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+Villager.cpp(205): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+Villager.cpp(215): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+  VillegerUtility.cpp
+VillegerUtility.cpp(67): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
   Generating code
-c:\users\callu.desktop-lvuve2b\documents\github\ai\ai demo\factory.cpp(94): warning C4715: 'Factory::MakeFood': not all control paths return a value
-  3 of 4914 functions ( 0.1%) were compiled, the rest were copied from previous compilation.
+  32 of 4907 functions ( 0.7%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    2 functions had inline decision re-evaluated but remain unchanged
+    15 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   AI DEMO.vcxproj -> C:\Users\callu.DESKTOP-LVUVE2B\Documents\GitHub\AI\temp\AI DEMO\Release\AI DEMO.exe
   AI DEMO.vcxproj -> C:\Users\callu.DESKTOP-LVUVE2B\Documents\GitHub\AI\temp\AI DEMO\Release\AI DEMO.pdb (Full PDB)

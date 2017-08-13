@@ -93,28 +93,25 @@ public:
         return *it;
     };
 
-	void PopState(int id)
-	{
-		std::list<EntityStates *>::iterator it = m_registeredStates.begin();
-		std::advance(it, id);
-
-		m_stateToPop = *it;
-
-		pop = true;
-	}
+	/*
+	* Function: Clear
+	* ---------------
+	*
+	* clears all active states from m_stateStack
+	*
+	* Parameters: none
+	*
+	* returns: returns nothing as it is a void function
+	*/
 
 	void Clear() { m_stateStack.clear(); };
 
-    bool pop;
-
 protected:
-    std::list<EntityStates *> m_pushedStates; /*the states to be pushed onto m_stateStack*/
+    std::list<EntityStates *> m_pushedStates;		 /*the states to be pushed onto m_stateStack*/
 
-    std::list<EntityStates *> m_stateStack; /*holds all states currently in use*/
-    std::list<EntityStates *> m_registeredStates; /*holds all states that can be used*/
+    std::list<EntityStates *> m_stateStack;			 /*holds all states currently in use*/
+    std::list<EntityStates *> m_registeredStates;	 /*holds all states that can be used*/
 
-	EntityStates * m_stateToPop;
-
-    Entity * myEntity;
+    Entity * myEntity; /*the entity we belong to*/
 };
 

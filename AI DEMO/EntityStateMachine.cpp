@@ -4,7 +4,6 @@
 EntityStateMachine::EntityStateMachine(Entity * entity)
 {
     myEntity = entity;
-    pop = false;
 }
 
 
@@ -29,25 +28,6 @@ void EntityStateMachine::pushState(int id)
 
 void EntityStateMachine::Update(float deltaTime)
 {
-    //checks if we need to pop a state off
-    while (pop)
-    {
-        pop = false;
-
-        //runs the closing functions of the GameState
-		m_stateToPop->exit();
-
-		m_stateStack.remove(m_stateToPop);
-
-		m_stateToPop->onPopped();
-
-        //runs the enter functions for the last elemeant in the list
-        if (m_stateStack.size() > 0)
-        {
-            m_stateStack.back()->enter();
-        }
-    }
-
     //loops throught the sataes being held in m_pushedStates
     for (auto pushedState : m_pushedStates)
     {
