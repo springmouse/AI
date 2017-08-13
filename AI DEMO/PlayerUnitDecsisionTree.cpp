@@ -43,8 +43,11 @@ void PlayerUnitDecsisionTree::Update()
 
 void PlayerUnitDecsisionTree::CreatNodes()
 {
+	//needed of lamda functions assigning
     Entity * unit = myUnit;
 
+	///////////////////////////////////////////////////////////////////////////////
+	/////create all the nodes add them to the list and set there comment///////////
     ///////////////////////////////////////////////////////////////////////////////
 
     Node * N1 = new Node();
@@ -119,10 +122,14 @@ void PlayerUnitDecsisionTree::CreatNodes()
 	nodes.push_back(N18);
 	N18->comment = "fight > gather";
 
+	///////////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////set start node///////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////
 
     start = N1;
 
+	///////////////////////////////////////////////////////////////////////////////
+	//////////////////Set up all the functions for the nodes///////////////////////
     ///////////////////////////////////////////////////////////////////////////////
 
     N1->run = [unit]()->bool 
@@ -160,6 +167,7 @@ void PlayerUnitDecsisionTree::CreatNodes()
 			return false;
 		}
 
+		//check if a murder is with in LOS
         for each (Entity * n in unit->GetBlackBoard()->m_murders)
         {
 			if (PATH_FINDER->LineCheck(unit->GetPos(), n->GetPos()) == false)
@@ -178,6 +186,7 @@ void PlayerUnitDecsisionTree::CreatNodes()
 			return false;
 		}
 
+		//see if we have target return true if we do
 		for each (Entity * ent in unit->GetBlackBoard()->m_entites)
 		{
 			if (unit->m_murderTarget == ent)
@@ -186,6 +195,7 @@ void PlayerUnitDecsisionTree::CreatNodes()
 			}
 		}
 
+		//set target to nothing then return false as we did not have target
 		unit->m_murderTarget = nullptr;
 		return false;
     };
@@ -196,15 +206,18 @@ void PlayerUnitDecsisionTree::CreatNodes()
 
 		Vector2 pos = unit->GetPos();
 
+		//trys to find target with in LOS
 		for each (Entity * ent in unit->GetBlackBoard()->m_entites)
 		{
 			if (PATH_FINDER->LineCheck(unit->GetPos(), ent->GetPos()) == false)
 			{
+				//set target to first one that is not us
 				if (holder == nullptr && *unit != ent)
 				{
 					holder = ent;
 				}
 
+				//checks if the new ent we are looking at is closer or not and if use set target to is
 				if (holder != nullptr)
 				{
 					if (unit->GetUtility()->sprMagnatude(ent->GetPos() - pos) < unit->GetUtility()->sprMagnatude(holder->GetPos() - pos) && *unit != ent)
@@ -215,6 +228,7 @@ void PlayerUnitDecsisionTree::CreatNodes()
 			}
 		}
 
+		//if we got no target return false
 		if (holder == nullptr)
 		{
 			return false;
@@ -232,11 +246,13 @@ void PlayerUnitDecsisionTree::CreatNodes()
 
 		Vector2 pos = unit->GetPos();
 
+		//make sure we are not the only ones in the world
 		if (unit->GetBlackBoard()->m_entites.size() <= 1)
 		{
 			return false;
 		}
 
+		//loop through them all and check if there is anyone near us
 		for each (Entity * ent in unit->GetBlackBoard()->m_entites)
 		{
 			if (holder == nullptr && *unit != ent)
@@ -263,8 +279,8 @@ void PlayerUnitDecsisionTree::CreatNodes()
 		unit->m_murder = true;
 
 		unit->GetStateMachine()->Clear();
-		unit->GetStateMachine()->pushState(0);
-		unit->GetStateMachine()->pushState(2);
+		unit->GetStateMachine()->pushState(0); /*move state*/
+		unit->GetStateMachine()->pushState(2); /*murder state*/
 
 		unit->m_path.clear();
 
@@ -275,12 +291,14 @@ void PlayerUnitDecsisionTree::CreatNodes()
 
 	N9->run = [unit]()->bool
 	{
+		//clear path if timer is over the check value
 		if (unit->m_updatePathTimer > 1)
 		{
 			unit->m_path.clear();
 			unit->m_updatePathTimer = 0;
 		}
 
+		//if the path has nothing in it return true
 		if (unit->m_path.size() <= 0)
 		{
 			return false;
@@ -301,8 +319,11 @@ void PlayerUnitDecsisionTree::CreatNodes()
 
 	N11->run = [unit]()->bool
 	{
-		if (unit->m_path.size() <= 0)
+		//if the unit has no path then we pick it a random node and let it path to it
+		if (unit->m_path.size() <= 0 || unit->m_updatePathTimer > 5)
 		{
+			unit->m_updatePathTimer = 5;
+
 			int count = std::rand() % NAVMANAGER->g_NavNodes.size();
 
 			for each (SharedMeshPtr node in NAVMANAGER->g_NavNodes)
@@ -319,7 +340,7 @@ void PlayerUnitDecsisionTree::CreatNodes()
 		}
 
 		unit->GetStateMachine()->Clear();
-		unit->GetStateMachine()->pushState(0);
+		unit->GetStateMachine()->pushState(0); /*move state*/
 
 		return true;
 	};
@@ -344,6 +365,7 @@ void PlayerUnitDecsisionTree::CreatNodes()
 		unit->m_attackTarget = nullptr;
 		Vector2 pos = unit->GetPos();
 
+		//finds the closes murder to try and go kill
 		for each (Entity * ent in unit->GetBlackBoard()->m_murders)
 		{
 			if (unit->m_attackTarget == nullptr)
@@ -363,6 +385,7 @@ void PlayerUnitDecsisionTree::CreatNodes()
 
 	N14->run = [unit]()->bool
 	{
+		//get path to murder
 		if (unit->m_updatePathTimer > 3)
 		{
 			unit->m_path.clear();
@@ -371,8 +394,8 @@ void PlayerUnitDecsisionTree::CreatNodes()
 		}
 
 		unit->GetStateMachine()->Clear();
-		unit->GetStateMachine()->pushState(0);
-		unit->GetStateMachine()->pushState(3);
+		unit->GetStateMachine()->pushState(0); /*move state*/
+		unit->GetStateMachine()->pushState(3); /*attack state*/
 
 		return true;
 	};
@@ -410,9 +433,9 @@ void PlayerUnitDecsisionTree::CreatNodes()
 		}
 
 		Vector2	pos = unit->GetPos();
-
 		unit->m_target = Vector2(0,0);
 
+		//find nearest food
 		for each (SharedFoodPtr food in unit->GetBlackBoard()->m_food)
 		{
 			if (unit->m_target == Vector2(0, 0))
@@ -426,9 +449,9 @@ void PlayerUnitDecsisionTree::CreatNodes()
 				unit->m_neareastFood = food;
 			}
 		}
-
 		SharedMeshPtr holder;
 
+		//get the node the food is on
 		for each (SharedMeshPtr node in NAVMANAGER->g_NavNodes)
 		{
 			if (node->CheckIfInMeshBounds(unit->m_target))
@@ -438,6 +461,7 @@ void PlayerUnitDecsisionTree::CreatNodes()
 			}
 		}
 
+		//find nearest nave mesh next to the food
 		unit->m_target = Vector2(0, 0);
 		for each(SharedMeshPtr node in NAVMANAGER->GetEdgeConnections(holder))
 		{
@@ -453,8 +477,8 @@ void PlayerUnitDecsisionTree::CreatNodes()
 		}
 
 		unit->GetStateMachine()->Clear();
-		unit->GetStateMachine()->pushState(0);
-		unit->GetStateMachine()->pushState(1);
+		unit->GetStateMachine()->pushState(0); /*move state*/
+		unit->GetStateMachine()->pushState(1); /*gather food state*/
 
 		return true;
 	};
@@ -471,6 +495,8 @@ void PlayerUnitDecsisionTree::CreatNodes()
 		return true;
 	};
 
+	///////////////////////////////////////////////////////////////////////////////
+	/////////set up what nodes the nodes are connectd to for there yes/no//////////
     ///////////////////////////////////////////////////////////////////////////////
 
     N1->yes = N2;
@@ -524,6 +550,6 @@ void PlayerUnitDecsisionTree::CreatNodes()
 	N17->yes = N18;
 	N17->no = N11;
 
-	N18->yes = nullptr;
-	N18->no = nullptr;
+	N18->yes = nullptr; //exit
+	N18->no = nullptr; //exit
 }
