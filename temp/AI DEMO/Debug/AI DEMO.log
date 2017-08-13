@@ -1,6 +1,6 @@
 ﻿  MouseState.cpp
-c:\users\callu.desktop-lvuve2b\documents\github\ai\ai demo\mousestate.cpp(19): warning C4244: 'argument': conversion from 'int' to 'realNum', possible loss of data
-c:\users\callu.desktop-lvuve2b\documents\github\ai\ai demo\mousestate.cpp(22): warning C4244: 'argument': conversion from 'int' to 'realNum', possible loss of data
+c:\users\callu.desktop-lvuve2b\documents\github\ai\ai demo\mousestate.cpp(20): warning C4244: 'argument': conversion from 'int' to 'realNum', possible loss of data
+c:\users\callu.desktop-lvuve2b\documents\github\ai\ai demo\mousestate.cpp(23): warning C4244: 'argument': conversion from 'int' to 'realNum', possible loss of data
   Generating Code...
   Compiling...
   NavManager.cpp

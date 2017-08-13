@@ -1,28 +1,42 @@
-﻿  Food.cpp
+﻿  AI_DEMOApp.cpp
+  Boids.cpp
+Boids.cpp(12): warning C4244: '=': conversion from 'int' to 'realNum', possible loss of data
+Boids.cpp(13): warning C4244: '=': conversion from 'int' to 'realNum', possible loss of data
+Boids.cpp(108): warning C4244: '=': conversion from 'int' to 'realNum', possible loss of data
+Boids.cpp(116): warning C4244: '=': conversion from 'int' to 'realNum', possible loss of data
+  BoidsBlackBoard.cpp
+BoidsBlackBoard.cpp(22): warning C4244: 'argument': conversion from 'double' to 'realNum', possible loss of data
+  Button.cpp
+Button.cpp(81): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+Button.cpp(82): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+Button.cpp(93): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
+Button.cpp(95): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
+Button.cpp(102): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
+Button.cpp(104): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
+Button.cpp(111): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
+Button.cpp(113): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
+Button.cpp(120): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
+Button.cpp(122): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
+  Factory.cpp
+  GameStateManagmeant.cpp
   GameStates.cpp
-GameStates.cpp(164): warning C4244: 'argument': conversion from 'realNum' to 'int', possible loss of data
-GameStates.cpp(169): warning C4244: 'argument': conversion from 'realNum' to 'int', possible loss of data
-GameStates.cpp(174): warning C4244: 'argument': conversion from 'realNum' to 'int', possible loss of data
-GameStates.cpp(179): warning C4244: 'argument': conversion from 'realNum' to 'int', possible loss of data
-  GetAStarPath.cpp
-GetAStarPath.cpp(93): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-GetAStarPath.cpp(99): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-GetAStarPath.cpp(100): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-GetAStarPath.cpp(224): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-GetAStarPath.cpp(225): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-  MoveState.cpp
+GameStates.cpp(163): warning C4244: 'argument': conversion from 'realNum' to 'int', possible loss of data
+GameStates.cpp(168): warning C4244: 'argument': conversion from 'realNum' to 'int', possible loss of data
+GameStates.cpp(173): warning C4244: 'argument': conversion from 'realNum' to 'int', possible loss of data
+GameStates.cpp(178): warning C4244: 'argument': conversion from 'realNum' to 'int', possible loss of data
+  MouseState.cpp
+MouseState.cpp(20): warning C4244: 'argument': conversion from 'int' to 'realNum', possible loss of data
+MouseState.cpp(23): warning C4244: 'argument': conversion from 'int' to 'realNum', possible loss of data
   NavManager.cpp
-  PlayerUnitDecsisionTree.cpp
-PlayerUnitDecsisionTree.cpp(8): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-  RenderToMesh.cpp
   Villager.cpp
 Villager.cpp(154): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
 Villager.cpp(221): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
 Villager.cpp(231): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+  main.cpp
   Generating code
-  5 of 4841 functions ( 0.1%) were compiled, the rest were copied from previous compilation.
+  122 of 4836 functions ( 2.5%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    6 functions had inline decision re-evaluated but remain unchanged
+    18 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   AI DEMO.vcxproj -> C:\Users\callu.DESKTOP-LVUVE2B\Documents\GitHub\AI\temp\AI DEMO\Release\AI DEMO.exe
   AI DEMO.vcxproj -> C:\Users\callu.DESKTOP-LVUVE2B\Documents\GitHub\AI\temp\AI DEMO\Release\AI DEMO.pdb (Full PDB)
