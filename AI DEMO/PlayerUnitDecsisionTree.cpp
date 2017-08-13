@@ -322,7 +322,7 @@ void PlayerUnitDecsisionTree::CreatNodes()
 		//if the unit has no path then we pick it a random node and let it path to it
 		if (unit->m_path.size() <= 0 || unit->m_updatePathTimer > 5)
 		{
-			unit->m_updatePathTimer = 5;
+			unit->m_updatePathTimer = 0;
 
 			int count = std::rand() % NAVMANAGER->g_NavNodes.size();
 

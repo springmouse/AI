@@ -5,7 +5,7 @@
 LimitedFood::LimitedFood(Vector2 pos)
 {
 	m_pos = pos;
-	m_foodStock = 100;
+	m_foodStock = 400;
 }
 
 
@@ -28,10 +28,10 @@ void LimitedFood::Draw(aie::Renderer2D * m_2dRenderer)
 
 float LimitedFood::GatherFood()
 {
-	m_foodStock -= 50;
+	m_foodStock -= 20.0f;
 	if (m_foodStock <= 0)
 	{
 		return 0.0f;
 	}
-	return 50.0f;
+	return 20.0f;
 }

@@ -200,15 +200,25 @@ void Villager::ConsumeHunger(float DeltaTime)
 
 	if (m_food > 75)
 	{
-		if (m_murder)
+		if (m_murder && m_murderHealth < m_maxMurderHealth)
 		{
 			m_murderHealth += (m_foodDecay * DeltaTime) * 0.5;
 			m_food -= m_foodDecay * DeltaTime;
+
+			if (m_murderHealth > m_maxMurderHealth)
+			{
+				m_murderHealth = m_maxMurderHealth;
+			}
 		}
-		else
+		else if(m_health < m_maxHealth)
 		{
 			m_health += (m_foodDecay * DeltaTime) * 0.5;
 			m_food -= m_foodDecay * DeltaTime;
+
+			if (m_health < m_maxHealth)
+			{
+				m_health = m_maxHealth;
+			}
 		}
 	}
 

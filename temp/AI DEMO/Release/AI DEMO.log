@@ -1,12 +1,9 @@
-﻿  Boids.cpp
-Boids.cpp(11): warning C4244: '=': conversion from 'int' to 'realNum', possible loss of data
-Boids.cpp(12): warning C4244: '=': conversion from 'int' to 'realNum', possible loss of data
-Boids.cpp(99): warning C4244: '=': conversion from 'int' to 'realNum', possible loss of data
-Boids.cpp(107): warning C4244: '=': conversion from 'int' to 'realNum', possible loss of data
+﻿  LimitedFood.cpp
   Generating code
-  11 of 4914 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
-    1 functions were new in current compilation
-    0 functions had inline decision re-evaluated but remain unchanged
+c:\users\callu.desktop-lvuve2b\documents\github\ai\ai demo\factory.cpp(94): warning C4715: 'Factory::MakeFood': not all control paths return a value
+  3 of 4914 functions ( 0.1%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    2 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   AI DEMO.vcxproj -> C:\Users\callu.DESKTOP-LVUVE2B\Documents\GitHub\AI\temp\AI DEMO\Release\AI DEMO.exe
   AI DEMO.vcxproj -> C:\Users\callu.DESKTOP-LVUVE2B\Documents\GitHub\AI\temp\AI DEMO\Release\AI DEMO.pdb (Full PDB)
