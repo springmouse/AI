@@ -1,9 +1,12 @@
-﻿  PlayerUnitDecsisionTree.cpp
-PlayerUnitDecsisionTree.cpp(8): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+﻿  Boids.cpp
+Boids.cpp(11): warning C4244: '=': conversion from 'int' to 'realNum', possible loss of data
+Boids.cpp(12): warning C4244: '=': conversion from 'int' to 'realNum', possible loss of data
+Boids.cpp(99): warning C4244: '=': conversion from 'int' to 'realNum', possible loss of data
+Boids.cpp(107): warning C4244: '=': conversion from 'int' to 'realNum', possible loss of data
   Generating code
-  59 of 4915 functions ( 1.2%) were compiled, the rest were copied from previous compilation.
-    57 functions were new in current compilation
-    5 functions had inline decision re-evaluated but remain unchanged
+  11 of 4914 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
+    1 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   AI DEMO.vcxproj -> C:\Users\callu.DESKTOP-LVUVE2B\Documents\GitHub\AI\temp\AI DEMO\Release\AI DEMO.exe
   AI DEMO.vcxproj -> C:\Users\callu.DESKTOP-LVUVE2B\Documents\GitHub\AI\temp\AI DEMO\Release\AI DEMO.pdb (Full PDB)

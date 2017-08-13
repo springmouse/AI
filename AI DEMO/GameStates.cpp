@@ -117,8 +117,6 @@ void InGameFlockStake::onUpdate(float deltaTime)
         {
             boid->Update(deltaTime);
         }
-
-        m_boidsBlackBoard->Update(deltaTime);
     }
 }
 

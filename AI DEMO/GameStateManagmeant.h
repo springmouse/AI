@@ -11,7 +11,7 @@
 * this managers our GameStates with in the game and trys to run properly
 *
 * Author: Callum Dunstone
-* heavily based off the material from 
+* based off the material from 
 * https://aieeduau-my.sharepoint.com/personal/conanb_aie_edu_au/_layouts/15/WopiFrame.aspx?docid=0311e634fb60e43f49302008760699d34&authkey=AQDmZREYjRuxD3z0wvVGWU0&action=view
 */
 class GameStateManagmeant

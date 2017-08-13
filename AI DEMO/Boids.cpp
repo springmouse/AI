@@ -202,7 +202,7 @@ void Boids::CalculateCohesion()
 
 void Boids::CalculateSeek()
 {
-        Vector2 holder = m_blackBoard->GetTarget(m_pos);
+        Vector2 holder = m_blackBoard->GetTarget();
         holder -= m_pos;
 
         m_acceleration += (holder * m_seekWeight);
