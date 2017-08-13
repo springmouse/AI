@@ -88,11 +88,13 @@ InGameFlockStake::InGameFlockStake()
 {
     m_boidsBlackBoard = new BoidsBlackBoard();
 
+	//places down all the boids
     for (int i = 0; i <= 100; i++)
     {
         m_boids.push_back(ShareBoidPtr(new Boids(m_boidsBlackBoard, INFOMATION->cameraPos)));
     }
 
+	//gives it the list of all the boids
     m_boidsBlackBoard->m_boids = m_boids;
 }
 
@@ -148,16 +150,17 @@ InGameState::InGameState()
 {
     INFOMATION->cameraPos = Vector2(0 - (INFOMATION->nodeSize), 0 - ( 2 * INFOMATION->nodeSize));
 
-    std::string buttonTexPaths[4];
-
 	m_villigerBlackBoard = new VillagerBlackBoard();
+	
+	//gets the path to all the button textures
+    std::string buttonTexPaths[4];
 
     buttonTexPaths[0] = "./textures/ButtonNormal.png";
     buttonTexPaths[1] = "./textures/ButtonPressed.png";
     buttonTexPaths[2] = "./textures/ButtonDisabled.png";
     buttonTexPaths[3] = "./textures/ButtonHover.png";
 
-
+	//sets up all the buttons with there functions and textures
     Button::SharedPtr button(new Button((INFOMATION->cameraPos.x + 32), (INFOMATION->cameraPos.y + (2 * INFOMATION->nodeSize) + 675), 128, 32, "Creat Node Tool", new aie::Font("./font/consolas.ttf", 12)));
     button->connect(myBIND_0(InGameState::ButtonAssignBuildMode, this));
     button->setTextures(buttonTexPaths);
@@ -203,6 +206,7 @@ void InGameState::onUpdate(float deltaTime)
 
         MOUSE->mousestate = MouseState::States::INGAME;
 
+		//check if a button has been pressed
         for (auto btn : m_buttons)
         {
             btn->update(deltaTime);
@@ -212,6 +216,7 @@ void InGameState::onUpdate(float deltaTime)
 
         /////////////////////////////////////////////////////////
 
+		//places down a new unit
         timmer += deltaTime;
         if (AIEINPUT->isMouseButtonDown(1) && timmer > 1)
         {
@@ -224,17 +229,21 @@ void InGameState::onUpdate(float deltaTime)
             }
         }
 
+		//check if we need to remove anything before updateing units
 		CheckToRemoveFood();
 		CheckUnitsToRemove();
 
+		//update the blackboards lists
 		m_villigerBlackBoard->m_entites = m_units;
 		m_villigerBlackBoard->m_food = m_food;
 
+		//update the units
         for each (Entity * e in m_units)
         {
             e->Update(deltaTime);
         }
 
+		//get all the murders
 		GatherMurders();
     }
 }
@@ -245,6 +254,7 @@ void InGameState::onDraw(aie::Renderer2D * m_2dRenderer, aie::Font* font)
     {
         RENDER->Draw(m_2dRenderer, font);
 
+		//draw buttons
         for (auto btn : m_buttons)
         {
             btn->draw(m_2dRenderer);
@@ -289,6 +299,7 @@ void InGameState::ButtonAssignInfiniteFood()
 
 void InGameState::CreatLimitedFood()
 {
+	//check that position is valid then places the food
 	for each (SharedMeshPtr mesh in NAVMANAGER->g_NavNodes)
 	{
 		if (mesh->CheckIfInMeshBounds(MOUSE->mousePosGameSpace) == true && mesh->GetIsPasible())
@@ -302,6 +313,7 @@ void InGameState::CreatLimitedFood()
 
 void InGameState::CreatInfiniteFood()
 {
+	//check that position is valid then places the food
 	for each (SharedMeshPtr mesh in NAVMANAGER->g_NavNodes)
 	{
 		if (mesh->CheckIfInMeshBounds(MOUSE->mousePosGameSpace) == true && mesh->GetIsPasible())
@@ -315,39 +327,44 @@ void InGameState::CreatInfiniteFood()
 
 void InGameState::CheckToRemoveFood()
 {
-	SharedFoodPtr holder;
-
 	for each (SharedFoodPtr food in m_food)
 	{
+		//checks positon is still valid
 		if (food->CheckIFPosValid() == false)
 		{
-			holder = food; 
-			break;
+			m_foodToRemove.push_back(food); 
+			continue;
 		}
 
+		//checks if we have run out of food
 		if (food->IsFoodLeft() == false)
 		{
-			holder = food;
+			m_foodToRemove.push_back(food);
 			for each (SharedMeshPtr mesh in NAVMANAGER->g_NavNodes)
 			{
 				if (mesh->CheckIfInMeshBounds(food->GetPos()) == true)
 				{
 					mesh->SetPassible(true);
 					NAVMANAGER->GatherEdges();
-					break;
+					continue;
 				}
 			}
 		}
 	}
 
-	
+	//remove the food from the main list
+	for each (SharedFoodPtr food in m_foodToRemove)
+	{
+		m_food.remove(food);
+	}
 
-	m_food.remove(holder);
+	//clears the list
+	m_foodToRemove.clear();
 }
 
 void InGameState::CheckUnitsToRemove()
 {
-
+	//finds all dead units
 	for each (Entity * unit in m_units)
 	{
 		if (unit->IsAlive() == false)
@@ -356,6 +373,7 @@ void InGameState::CheckUnitsToRemove()
 		}
 	}
 
+	//removes all dead units from the list
 	for each (Entity * unit in m_unitsToRemove)
 	{
 		m_units.remove(unit);
@@ -368,6 +386,7 @@ void InGameState::GatherMurders()
 {
 	m_villigerBlackBoard->m_murders.clear();
 
+	//loop through all the units and find the murderers
 	for each (Entity * unit in m_units)
 	{
 		if (unit->m_murder == true)

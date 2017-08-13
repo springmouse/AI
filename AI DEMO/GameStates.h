@@ -242,12 +242,37 @@ private:
 
 };
 
+/*
+* Class: InGameFlockStake
+* -----------------------
+*
+* this runs the flocking simulation
+* inherits from GameStates
+*
+* Author: Callum Dunstone
+*/
 
 class InGameFlockStake :
     public GameStates
 {
 public:
+
+	/*
+	* Function: Constructor
+	* ---------------------
+	*
+	* Default constructor
+	*
+	*/
     InGameFlockStake();
+
+	/*
+	* Function: DeConstructer
+	* ------------------------
+	*
+	* Default deConstructor.
+	*
+	*/
     ~InGameFlockStake();
 
     /*
@@ -289,8 +314,8 @@ public:
 
 private:
 
-    BoidsBlackBoard * m_boidsBlackBoard;
-    std::list<ShareBoidPtr> m_boids;
+    BoidsBlackBoard * m_boidsBlackBoard; /*the black board for the boids*/
+    std::list<ShareBoidPtr> m_boids; /*list of all the boids*/
 };
 
 
@@ -326,7 +351,17 @@ public:
 	*/
     ~InGameState();
 
-    virtual void onEnter();
+	/*
+	* Function: onDraw
+	* ----------------
+	*
+	* this gets called when we enter the state into use
+	*
+	* Parameters: is void
+	*
+	* returns: returns the active state of the state
+	*/
+    void onEnter();
 
 	/*
 	* Function: onUpdate
@@ -353,35 +388,131 @@ public:
 	*/
     void onDraw(aie::Renderer2D*, aie::Font*);
 
+	/*
+	* Function: ButtonAssignBuildMode
+	* -------------------------------
+	*
+	* assigns the function NAVMANAGER->CreatNewNode() to the button to assign to the left mouse click
+	* when we select the button this function is assigned to
+	*
+	* Parameters: none
+	*
+	* returns: returns nothing as it is a void function
+	*/
     void ButtonAssignBuildMode();
 
+	/*
+	* Function: ButtonAssignDestroyMode
+	* ---------------------------------
+	*
+	* assigns the function NAVMANAGER->DestroyNode() to the button to assign to the left mouse click
+	* when we select the button this function is assigned to
+	*
+	* Parameters: none
+	*
+	* returns: returns nothing as it is a void function
+	*/
     void ButtonAssignDestroyMode();
 
+	/*
+	* Function: ButtonAssignLimitedFood
+	* ---------------------------------
+	*
+	* assigns the function CreatLimitedFood() to the button to assign to the left mouse click
+	* when we select the button this function is assigned to
+	*
+	* Parameters: none
+	*
+	* returns: returns nothing as it is a void function
+	*/
 	void ButtonAssignLimitedFood();
 
+	/*
+	* Function: ButtonAssignInfiniteFood
+	* ----------------------------------
+	*
+	* assigns the function CreatInfiniteFood() to the button to assign to the left mouse click
+	* when we select the button this function is assigned to
+	*
+	* Parameters: none
+	*
+	* returns: returns nothing as it is a void function
+	*/
 	void ButtonAssignInfiniteFood();
 
+	/*
+	* Function: CreatLimitedFood
+	* --------------------------
+	*
+	* this places down a limited food supply into the world
+	*
+	* Parameters: none
+	*
+	* returns: returns nothing as it is a void function
+	*/
 	void CreatLimitedFood();
 
+	/*
+	* Function:
+	* ---------
+	*
+	* this places down an infinte food supply into the world
+	*
+	* Parameters: none
+	*
+	* returns: returns nothing as it is a void function
+	*/
 	void CreatInfiniteFood();
 
+	/*
+	* Function:
+	* ---------
+	*
+	* this checks if the tile the food was on is gone or if the limited
+	* food has run out of stockpile and if so removes them from the game
+	*
+	* Parameters: none
+	*
+	* returns: returns nothing as it is a void function
+	*/
 	void CheckToRemoveFood();
 
+	/*
+	* Function:
+	* ---------
+	*
+	* this checks to see if any units have died and removes them
+	*
+	* Parameters: none
+	*
+	* returns: returns nothing as it is a void function
+	*/
 	void CheckUnitsToRemove();
 
+	/*
+	* Function:
+	* ---------
+	*
+	* this finds all the murders in m_units and assigns them to
+	* m_villigerBlackBoard->m_murders
+	*
+	* Parameters: none
+	*
+	* returns: returns nothing as it is a void function
+	*/
 	void GatherMurders();
-    //void SlectState();
 
 private:
 
-    std::list<Button::SharedPtr> m_buttons; 
+    std::list<Button::SharedPtr> m_buttons; /*list of all the buttons*/
 
-    std::list<Entity *> m_units;
-	VillagerBlackBoard * m_villigerBlackBoard;
+    std::list<Entity *> m_units; /*list of all the units*/
+	VillagerBlackBoard * m_villigerBlackBoard;  /*the villiger black board*/
 
-	std::list<Entity *> m_unitsToRemove;
+	std::list<Entity *> m_unitsToRemove; /*list of all the dead units we need to purge*/
 
-	std::list<SharedFoodPtr> m_food;
+	std::list<SharedFoodPtr> m_food; /*list of all the food in the world*/
+	std::list<SharedFoodPtr> m_foodToRemove /*list of all food to remove*/
 
-    float timmer = 0;
+    float timmer = 0; /*a timer*/
 };
