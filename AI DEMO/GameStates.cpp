@@ -323,10 +323,26 @@ void InGameState::CheckToRemoveFood()
 	{
 		if (food->CheckIFPosValid() == false)
 		{
-			holder = food;
+			holder = food; 
 			break;
 		}
+
+		if (food->IsFoodLeft() == false)
+		{
+			holder = food;
+			for each (SharedMeshPtr mesh in NAVMANAGER->g_NavNodes)
+			{
+				if (mesh->CheckIfInMeshBounds(food->GetPos()) == true)
+				{
+					mesh->SetPassible(true);
+					NAVMANAGER->GatherEdges();
+					break;
+				}
+			}
+		}
 	}
+
+	
 
 	m_food.remove(holder);
 }

@@ -1,25 +1,3 @@
 ﻿  VillegerUtility.cpp
-  Villager.cpp
-c:\users\callu.desktop-lvuve2b\documents\github\ai\ai demo\villager.cpp(138): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-  Factory.cpp
-  Generating Code...
-c:\users\callu.desktop-lvuve2b\documents\github\ai\ai demo\factory.cpp(94): warning C4715: 'Factory::MakeFood': not all control paths return a value
-  Compiling...
-  main.cpp
-  PlayerUnitDecsisionTree.cpp
-  MurderState.cpp
-  MoveState.cpp
-  GatherState.cpp
-  GameStates.cpp
-c:\users\callu.desktop-lvuve2b\documents\github\ai\ai demo\gamestates.cpp(163): warning C4244: 'argument': conversion from 'realNum' to 'int', possible loss of data
-c:\users\callu.desktop-lvuve2b\documents\github\ai\ai demo\gamestates.cpp(168): warning C4244: 'argument': conversion from 'realNum' to 'int', possible loss of data
-c:\users\callu.desktop-lvuve2b\documents\github\ai\ai demo\gamestates.cpp(173): warning C4244: 'argument': conversion from 'realNum' to 'int', possible loss of data
-c:\users\callu.desktop-lvuve2b\documents\github\ai\ai demo\gamestates.cpp(178): warning C4244: 'argument': conversion from 'realNum' to 'int', possible loss of data
-  GameStateManagmeant.cpp
-  EntityStateMachine.cpp
-  AttackState.cpp
-  AI_DEMOApp.cpp
-  Generating Code...
-LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
   AI DEMO.vcxproj -> C:\Users\callu.DESKTOP-LVUVE2B\Documents\GitHub\AI\temp\AI DEMO\Debug\AI DEMO.exe
   AI DEMO.vcxproj -> C:\Users\callu.DESKTOP-LVUVE2B\Documents\GitHub\AI\temp\AI DEMO\Debug\AI DEMO.pdb (Full PDB)

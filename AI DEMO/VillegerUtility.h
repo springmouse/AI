@@ -15,6 +15,7 @@ public:
 	void ClaculateMurder();
 	void ClaculateWander();
 	void CalculateFight();
+	void CalculateFlee();
 
 	float sprMagnatude(Vector2 pos);
 
@@ -22,6 +23,7 @@ public:
 	float m_murder;
 	float m_wonder;
 	float m_fight;
+	float m_flee;
 
 private:
 	Entity * m_myEntity;

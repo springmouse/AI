@@ -5,6 +5,9 @@
 #include "VillegerUtility.h"
 #include "VillagerBlackBoard.h"
 #include "EntityStateMachine.h"
+#include "Food.h";
+
+#include <iostream>
 
 
 PlayerUnitDecsisionTree::PlayerUnitDecsisionTree(Entity * unit)
@@ -62,31 +65,59 @@ void PlayerUnitDecsisionTree::CreatNodes()
 
     Node * N5 = new Node();
     nodes.push_back(N5);
-    N4->comment = "Does murder have target";
+	N5->comment = "Does murder have target";
 
 	Node * N6 = new Node();
 	nodes.push_back(N6);
-	N4->comment = "is there target with in LOS";
+	N6->comment = "is there target with in LOS";
 
 	Node * N7 = new Node();
 	nodes.push_back(N7);
-	N4->comment = "Find Nearest Target with in radius";
+	N7->comment = "Find Nearest Target with in radius";
 
 	Node * N8 = new Node();
 	nodes.push_back(N8);
-	N4->comment = "Set Murder to true";
+	N8->comment = "Set Murder to true";
 
 	Node * N9 = new Node();
 	nodes.push_back(N9);
-	N4->comment = "Does unit have path";
+	N9->comment = "Does unit have path";
 
 	Node * N10 = new Node();
 	nodes.push_back(N10);
-	N4->comment = "Get Path";
+	N10->comment = "Get Path";
 
 	Node * N11 = new Node();
 	nodes.push_back(N11);
-	N4->comment = "wander";
+	N11->comment = "wander";
+
+	Node * N12 = new Node();
+	nodes.push_back(N12);
+	N12->comment = "is fight > wonder";
+
+	Node * N13 = new Node();
+	nodes.push_back(N13);
+	N13->comment = "Get Closes murder";
+
+	Node * N14 = new Node();
+	nodes.push_back(N14);
+	N14->comment = "Set path to murder";
+
+	Node * N15 = new Node();
+	nodes.push_back(N15);
+	N15->comment = "fight > gather";
+
+	Node * N16 = new Node();
+	nodes.push_back(N16);
+	N16->comment = "fight > gather";
+
+	Node * N17 = new Node();
+	nodes.push_back(N17);
+	N17->comment = "fight > gather";
+
+	Node * N18 = new Node();
+	nodes.push_back(N18);
+	N18->comment = "fight > gather";
 
     ///////////////////////////////////////////////////////////////////////////////
 
@@ -290,6 +321,154 @@ void PlayerUnitDecsisionTree::CreatNodes()
 		return true;
 	};
 
+	N12->run = [unit]()->bool
+	{
+		if (unit->GetUtility()->m_fight > unit->GetUtility()->m_flee)
+		{
+			return true;
+		}
+		
+		return false;
+	};
+
+	N13->run = [unit]()->bool
+	{
+		if (unit->GetBlackBoard()->m_murders.size() <= 0)
+		{
+			return false;
+		}
+
+		unit->m_attackTarget = nullptr;
+		Vector2 pos = unit->GetPos();
+
+		for each (Entity * ent in unit->GetBlackBoard()->m_murders)
+		{
+			if (unit->m_attackTarget == nullptr)
+			{
+				unit->m_attackTarget = ent;
+				continue;
+			}
+
+			if (unit->GetUtility()->sprMagnatude(ent->GetPos() - pos) < unit->GetUtility()->sprMagnatude(unit->m_attackTarget->GetPos() - pos))
+			{
+				unit->m_attackTarget = ent;
+			}
+		}
+
+		return true;
+	};
+
+	N14->run = [unit]()->bool
+	{
+		if (unit->m_updatePathTimer > 3)
+		{
+			unit->m_path.clear();
+			unit->m_path = PATH_FINDER->FindPath(unit->GetPos(), unit->m_attackTarget->GetPos());
+			unit->m_updatePathTimer = 0;
+		}
+
+		unit->GetStateMachine()->Clear();
+		unit->GetStateMachine()->pushState(0);
+		unit->GetStateMachine()->pushState(3);
+
+		return true;
+	};
+
+	N15->run = [unit]()->bool
+	{
+		if (unit->GetBlackBoard()->m_murders.size() <= 0)
+		{
+			return false;
+		}
+
+		if (unit->GetUtility()->m_fight > unit->GetUtility()->m_getFood)
+		{
+			return true;
+		}
+
+		return false;
+	};
+
+	N16->run = [unit]()->bool
+	{
+		if (unit->GetUtility()->m_getFood > unit->GetUtility()->m_wonder)
+		{
+			return true;
+		}
+
+		return false;
+	};
+
+	N17->run = [unit]()->bool
+	{
+		if (unit->GetBlackBoard()->m_food.size() <= 0)
+		{
+			return false;
+		}
+
+		Vector2	pos = unit->GetPos();
+
+		unit->m_target = Vector2(0,0);
+
+		for each (SharedFoodPtr food in unit->GetBlackBoard()->m_food)
+		{
+			if (unit->m_target == Vector2(0, 0))
+			{
+				unit->m_target = food->GetPos();
+			}
+
+			if (unit->GetUtility()->sprMagnatude(food->GetPos() - pos) < unit->GetUtility()->sprMagnatude(unit->m_target - pos))
+			{
+				unit->m_target = food->GetPos();
+				unit->m_neareastFood = food;
+			}
+		}
+
+		SharedMeshPtr holder;
+
+		for each (SharedMeshPtr node in NAVMANAGER->g_NavNodes)
+		{
+			if (node->CheckIfInMeshBounds(unit->m_target))
+			{
+				holder = node;
+				break;
+			}
+		}
+
+		unit->m_target = Vector2(0, 0);
+		for each(SharedMeshPtr node in NAVMANAGER->GetEdgeConnections(holder))
+		{
+			if (unit->m_target == Vector2(0, 0))
+			{
+				unit->m_target = node->GetCenter();
+			}
+
+			if (unit->GetUtility()->sprMagnatude(node->GetCenter() - pos) < unit->GetUtility()->sprMagnatude(unit->m_target - pos))
+			{
+				unit->m_target = node->GetCenter();
+			}
+		}
+
+
+		unit->GetStateMachine()->Clear();
+		unit->GetStateMachine()->pushState(0);
+		unit->GetStateMachine()->pushState(1);
+
+		return true;
+	};
+
+	N18->run = [unit]()->bool
+	{
+		if (unit->m_updatePathTimer > 3)
+		{
+			unit->m_path.clear();
+			unit->m_path = PATH_FINDER->FindPath(unit->GetPos(), unit->m_target);
+			unit->m_updatePathTimer = 0;
+		}
+
+		return true;
+	};
+
     ///////////////////////////////////////////////////////////////////////////////
 
     N1->yes = N2;
@@ -299,9 +478,9 @@ void PlayerUnitDecsisionTree::CreatNodes()
     N2->no = N3;
 
     N3->yes = N4;
-    N3->no = N11; //exit
+    N3->no = N15;
 
-    N4->yes = N11; //exit
+    N4->yes = N12;
     N4->no = N8; 
 
     N5->yes = N9;
@@ -310,23 +489,39 @@ void PlayerUnitDecsisionTree::CreatNodes()
 	N6->yes = N10;
 	N6->no = N7;
 
-
 	N7->yes = N10;
 	N7->no = nullptr; //Error
-
 
 	N8->yes = N5; 
 	N8->no = nullptr; //Error
 
-
 	N9->yes = nullptr; //exit
 	N9->no = N10;
-
 
 	N10->yes = nullptr; //exit
 	N10->no = nullptr; //exit
 
-
 	N11->yes = nullptr; //exit
 	N11->no = nullptr; //exit
+
+	N12->yes = N13;
+	N12->no = N11;
+
+	N13->yes = N14;
+	N13->no = nullptr; //exit
+
+	N14->yes = nullptr; //exit
+	N14->no = nullptr; //exit
+
+	N15->yes = N13;
+	N15->no = N16;
+
+	N16->yes = N17;
+	N16->no = N11;
+
+	N17->yes = N18;
+	N17->no = N11;
+
+	N18->yes = nullptr;
+	N18->no = nullptr;
 }

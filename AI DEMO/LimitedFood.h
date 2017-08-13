@@ -11,5 +11,9 @@ public:
 	void Update(float deltaTime);
 
 	void Draw(aie::Renderer2D * m_2dRenderer);
+
+	float GatherFood();
+
+private:
 };
 

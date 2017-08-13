@@ -1,2 +1,10 @@
-﻿  MathsLibary.vcxproj -> C:\Users\callu.DESKTOP-LVUVE2B\Documents\GitHub\AI\MathsLibary\dll\MathsLibary.dll
+﻿  Matrix2.cpp
+  Matrix3.cpp
+  Matrix4.cpp
+  Vector2.cpp
+  Vector3.cpp
+  Vector4.cpp
+  Generating Code...
+     Creating library C:\Users\callu.DESKTOP-LVUVE2B\Documents\GitHub\AI\MathsLibary\dll\MathsLibary.lib and object C:\Users\callu.DESKTOP-LVUVE2B\Documents\GitHub\AI\MathsLibary\dll\MathsLibary.exp
+  MathsLibary.vcxproj -> C:\Users\callu.DESKTOP-LVUVE2B\Documents\GitHub\AI\MathsLibary\dll\MathsLibary.dll
   MathsLibary.vcxproj -> C:\Users\callu.DESKTOP-LVUVE2B\Documents\GitHub\AI\MathsLibary\dll\MathsLibary.pdb (Full PDB)

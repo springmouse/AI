@@ -14,6 +14,9 @@ VillegerUtility::VillegerUtility(Entity * entity)
 	m_murder = 0;
 	m_fight = 0;
 	m_wonder = 0;
+	m_flee = 0;
+
+	m_checkRadius = 60;
 }
 
 
@@ -28,7 +31,7 @@ void VillegerUtility::Update(float deltaTime)
 	ClaculateMurder();
 	ClaculateWander();
 	CalculateFight();
-
+	CalculateFlee();
 
 	/*std::cout << "m_getFood ";
 	std::cout << m_getFood;
@@ -60,7 +63,7 @@ void VillegerUtility::CalculateGetFood()
 		return;
 	}
 
-	m_getFood = - m_myEntity->m_food + m_myEntity->m_maxFood;
+	m_getFood = (m_myEntity->m_maxFood  - m_myEntity->m_food) * 1.5;
 
 }
 
@@ -96,7 +99,7 @@ void VillegerUtility::CalculateFight()
 
 	for each (Entity * unit in m_myEntity->GetBlackBoard()->m_entites)
 	{
-		if ((sprMagnatude((unit->GetPos() - pos)) < (m_checkRadius * m_checkRadius)) && m_myEntity != unit)
+		if ((sprMagnatude((unit->GetPos() - pos)) < (m_checkRadius * m_checkRadius)) && *m_myEntity != unit)
 		{
 			if (PATH_FINDER->LineCheck(pos, unit->GetPos()) == false)
 			{
@@ -104,6 +107,15 @@ void VillegerUtility::CalculateFight()
 			}
 		}
 	}
+
+	m_fight -= m_myEntity->m_maxFood - m_myEntity->m_food;
+}
+
+void VillegerUtility::CalculateFlee()
+{
+	m_flee = 0;
+
+	m_flee = m_myEntity->m_maxHealth - m_myEntity->m_health;
 }
 
 float VillegerUtility::sprMagnatude(Vector2 pos)

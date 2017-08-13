@@ -55,6 +55,7 @@ public:
 	float m_updatePathTimer;
 
     Vector2 m_target;
+	WeakFoodPtr m_neareastFood;
 
     std::list<Vector2> m_path;
 

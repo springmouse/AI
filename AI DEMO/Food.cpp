@@ -23,3 +23,12 @@ bool Food::CheckIFPosValid()
 
 	return false;
 }
+
+bool Food::IsFoodLeft()
+{ 
+	if (m_foodStock > 0)
+	{
+		return true;
+	}
+	return false;
+}
