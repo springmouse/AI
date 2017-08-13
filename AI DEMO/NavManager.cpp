@@ -12,84 +12,19 @@ NavManager * NavManager::GetInstanceOfNavManager()
 
 NavManager::NavManager()
 {
-    CreatNavMesh();
-    SetUpStartUpNodeConections();
-    CreatEdges();
-    GatherEdges();
-
-    m_timer = 0;
-    m_pathTimer = 0;
-
-    start = Vector2(0, 0);
-    finish = Vector2(0, 0);
-
     m_tileTexture[0] = new aie::Texture("./textures/Ground.png");
     m_tileTexture[1] = new aie::Texture("./textures/Wall.png");
     m_tileTexture[2] = new aie::Texture("./textures/Boarder.png");
-
-    m_drawToNode = true;
 }
 
 NavManager::~NavManager()
 {
 }
 
-
-void NavManager::CreatNavMesh()
-{
-    for each (SharedMapNodePtr nodeA in g_mapNodes)
-    {
-        SharedMapNodePtr one = nullptr;
-
-        SharedMapNodePtr two = nodeA;
-
-        SharedMapNodePtr three = nullptr;
-        SharedMapNodePtr four = nullptr;
-
-        int count = 0;
-        for each (SharedMapNodePtr nodeB in g_mapNodes)
-        {
-            //Upper Left
-            if (*nodeB == Vector2(nodeA->m_pos.x, nodeA->m_pos.y + INFOMATION->nodeSize))
-            {
-                one = nodeB;
-                count++;
-            }
-
-            //lower Right
-            if (*nodeB == Vector2(nodeA->m_pos.x + INFOMATION->nodeSize, nodeA->m_pos.y))
-            {
-                four = nodeB;
-                count++;
-            }
-
-            //upper Right
-            if (*nodeB == Vector2(nodeA->m_pos.x + INFOMATION->nodeSize, nodeA->m_pos.y + INFOMATION->nodeSize))
-            {
-                three = nodeB;
-                count++;
-            }
-
-            if (count == 3)
-            {
-                g_NavNodes.push_back(SharedMeshPtr(new NavMeshNode(one, two, three, four)));
-                break;
-            }
-        }
-    }
-}
-
-void NavManager::CreatEdges()
-{
-    for each (SharedMeshPtr nav in g_NavNodes)
-    {
-        nav->DefineMapEdges();
-    }
-    
-}
-
 void NavManager::GatherEdges()
 {
+	//clears the list then get all map edges
+	//so we dont have doubling up or ghosts
 	g_mapEdges.clear();
 
     for each (SharedMeshPtr node in g_NavNodes)
@@ -101,52 +36,11 @@ void NavManager::GatherEdges()
     }
 }
 
-void NavManager::SetUpStartUpNodeConections()
-{
-    for each (SharedMeshPtr nodeA in g_NavNodes)
-    {
-        for each (SharedMeshPtr nodeB in g_NavNodes)
-        {
-            if (nodeA != nodeB)
-            {
-                if (nodeA->CheckIfMapNodeIsShared(nodeB->GetUpperLeft()) && nodeA->CheckIfMapNodeIsShared(nodeB->GetUpperRight()))
-                {
-                    if (nodeA->CheckIfConectionExists(nodeB) == false)
-                    {
-                        nodeA->AddConnection(nodeA, nodeB);
-                    }
-                }
-                
-                if (nodeA->CheckIfMapNodeIsShared(nodeB->GetLowerLeft()) && nodeA->CheckIfMapNodeIsShared(nodeB->GetUpperLeft()))
-                {
-                    if (nodeA->CheckIfConectionExists(nodeB) == false)
-                    {
-                        nodeA->AddConnection(nodeA, nodeB);
-                    }                    
-                }
-
-                if (nodeA->CheckIfMapNodeIsShared(nodeB->GetUpperRight()) && nodeA->CheckIfMapNodeIsShared(nodeB->GetLowerRight()))
-                {
-                    if (nodeA->CheckIfConectionExists(nodeB) == false)
-                    {
-                        nodeA->AddConnection(nodeA,nodeB);
-                    }                    
-                }
-
-                if (nodeA->CheckIfMapNodeIsShared(nodeB->GetLowerRight()) && nodeA->CheckIfMapNodeIsShared(nodeB->GetLowerLeft()))
-                {
-                    if (nodeA->CheckIfConectionExists(nodeB) == false)
-                    {
-                        nodeA->AddConnection(nodeA, nodeB);
-                    }
-                }
-            }
-        }
-    }
-}
-
 void NavManager::MakeConnectionsToNode(SharedMeshPtr nodeA)
 {
+	//go through all the nodes checking their endges agains the one passed in
+	//if an edge is shared check that there is not all ready a connection between them
+	//if no connection we the add one
     for each (SharedMeshPtr nodeB in g_NavNodes)
     {
         if (nodeA != nodeB)
@@ -186,19 +80,9 @@ void NavManager::MakeConnectionsToNode(SharedMeshPtr nodeA)
     }
 }
 
-void NavManager::Update(float deltaTime)
-{
-    for each (SharedMeshPtr nav in g_NavNodes)
-    {
-        nav->Update(deltaTime);
-    }
-
-    m_pathTimer += deltaTime;
-}
-
-
 void NavManager::CreatNewNode()
 {
+	//make sure we are not trying to place a node ontop of another node
     for each (SharedMeshPtr n in g_NavNodes)
     {
         if (n->CheckIfInMeshBounds(MOUSE->mousePosGameSpace))
@@ -207,11 +91,13 @@ void NavManager::CreatNewNode()
         }
     }
 
+	//start off gathering our cornors for the node
     SharedMapNodePtr one = nullptr;
     SharedMapNodePtr two = nullptr;
     SharedMapNodePtr three = nullptr;
     SharedMapNodePtr four = nullptr;
 
+	////go through the g_mapNodesto see if any of our cornors already exist
     for each (SharedMapNodePtr mn  in g_mapNodes)
     {
         if (*mn == Vector2(MOUSE->mousePosGameSpace.x - 10, MOUSE->mousePosGameSpace.y + 10))
@@ -235,6 +121,7 @@ void NavManager::CreatNewNode()
         }
     }
 
+	//if any of them dont we creat some new ones
     if (one == nullptr)
     {
         one = SharedMapNodePtr(new MapNode(MOUSE->mousePosGameSpace.x - 10, MOUSE->mousePosGameSpace.y + 10));
@@ -259,14 +146,19 @@ void NavManager::CreatNewNode()
         g_mapNodes.push_back(four);
     }
 
+	//create the new node now
     SharedMeshPtr node = SharedMeshPtr(new NavMeshNode(one, two, three, four));
     
+	//find create its connections to other nodes
     MakeConnectionsToNode(node);
 	
+	//add it to the list of nodes
     g_NavNodes.push_back(node);
     
+	//define its map edges wich also redefines and nodes map edges that it is touching
 	node->DefineMapEdges();
 
+	//gather the new map edges
 	GatherEdges();
 
 }
@@ -275,6 +167,7 @@ void NavManager::DestroyNode()
 {
     SharedMeshPtr n = nullptr;
 
+	//get the node
     for each (SharedMeshPtr N in g_NavNodes)
     {
         if (N->CheckIfInMeshBounds(MOUSE->mousePosGameSpace))
@@ -283,11 +176,17 @@ void NavManager::DestroyNode()
         }
     }
 
+	//make sure we actually have a node
     if (n != nullptr)
     {
+		//delet its connections
         n->DeleteAllConections(n);
+		//remove it
         g_NavNodes.remove(n);
 
+		//go back through all the nodes and reset ones that where not passible
+		//to not being passible to set all their edges to map edges (this is a bit of a cheaty way to do it)
+		//we need to do this otherwise map edges are not assigned properly
 		for each (SharedMeshPtr node in g_NavNodes)
 		{
 			if (node->GetIsPasible() == false)
@@ -296,43 +195,27 @@ void NavManager::DestroyNode()
 			}
 		}
 
+		//regather all edges
 		GatherEdges();
     }
 
 }
 
-void NavManager::SwapDrawToNode()
-{
-    if (m_drawToNode == true)
-    {
-        m_drawToNode = false;
-    }
-    else
-    {
-        m_drawToNode = true;
-    }
-}
-
 void NavManager::Draw(aie::Renderer2D * m_2dRenderer)
 {
-   
-
+	//draw the NavMeshNodes
     for each (SharedMeshPtr nav in g_NavNodes)
     {
         nav->Draw(m_2dRenderer);
     }
 
-    for each (SharedMeshPtr n in nodeTest)
-    {
-        m_2dRenderer->setRenderColour(1, 0, 0, 1);
-        m_2dRenderer->drawCircle(n->GetCenter().x, n->GetCenter().y, 5);
-    }
-
+	//draw the map edges
     for each (SharedEdge edge in g_mapEdges)
     {
         edge->Draw(m_2dRenderer);
     }
 
+	//draw the map coursor
     if (MOUSE->mousestate == MouseState::States::INGAME)
     {
         m_2dRenderer->drawSprite(m_tileTexture[2], MOUSE->mousePosGameSpace.x, MOUSE->mousePosGameSpace.y, 19, 19);
@@ -352,23 +235,6 @@ SharedMeshPtr NavManager::GetNode(Vector2 pos)
     }
 
     return nullptr;
-}
-
-void NavManager::ClearParents()
-{
-	for each (SharedMeshPtr n in g_NavNodes)
-	{
-		n->SetParent(nullptr);
-	}
-}
-
-void NavManager::Slect()
-{
-
-}
-
-void NavManager::Nothing()
-{
 }
 
 std::list<SharedMeshPtr> NavManager::GetEdgeConnections(SharedMeshPtr node)

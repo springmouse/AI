@@ -34,6 +34,7 @@ std::list<Vector2> GetAStarPath::FindPath(Vector2 start, Vector2 end)
         return temp;
     }
 
+	//check if there is line of sight first
 	if (LineCheck(start, end) == false)
 	{
 		std::list<Vector2> tempPath;
@@ -130,6 +131,7 @@ bool GetAStarPath::LineCheck(Vector2 start, Vector2 end)
 
 	double s, t, b;
 
+	//check every edge for a collision
 	for each (SharedEdge edge  in NAVMANAGER->g_mapEdges)
 	{
 		p2_x = edge->pointOne.lock()->m_pos.x;
@@ -170,6 +172,7 @@ bool GetAStarPath::LineCheck(Vector2 start, Vector2 end)
 
 bool GetAStarPath::FindInContainer(std::list<SharedMeshPtr> * holder, SharedMeshPtr node)
 {
+	//loop through container see if node is in there
     for each (SharedMeshPtr n in *holder)
     {
         if (n == node)

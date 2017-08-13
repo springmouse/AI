@@ -9,62 +9,36 @@ NavMeshNode::NavMeshNode()
 
 NavMeshNode::NavMeshNode(SharedMapNodePtr one, SharedMapNodePtr two, SharedMapNodePtr three, SharedMapNodePtr four)
 {
+	//set our cornors
     m_upperLeftCornor   = one;
     m_lowerLeftCornor   = two;
     m_upperRightCornor  = three;
     m_lowerRightCornor  = four;
 
+	//creat our edges
     m_WestEdge = SharedEdge(new MapEdges(one, two));
     m_SouthEdge = SharedEdge(new MapEdges(two, four));
     m_EastEdge = SharedEdge(new MapEdges(four, three));
     m_NorthEdge = SharedEdge(new MapEdges(three, one));
 
+	//calculate the centerpoint
     CalculateCenter();
 
+	//set passible to true by default
     m_isPassable = true;
-
-    timer = 0;
-    m_weightCost = 0;
-    m_previousWeightCost = 0;
-    m_averageWeightCost = 0;
 }
 
 NavMeshNode::~NavMeshNode()
 {
-    //DeleteAllConections();
 }
 
 void NavMeshNode::SetAllCornors(SharedMapNodePtr one, SharedMapNodePtr two, SharedMapNodePtr three, SharedMapNodePtr four)
 {
+	//sets all our cornors and recaculate the center point
     m_upperLeftCornor   = one;
     m_lowerLeftCornor   = two;
     m_upperRightCornor  = three;
     m_lowerRightCornor  = four;
-    CalculateCenter();
-}
-
-void NavMeshNode::SetRightCornors(SharedMapNodePtr upper, SharedMapNodePtr lower)
-{
-    m_upperRightCornor = upper;
-    m_lowerRightCornor = lower;
-    CalculateCenter();
-}
-void NavMeshNode::SetLeftCornors(SharedMapNodePtr upper, SharedMapNodePtr lower)
-{
-    m_upperLeftCornor = upper;
-    m_lowerLeftCornor = lower;
-    CalculateCenter();
-}
-void NavMeshNode::SetUpperCornors(SharedMapNodePtr left, SharedMapNodePtr right)
-{
-    m_upperLeftCornor   = left;
-    m_upperRightCornor  = right;
-    CalculateCenter();
-}
-void NavMeshNode::SetLowerCornors(SharedMapNodePtr left, SharedMapNodePtr right)
-{
-    m_lowerLeftCornor   = left;
-    m_lowerRightCornor  = right;
     CalculateCenter();
 }
 
@@ -83,18 +57,6 @@ SharedMapNodePtr NavMeshNode::GetUpperRight()
 SharedMapNodePtr NavMeshNode::GetLowerRight()
 {
     return m_lowerRightCornor;
-}
-
-void NavMeshNode::Update(float deltaTime)
-{
-    timer += deltaTime;
-
-    if (timer >= 1)
-    {
-        m_averageWeightCost = (m_previousWeightCost + m_weightCost) * 0.5f;
-        m_previousWeightCost = m_weightCost;
-        timer = 0;
-    }
 }
 
 bool NavMeshNode::CheckIfInMeshBounds(Vector2 & worldPos)
@@ -118,16 +80,14 @@ void NavMeshNode::CalculateCenter()
 
 void NavMeshNode::Draw(aie::Renderer2D * m_2dRenderer)
 {
-    float num = sqrt(m_averageWeightCost * m_averageWeightCost);
-
-    num *= 0.2;
-
-    m_2dRenderer->setRenderColour(num, 0.5f, 0.5f, 1);
+	//draw the node
+    m_2dRenderer->setRenderColour(0, 0.5f, 0.5f, 1);
 
     m_2dRenderer->drawBox(m_centerPoint.x, m_centerPoint.y, 19, 19);
 
     m_2dRenderer->setRenderColour(0.5f, 0, 0.5f, 1);
 
+	//draw the nodes connections
     for each (sharedNavConnectionPtr nc in g_connections)
     {
         m_2dRenderer->drawLine(nc->p_nodeA.lock()->GetCenter().x, nc->p_nodeA.lock()->GetCenter().y, nc->p_nodeB.lock()->GetCenter().x, nc->p_nodeB.lock()->GetCenter().y);
@@ -148,14 +108,15 @@ Vector2 NavMeshNode::GetCenter() const
 
 void NavMeshNode::SetEdgesToTrue()
 {
-		m_NorthEdge->mapEdge = true;
-		m_EastEdge->mapEdge = true;
-		m_SouthEdge->mapEdge = true;
-		m_WestEdge->mapEdge = true;
+	m_NorthEdge->mapEdge = true;
+	m_EastEdge->mapEdge = true;
+	m_SouthEdge->mapEdge = true;
+	m_WestEdge->mapEdge = true;
 }
 
 void NavMeshNode::DefineMapEdges()
 {
+	//goes throu its connections and checks for shared edges
     for each (sharedNavConnectionPtr conector in g_connections)
     {
         if (*this == conector->p_nodeA.lock())
@@ -172,6 +133,7 @@ void NavMeshNode::DefineMapEdges()
 
 void NavMeshNode::CheckEdge(WeakMeshPtr nodeB)
 {
+	//if an edge is share then it is not a map edge
     if (*m_NorthEdge == nodeB.lock()->m_SouthEdge && nodeB.lock()->GetIsPasible())
     {
         m_NorthEdge->mapEdge = false;
@@ -199,6 +161,7 @@ void NavMeshNode::CheckEdge(WeakMeshPtr nodeB)
 
 std::list<SharedEdge> NavMeshNode::GetMapEdges()
 {
+	//makes list of all edges on the node that are map edges
     std::list<SharedEdge> edges;
 
     if (m_NorthEdge->mapEdge)
@@ -226,6 +189,7 @@ std::list<SharedEdge> NavMeshNode::GetMapEdges()
 
 bool NavMeshNode::CheckIfMapNodeIsShared(SharedMapNodePtr mn)
 {
+	//returns true if a cornor is shared
     if (mn == m_upperLeftCornor)
     {
         return true;
@@ -271,7 +235,7 @@ bool NavMeshNode::CheckIfConectionExists(SharedMeshPtr nodeB)
 
 void NavMeshNode::DeleteAllConections(SharedMeshPtr me)
 {
-
+	//goes through all its connections deleting them and telling them to recalculate there edges
     for each (sharedNavConnectionPtr nc in g_connections)
     {
         if (nc->p_nodeA.lock() != me)
@@ -289,6 +253,7 @@ void NavMeshNode::DeleteAllConections(SharedMeshPtr me)
         }
     }
 
+	//clears out list of connections
     g_connections.clear();
 }
 
@@ -311,7 +276,7 @@ bool NavMeshNode::GetIsPasible() const
 
 float NavMeshNode::GetFCost() const
 {
-    float cost = (m_hCost + m_gCost + m_averageWeightCost);
+    float cost = (m_hCost + m_gCost);
     return cost;
 }
 
@@ -339,6 +304,8 @@ void NavMeshNode::SetPassible(bool seter)
 {
 	m_isPassable = seter;
 
+	//if it is no loner passible then we want all of its edges to be
+	//map edges so Line of sight does not act weird
 	if (m_isPassable == false)
 	{
 		m_NorthEdge->mapEdge = true;
@@ -350,11 +317,6 @@ void NavMeshNode::SetPassible(bool seter)
 	{
 		DefineMapEdges();
 	}
-}
-
-void NavMeshNode::ModifyWeightCost(float set)
-{
-    m_weightCost += set;
 }
 
 WeakMeshPtr NavMeshNode::GetParent()

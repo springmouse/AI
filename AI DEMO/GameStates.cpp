@@ -212,8 +212,6 @@ void InGameState::onUpdate(float deltaTime)
             btn->update(deltaTime);
         }
 
-        NAVMANAGER->Update(deltaTime);
-
         /////////////////////////////////////////////////////////
 
 		//places down a new unit

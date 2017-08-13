@@ -6,7 +6,15 @@
 
 #define PATH_FINDER GetAStarPath::GetInstanceOfpathFinder() /*this creates a static instance of the pathfinder that can be easily called any where*/
 
-
+/*
+* Class: GetAStarPath
+* -------------------
+*
+* this class finds us a path from point A to point B using the
+* A* method
+*
+* Author: Callum Dunstone
+*/
 class GetAStarPath
 {
 public:
@@ -25,8 +33,29 @@ public:
     */
     std::list<Vector2> FindPath(Vector2 start, Vector2 end);
 
+	/*
+	* Function: LineCheck
+	* -------------------
+	*
+	* this checks the line we pass in crosses over
+	* and of the map edges and if it does returns true
+	*
+	* Parameters: Vector2 start of our line, Vector2 end of our line
+	*
+	* returns: returns true if two lines crose over
+	*/
 	bool LineCheck(Vector2 start, Vector2 end);
 
+	/*
+	* Function: FindInContainer
+	* --------------------------
+	*
+	* checks if the item we pass in is in the container we also pass in
+	*
+	* Parameters: std::list<SharedMeshPtr> * holder <- the container, SharedMeshPtr n <- item we are looking for
+	*
+	* returns: if item is in there we return true else we return false
+	*/
     bool FindInContainer(std::list<SharedMeshPtr> * holder, SharedMeshPtr n);
 
     /*

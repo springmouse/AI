@@ -14,6 +14,7 @@ MapEdges::~MapEdges()
 
 bool MapEdges::operator==(const SharedEdge other)
 {
+	//count how many map edges we have in common
     int count = 0;
     if ((*pointOne.lock() == other->pointOne.lock() || *pointOne.lock() == other->pointTwo.lock()))
     {
@@ -25,6 +26,7 @@ bool MapEdges::operator==(const SharedEdge other)
         count++;
     }
 
+	//if count is == 2 then all map nodes in the mapp edges are equal
     if (count == 2)
     {
         return true;

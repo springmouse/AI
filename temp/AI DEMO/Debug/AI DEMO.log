@@ -1,3 +1,69 @@
 ﻿  VillegerUtility.cpp
+c:\users\callu.desktop-lvuve2b\documents\github\ai\ai demo\villegerutility.cpp(67): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  Villager.cpp
+c:\users\callu.desktop-lvuve2b\documents\github\ai\ai demo\villager.cpp(154): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\callu.desktop-lvuve2b\documents\github\ai\ai demo\villager.cpp(221): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+c:\users\callu.desktop-lvuve2b\documents\github\ai\ai demo\villager.cpp(231): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+  PlayerUnitDecsisionTree.cpp
+c:\users\callu.desktop-lvuve2b\documents\github\ai\ai demo\playerunitdecsisiontree.cpp(8): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+  NavMeshNode.cpp
+  NavManager.cpp
+  MurderState.cpp
+  MoveState.cpp
+  MapEdges.cpp
+  LimitedFood.cpp
+  InfiniteFood.cpp
+c:\users\callu.desktop-lvuve2b\documents\github\ai\ai demo\infinitefood.cpp(18): warning C4305: 'argument': truncation from 'double' to 'float'
+  GetAStarPath.cpp
+c:\users\callu.desktop-lvuve2b\documents\github\ai\ai demo\getastarpath.cpp(93): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+c:\users\callu.desktop-lvuve2b\documents\github\ai\ai demo\getastarpath.cpp(99): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\callu.desktop-lvuve2b\documents\github\ai\ai demo\getastarpath.cpp(100): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\callu.desktop-lvuve2b\documents\github\ai\ai demo\getastarpath.cpp(224): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+c:\users\callu.desktop-lvuve2b\documents\github\ai\ai demo\getastarpath.cpp(225): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+  GatherState.cpp
+c:\users\callu.desktop-lvuve2b\documents\github\ai\ai demo\gatherstate.cpp(4): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+  GameStates.cpp
+c:\users\callu.desktop-lvuve2b\documents\github\ai\ai demo\gamestates.cpp(164): warning C4244: 'argument': conversion from 'realNum' to 'int', possible loss of data
+c:\users\callu.desktop-lvuve2b\documents\github\ai\ai demo\gamestates.cpp(169): warning C4244: 'argument': conversion from 'realNum' to 'int', possible loss of data
+c:\users\callu.desktop-lvuve2b\documents\github\ai\ai demo\gamestates.cpp(174): warning C4244: 'argument': conversion from 'realNum' to 'int', possible loss of data
+c:\users\callu.desktop-lvuve2b\documents\github\ai\ai demo\gamestates.cpp(179): warning C4244: 'argument': conversion from 'realNum' to 'int', possible loss of data
+  GameStateManagmeant.cpp
+  Food.cpp
+  EntityStateMachine.cpp
+  BoidsBlackBoard.cpp
+c:\users\callu.desktop-lvuve2b\documents\github\ai\ai demo\boidsblackboard.cpp(22): warning C4244: 'argument': conversion from 'double' to 'realNum', possible loss of data
+  Boids.cpp
+c:\users\callu.desktop-lvuve2b\documents\github\ai\ai demo\boids.cpp(12): warning C4244: '=': conversion from 'int' to 'realNum', possible loss of data
+c:\users\callu.desktop-lvuve2b\documents\github\ai\ai demo\boids.cpp(13): warning C4244: '=': conversion from 'int' to 'realNum', possible loss of data
+c:\users\callu.desktop-lvuve2b\documents\github\ai\ai demo\boids.cpp(108): warning C4244: '=': conversion from 'int' to 'realNum', possible loss of data
+c:\users\callu.desktop-lvuve2b\documents\github\ai\ai demo\boids.cpp(116): warning C4244: '=': conversion from 'int' to 'realNum', possible loss of data
+  AttackState.cpp
+  Generating Code...
+  Compiling...
+  main.cpp
+  VillagerBlackBoard.cpp
+  RenderToMesh.cpp
+  Object.cpp
+  MouseState.cpp
+c:\users\callu.desktop-lvuve2b\documents\github\ai\ai demo\mousestate.cpp(19): warning C4244: 'argument': conversion from 'int' to 'realNum', possible loss of data
+c:\users\callu.desktop-lvuve2b\documents\github\ai\ai demo\mousestate.cpp(24): warning C4244: 'argument': conversion from 'int' to 'realNum', possible loss of data
+  MapNode.cpp
+  Factory.cpp
+  Entity.cpp
+  Button.cpp
+c:\users\callu.desktop-lvuve2b\documents\github\ai\ai demo\button.cpp(82): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+c:\users\callu.desktop-lvuve2b\documents\github\ai\ai demo\button.cpp(83): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+c:\users\callu.desktop-lvuve2b\documents\github\ai\ai demo\button.cpp(92): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
+c:\users\callu.desktop-lvuve2b\documents\github\ai\ai demo\button.cpp(94): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
+c:\users\callu.desktop-lvuve2b\documents\github\ai\ai demo\button.cpp(101): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
+c:\users\callu.desktop-lvuve2b\documents\github\ai\ai demo\button.cpp(103): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
+c:\users\callu.desktop-lvuve2b\documents\github\ai\ai demo\button.cpp(110): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
+c:\users\callu.desktop-lvuve2b\documents\github\ai\ai demo\button.cpp(112): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
+c:\users\callu.desktop-lvuve2b\documents\github\ai\ai demo\button.cpp(119): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
+c:\users\callu.desktop-lvuve2b\documents\github\ai\ai demo\button.cpp(121): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
+  AI_DEMOApp.cpp
+  Generating Code...
+c:\users\callu.desktop-lvuve2b\documents\github\ai\ai demo\factory.cpp(94): warning C4715: 'Factory::MakeFood': not all control paths return a value
+LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
   AI DEMO.vcxproj -> C:\Users\callu.DESKTOP-LVUVE2B\Documents\GitHub\AI\temp\AI DEMO\Debug\AI DEMO.exe
   AI DEMO.vcxproj -> C:\Users\callu.DESKTOP-LVUVE2B\Documents\GitHub\AI\temp\AI DEMO\Debug\AI DEMO.pdb (Full PDB)
