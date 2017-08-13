@@ -318,6 +318,9 @@ void PlayerUnitDecsisionTree::CreatNodes()
 			unit->m_path = PATH_FINDER->FindPath(unit->GetPos(), unit->m_target);
 		}
 
+		unit->GetStateMachine()->Clear();
+		unit->GetStateMachine()->pushState(0);
+
 		return true;
 	};
 
@@ -448,7 +451,6 @@ void PlayerUnitDecsisionTree::CreatNodes()
 				unit->m_target = node->GetCenter();
 			}
 		}
-
 
 		unit->GetStateMachine()->Clear();
 		unit->GetStateMachine()->pushState(0);
