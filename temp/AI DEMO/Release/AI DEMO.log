@@ -1,4 +1,5 @@
 ﻿  AI_DEMOApp.cpp
+  AttackState.cpp
   Boids.cpp
 Boids.cpp(12): warning C4244: '=': conversion from 'int' to 'realNum', possible loss of data
 Boids.cpp(13): warning C4244: '=': conversion from 'int' to 'realNum', possible loss of data
@@ -17,26 +18,53 @@ Button.cpp(111): warning C4244: 'argument': conversion from 'LONG' to 'float', p
 Button.cpp(113): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
 Button.cpp(120): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
 Button.cpp(122): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
+  Entity.cpp
+  EntityStateMachine.cpp
   Factory.cpp
+  Food.cpp
   GameStateManagmeant.cpp
   GameStates.cpp
 GameStates.cpp(163): warning C4244: 'argument': conversion from 'realNum' to 'int', possible loss of data
 GameStates.cpp(168): warning C4244: 'argument': conversion from 'realNum' to 'int', possible loss of data
 GameStates.cpp(173): warning C4244: 'argument': conversion from 'realNum' to 'int', possible loss of data
 GameStates.cpp(178): warning C4244: 'argument': conversion from 'realNum' to 'int', possible loss of data
+  GatherState.cpp
+GatherState.cpp(4): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+  GetAStarPath.cpp
+GetAStarPath.cpp(93): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+GetAStarPath.cpp(99): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+GetAStarPath.cpp(100): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+GetAStarPath.cpp(224): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+GetAStarPath.cpp(225): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+  InfiniteFood.cpp
+InfiniteFood.cpp(18): warning C4305: 'argument': truncation from 'double' to 'float'
+  LimitedFood.cpp
+  main.cpp
+  MapEdges.cpp
+  MapNode.cpp
   MouseState.cpp
 MouseState.cpp(20): warning C4244: 'argument': conversion from 'int' to 'realNum', possible loss of data
 MouseState.cpp(23): warning C4244: 'argument': conversion from 'int' to 'realNum', possible loss of data
+  MoveState.cpp
+  Compiling...
+  MurderState.cpp
   NavManager.cpp
+  NavMeshNode.cpp
+  Object.cpp
+  PlayerUnitDecsisionTree.cpp
+PlayerUnitDecsisionTree.cpp(8): warning C4067: unexpected tokens following preprocessor directive - expected a newline
   Villager.cpp
 Villager.cpp(154): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
 Villager.cpp(221): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
 Villager.cpp(231): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-  main.cpp
+  VillagerBlackBoard.cpp
+  VillegerUtility.cpp
+VillegerUtility.cpp(67): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
   Generating code
-  122 of 4836 functions ( 2.5%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    18 functions had inline decision re-evaluated but remain unchanged
+c:\users\s171669\documents\github\ai\ai demo\factory.cpp(94): warning C4715: 'Factory::MakeFood': not all control paths return a value
+  All 4900 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
   Finished generating code
-  AI DEMO.vcxproj -> C:\Users\callu.DESKTOP-LVUVE2B\Documents\GitHub\AI\temp\AI DEMO\Release\AI DEMO.exe
-  AI DEMO.vcxproj -> C:\Users\callu.DESKTOP-LVUVE2B\Documents\GitHub\AI\temp\AI DEMO\Release\AI DEMO.pdb (Full PDB)
+MathsLibary.lib(Vector2.obj) : warning LNK4099: PDB 'MathsLibary.pdb' was not found with 'MathsLibary.lib(Vector2.obj)' or at 'C:\Users\s171669\Documents\GitHub\AI\temp\AI DEMO\Release\MathsLibary.pdb'; linking object as if no debug info
+MathsLibary.lib(Vector4.obj) : warning LNK4099: PDB 'MathsLibary.pdb' was not found with 'MathsLibary.lib(Vector4.obj)' or at 'C:\Users\s171669\Documents\GitHub\AI\temp\AI DEMO\Release\MathsLibary.pdb'; linking object as if no debug info
+MathsLibary.lib(Vector3.obj) : warning LNK4099: PDB 'MathsLibary.pdb' was not found with 'MathsLibary.lib(Vector3.obj)' or at 'C:\Users\s171669\Documents\GitHub\AI\temp\AI DEMO\Release\MathsLibary.pdb'; linking object as if no debug info
+  AI DEMO.vcxproj -> C:\Users\s171669\Documents\GitHub\AI\temp\AI DEMO\Release\AI DEMO.exe

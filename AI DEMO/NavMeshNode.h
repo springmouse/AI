@@ -123,10 +123,10 @@ public:
     ~NavMeshNode();
 
 	/*
-	* Function:
-	* ---------
+	* Function: SetAllCornors
+	* -----------------------
 	*
-	*
+	* resets all  the cornors of the node
 	*
 	* Parameters: none
 	*
@@ -137,18 +137,51 @@ public:
 	
 
 	/*
-	* Function:
-	* ---------
+	* Function: GetUpperLeft
+	* ----------------------
 	*
-	*
+	* returns the upper left cornor
 	*
 	* Parameters: none
 	*
-	* returns: returns nothing as it is a void function
+	* returns: returns SharedMapNodePtr to upper left cornor
 	*/
     SharedMapNodePtr GetUpperLeft();
+
+    /*
+    * Function: GetLowerLeft
+    * ----------------------
+    *
+    * returns the lower left cornor
+    *
+    * Parameters: none
+    *
+    * returns: returns SharedMapNodePtr to lower left cornor
+    */
     SharedMapNodePtr GetLowerLeft();
+
+    /*
+    * Function: GetUpperRight
+    * -----------------------
+    *
+    * returns the Upper Right 
+    *
+    * Parameters: none
+    *
+    * returns: returns SharedMapNodePtr to Upper Right
+    */
     SharedMapNodePtr GetUpperRight();
+
+    /*
+    * Function: GetLowerRight
+    * -----------------------
+    *
+    * returns the Lower Right
+    *
+    * Parameters: none
+    *
+    * returns: returns SharedMapNodePtr to Lower Right
+    */
     SharedMapNodePtr GetLowerRight();
 
 	/*
