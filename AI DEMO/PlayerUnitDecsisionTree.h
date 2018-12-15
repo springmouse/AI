@@ -94,7 +94,8 @@ public:
 	*
 	* returns: returns nothing as it is a void function
 	*/
-    void Update();
+	void Update();
+	
 
 	/*
 	* Function:
